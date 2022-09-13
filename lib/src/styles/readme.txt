@@ -1,0 +1,1 @@
+This folder contains all the attribute to decorate app ( such as: colors, font size, font weight )
