@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:my_health_assistant/src/pages/screens/home_page.dart';
 
 class GetStarted extends StatelessWidget {
   const GetStarted({Key? key}) : super(key: key);
@@ -14,7 +13,11 @@ class GetStarted extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: (){
-            log('Clicked');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HomePage(),
+                  ));
           }, 
           child: const Text('Get Started')
         ),
