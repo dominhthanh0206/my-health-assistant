@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_health_assistant/src/pages/screens/home_page.dart';
 import 'package:my_health_assistant/src/pages/screens/notification_page.dart';
+import 'package:my_health_assistant/src/pages/screens/profile_page.dart';
 import 'package:my_health_assistant/src/pages/screens/report_page.dart';
 import 'package:my_health_assistant/src/pages/screens/schedule_page.dart';
 
@@ -27,9 +28,8 @@ class _MyPageControllerState extends State<MyPageController> {
     SchedulePage(),
     ReportPage(),
     NotificationPage(),
+    ProfilePage()
   ];
-
-  final List<String> titles = ['Home Page', 'Schedule', 'Report', 'Notification'];
 
   @override
   Widget build(BuildContext context) {
@@ -43,15 +43,19 @@ class _MyPageControllerState extends State<MyPageController> {
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset('assets/images/bottom_navigation_bar/schedule.svg', color: Colors.blue[800]),
-              label: 'Schedule',
+              label: 'Appointment',
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset('assets/images/bottom_navigation_bar/report.svg', color: Colors.blue[800]),
-              label: 'Report',
+              icon: SvgPicture.asset('assets/images/bottom_navigation_bar/history.svg', color: Colors.blue[800]),
+              label: 'History',
             ), 
             BottomNavigationBarItem(
-              icon: SvgPicture.asset('assets/images/bottom_navigation_bar/notification.svg', color: Colors.blue[800]),
-              label: 'Notification',
+              icon: SvgPicture.asset('assets/images/bottom_navigation_bar/article.svg', color: Colors.blue[800]),
+              label: 'Articles',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset('assets/images/bottom_navigation_bar/user.svg', color: Colors.blue[800]),
+              label: 'Profile',
             ),
         ],
         currentIndex: _selectedIndex,
