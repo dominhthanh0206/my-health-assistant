@@ -6,7 +6,7 @@ class ReportPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('This is Report Page'),
+      child: Text('This is History Page'),
     );
   }
 }

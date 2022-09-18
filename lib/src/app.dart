@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_health_assistant/src/pages/screens/get_started.dart';
+
+import 'pages/screens/get_started/get_started.dart';
 
 const app = MaterialApp(
   debugShowCheckedModeBanner: false,

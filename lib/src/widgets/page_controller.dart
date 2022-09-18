@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:my_health_assistant/src/pages/screens/home_page.dart';
-import 'package:my_health_assistant/src/pages/screens/notification_page.dart';
-import 'package:my_health_assistant/src/pages/screens/profile_page.dart';
-import 'package:my_health_assistant/src/pages/screens/report_page.dart';
-import 'package:my_health_assistant/src/pages/screens/schedule_page.dart';
+import 'package:my_health_assistant/src/pages/screens/home/home_page.dart';
+import 'package:my_health_assistant/src/pages/screens/articles/articles_page.dart';
+import 'package:my_health_assistant/src/pages/screens/profile/profile_page.dart';
+import 'package:my_health_assistant/src/pages/screens/history/history_page.dart';
+import 'package:my_health_assistant/src/pages/screens/schedule/appointment_page.dart';
 
 class MyPageController extends StatefulWidget {
   const MyPageController({Key? key}) : super(key: key);

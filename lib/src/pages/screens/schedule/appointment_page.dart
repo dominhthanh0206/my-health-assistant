@@ -6,7 +6,7 @@ class SchedulePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('This is Schedule Page'),
+      child: Text('This is Appointment Page'),
     );
   }
 }
