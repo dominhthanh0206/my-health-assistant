@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:my_health_assistant/src/pages/screens/home/home_page.dart';
-import 'package:my_health_assistant/src/pages/screens/articles/articles_page.dart';
-import 'package:my_health_assistant/src/pages/screens/profile/profile_page.dart';
-import 'package:my_health_assistant/src/pages/screens/history/history_page.dart';
-import 'package:my_health_assistant/src/pages/screens/schedule/appointment_page.dart';
-
+import '../pages/screens/articles/articles_page.dart';
+import '../pages/screens/history/history_page.dart';
+import '../pages/screens/profile/profile_page.dart';
+import '../pages/screens/schedule/appointment_page.dart';
+import '../pages/screens/home/home_page.dart';
+import 'custom_appbar/custom_appbar.dart';
 class MyPageController extends StatefulWidget {
   const MyPageController({Key? key}) : super(key: key);
 
@@ -23,7 +23,7 @@ class _MyPageControllerState extends State<MyPageController> {
     });
   }
 
-  static const List<Widget> _widgetOptions = <Widget>[
+  static const List<Widget> _widgetOptions = [
     HomePage(),
     SchedulePage(),
     ReportPage(),
@@ -34,6 +34,7 @@ class _MyPageControllerState extends State<MyPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: [
