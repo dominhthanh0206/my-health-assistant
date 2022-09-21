@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:my_health_assistant/src/pages/screens/schedule/appointment.dart';
+import 'package:my_health_assistant/src/pages/screens/schedule/reschedule_page/reschedule_page.dart';
 import 'package:my_health_assistant/src/pages/screens/schedule/tab_bar/appointment_container.dart';
 
 class UpcomingPage extends StatelessWidget {
@@ -71,6 +72,7 @@ class UpcomingPage extends StatelessWidget {
                         child: ElevatedButton(
                             onPressed: () {
                               log('Reschedule');
+                              Navigator.push(context, MaterialPageRoute(builder: (_) => const ReschedulePage()));
                             },
                             style: ButtonStyle(
                                 shape: MaterialStateProperty.all<
