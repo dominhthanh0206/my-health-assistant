@@ -10,23 +10,45 @@ class ReschedulePage extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(title: 'Reschedule Appointment'),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(left: 20),
-            child: Text('Reason for Schedule Change',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.5),),
+          Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: Text(
+                  'Reason for Schedule Change',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.5),
+                ),
+              ),
+              const MyRadioListTile(),
+              Center(
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  width: MediaQuery.of(context).size.width - 40,
+                  // height: 200,
+                  decoration: const BoxDecoration(
+                      color: Colors.black12,
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  child: const Text(
+                    'Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero\'s De Finibus Bonorum et Malorum for use in a type specimen book. It usually begins with:',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ),
+              )
+            ],
           ),
-          const MyRadioListTile(),
-          Container(
-            height: 200,
-            width: 100,
-            child: const Text('data'),
-            decoration: BoxDecoration(
-              color: Colors.black12
+          Center(
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
+              width: MediaQuery.of(context).size.width,
+              child: ElevatedButton(onPressed: (){}, 
+                child: const Text('Next', style: TextStyle(fontSize: 16),)),
             ),
           )
-        ],),
+        ],
+      ),
     );
   }
 }
