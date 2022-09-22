@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:my_health_assistant/src/pages/screens/schedule/reschedule_page/my_radio_list_tile.dart';
+import 'package:my_health_assistant/src/pages/screens/schedule/reschedule_page/select_date_time.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
 class ReschedulePage extends StatelessWidget {
@@ -11,9 +14,9 @@ class ReschedulePage extends StatelessWidget {
       appBar: CustomAppBar(title: 'Reschedule Appointment'),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Padding(
                 padding: EdgeInsets.only(left: 20),
@@ -43,7 +46,18 @@ class ReschedulePage extends StatelessWidget {
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
               width: MediaQuery.of(context).size.width,
-              child: ElevatedButton(onPressed: (){}, 
+              height: 40,
+              child: ElevatedButton(onPressed: (){
+                log('Navigate to select time screen');
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const SelectDateTime()));
+              }, 
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20))
+                  )
+                )
+              ),
                 child: const Text('Next', style: TextStyle(fontSize: 16),)),
             ),
           )
