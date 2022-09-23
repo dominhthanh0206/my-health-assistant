@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'routes.dart';
 
-import 'pages/screens/get_started/get_started.dart';
-
-const app = MaterialApp(
+final app = MaterialApp(
   debugShowCheckedModeBanner: false,
   title: 'My Health Assistant',
-  home: GetStarted(),
+  initialRoute: '/',
+  routes: customRoutes,
 );

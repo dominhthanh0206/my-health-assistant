@@ -3,6 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:my_health_assistant/src/pages/screens/schedule/appointment.dart';
 import 'package:my_health_assistant/src/pages/screens/schedule/tab_bar/appointment_container.dart';
+import 'package:my_health_assistant/src/styles/colors.dart';
+import 'package:my_health_assistant/src/widgets/buttons/my_elevated_button.dart';
+import 'package:my_health_assistant/src/widgets/buttons/my_text_button.dart';
 
 class UpcomingPage extends StatelessWidget {
   const UpcomingPage({Key? key, required this.upcoming}) : super(key: key);
@@ -11,6 +14,7 @@ class UpcomingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Color mainColor = const Color.fromARGB(255, 0, 106, 192);
     return upcoming.isNotEmpty ? ListView.builder(
       itemCount: upcoming.length,
       itemBuilder: (context, index) {
@@ -23,7 +27,7 @@ class UpcomingPage extends StatelessWidget {
           child: Column(
             children: [
               AppointmentContainer(
-                color: Colors.blue,
+                color: MyColors.mainColor,
                 status: 'Upcoming',
                 appointment: upcoming[index],
                 img: ClipRRect(
@@ -48,37 +52,30 @@ class UpcomingPage extends StatelessWidget {
                     children: [
                       Expanded(
                         flex: 1,
-                        child: TextButton(
-                            onPressed: () {
-                              log('Cancel appointment');
-                            },
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      side: const BorderSide(
-                                          color: Color.fromARGB(
-                                              255, 0, 117, 212)))),
-                            ),
-                            child: const Text('Cancel Appointment', style: TextStyle(fontSize: 12))),
+                        child: MyTextButton(
+                          buttonColor: MyColors.mainColor,
+                          customFunction: () => log('Cancel appointment'),
+                          fontSize: 13,
+                          text: 'Cancel Appointment',
+                          textColor: MyColors.mainColor,
+                        )
                       ),
                       const SizedBox(
                         width: 15,
                       ),
                       Expanded(
                         flex: 1,
-                        child: ElevatedButton(
-                            onPressed: () {
-                              log('Reschedule');
-                            },
-                            style: ButtonStyle(
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                    ))),
-                            child: const Text('Reschedule', style: TextStyle(fontSize: 12))),
+                        child: MyElevatedButton(
+                          buttonColor: MyColors.mainColor,
+                          customFunction: (){
+                            log('Reschedule');
+                            // Navigator.push(context, MaterialPageRoute(builder: (_) => const ReschedulePage()));
+                            // Navigator.pushNamed(context, '/reschedule');
+                          },
+                          fontSize: 13,
+                          text: 'Reschedule',
+                          textColor: Colors.white,
+                        )
                       )
                     ],
                   ),

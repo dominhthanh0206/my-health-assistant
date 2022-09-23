@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
-class NotificationPage extends StatelessWidget {
-  const NotificationPage ({Key? key}) : super(key: key);
+class ArticlePage extends StatelessWidget {
+  const ArticlePage ({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

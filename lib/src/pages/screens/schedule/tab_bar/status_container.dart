@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class StatusContainer extends StatelessWidget {
@@ -15,7 +14,8 @@ class StatusContainer extends StatelessWidget {
         border: Border.all(color: color) // const Color.fromRGBO(247, 56, 89, 1)
       ),
       child: Padding(
-        padding: const EdgeInsets.only(top: 1, left: 3, right: 3, bottom: 3),
+        // padding: const EdgeInsets.only(top: 1, left: 3, right: 3, bottom: 3),
+        padding: const EdgeInsets.all(3),
         child: Text(
           status,
         style: TextStyle(color: color, fontSize: 10),),

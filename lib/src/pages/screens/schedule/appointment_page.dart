@@ -5,14 +5,14 @@ import 'package:my_health_assistant/src/pages/screens/schedule/tab_bar/completed
 import 'package:my_health_assistant/src/pages/screens/schedule/tab_bar/upcoming_page.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
-class SchedulePage extends StatefulWidget {
-  const SchedulePage({Key? key}) : super(key: key);
+class AppointmentPage extends StatefulWidget {
+  const AppointmentPage({Key? key}) : super(key: key);
 
   @override
-  State<SchedulePage> createState() => _SchedulePageState();
+  State<AppointmentPage> createState() => _AppointmentPageState();
 }
 
-class _SchedulePageState extends State<SchedulePage>
+class _AppointmentPageState extends State<AppointmentPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
@@ -34,26 +34,26 @@ class _SchedulePageState extends State<SchedulePage>
 
     List<Appointment> appointments = [
 
-      // Appointment(
-      //     doctorName: 'Royal Kludge',
-      //     date: 'Oct 20, 2022',
-      //     type: 0,
-      //     time: '09:00 AM',
-      //     imgUrl: 'assets/images/schedule_page/doctor.png'),
+      Appointment(
+          doctorName: 'Royal Kludge',
+          date: 'Oct 20, 2022',
+          type: 0,
+          time: '09:00 AM',
+          imgUrl: 'assets/images/schedule_page/doctor.png'),
 
-      // Appointment(
-      //     doctorName: 'DareU DareU',
-      //     date: 'Sep 20, 2022',
-      //     type: 0,
-      //     time: '10:30 AM',
-      //     imgUrl: 'assets/images/schedule_page/doctor.png'),
+      Appointment(
+          doctorName: 'DareU DareU',
+          date: 'Sep 20, 2022',
+          type: 0,
+          time: '10:30 AM',
+          imgUrl: 'assets/images/schedule_page/doctor.png'),
 
-      // Appointment(
-      //     doctorName: 'Akko Akko',
-      //     date: 'Nov 20, 2022',
-      //     type: 0,
-      //     time: '10:30 AM',
-      //     imgUrl: 'assets/images/schedule_page/doctor.png'),
+      Appointment(
+          doctorName: 'Akko Akko',
+          date: 'Nov 20, 2022',
+          type: 0,
+          time: '10:30 AM',
+          imgUrl: 'assets/images/schedule_page/doctor.png'),
 
       Appointment(
           doctorName: 'Newmen Newmen',
