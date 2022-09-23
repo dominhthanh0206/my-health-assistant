@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:my_health_assistant/src/styles/colors.dart';
 
 class CustomTimeContainer extends StatelessWidget {
   const CustomTimeContainer({super.key, required this.hour});
@@ -8,7 +9,6 @@ class CustomTimeContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  Color mainColor = const Color.fromARGB(255, 0, 106, 192);
     return GestureDetector(
       onTap: (){
         log('Hour: $hour');
@@ -17,14 +17,14 @@ class CustomTimeContainer extends StatelessWidget {
         margin: const EdgeInsets.all(3),
         width: 100,
         decoration: BoxDecoration( 
-          border: Border.all(color: mainColor, width: 1.5),
+          border: Border.all(color: MyColors.mainColor, width: 1.5),
           borderRadius: const BorderRadius.all(Radius.circular(20),),
         ),
         child: Padding(
           padding: const EdgeInsets.all(3),
           child: Center(
             child: Text(hour, 
-            style: TextStyle(color: mainColor, fontSize: 14),),
+            style: const TextStyle(color: MyColors.mainColor, fontSize: 14),),
           ),
         ),
       ),

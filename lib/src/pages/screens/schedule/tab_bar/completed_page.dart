@@ -1,6 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:my_health_assistant/src/styles/colors.dart';
+import 'package:my_health_assistant/src/widgets/buttons/my_elevated_button.dart';
+import 'package:my_health_assistant/src/widgets/buttons/my_text_button.dart';
 
 import '../appointment.dart';
 import 'appointment_container.dart';
@@ -24,7 +27,7 @@ class CompletedPage extends StatelessWidget {
             child: Column(
               children: [
                 AppointmentContainer(
-                  color: Colors.green,
+                  color: MyColors.completedStatus,
                   status: 'Completed',
                   appointment: completed[index],
                   img: ClipRRect(
@@ -50,39 +53,26 @@ class CompletedPage extends StatelessWidget {
                     children: [
                       Expanded(
                         flex: 1,
-                        child: TextButton(
-                            onPressed: () {
-                              log('Book again');
-                            },
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      side: const BorderSide(
-                                          color: Color.fromARGB(
-                                              255, 0, 117, 212)))),
-                            ),
-                            child: const Text('Book again',
-                                style: TextStyle(fontSize: 12))),
+                        child: MyTextButton(
+                          buttonColor: MyColors.mainColor,
+                          customFunction: (() => log('Book again')),
+                          fontSize: 13,
+                          text: 'Book again',
+                          textColor: MyColors.mainColor,
+                        )
                       ),
                       const SizedBox(
                         width: 15,
                       ),
                       Expanded(
                         flex: 1,
-                        child: ElevatedButton(
-                            onPressed: () {
-                              log('Leave a review');
-                            },
-                            style: ButtonStyle(
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ))),
-                            child: const Text('Leave a Review',
-                                style: TextStyle(fontSize: 12))),
+                        child: MyElevatedButton(
+                          buttonColor: MyColors.mainColor,
+                          customFunction: (() => log('message')),
+                          fontSize: 13,
+                          text: 'Leave a reivew',
+                          textColor: MyColors.whiteText,
+                        )
                       )
                     ],
                   ),
@@ -109,22 +99,3 @@ class CompletedPage extends StatelessWidget {
     );
   }
 }
-
-
-// : SizedBox(
-//         height: MediaQuery.of(context).size.height,
-//         width: MediaQuery.of(context).size.width,
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           children: const [
-//             Text('You don\'t have an appointment yet',
-//               style: TextStyle(
-//                 fontWeight: FontWeight.bold,
-//                 fontSize: 15,
-//               ),),
-//             Text('You don\'t have a doctor\'s appointment scheduled at the moment.',
-//             style: TextStyle(fontSize: 14,), textAlign: TextAlign.center,)
-//           ],
-//         ),
-//     );

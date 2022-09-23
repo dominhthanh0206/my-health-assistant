@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:my_health_assistant/src/pages/screens/schedule/reschedule_page/my_radio_list_tile.dart';
-import 'package:my_health_assistant/src/pages/screens/schedule/reschedule_page/select_date_time.dart';
+import 'package:my_health_assistant/src/widgets/buttons/my_elevated_button.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
 class ReschedulePage extends StatelessWidget {
@@ -10,6 +10,7 @@ class ReschedulePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color mainColor = const Color.fromARGB(255, 0, 106, 192);
     return Scaffold(
       appBar: CustomAppBar(title: 'Reschedule Appointment'),
       body: Column(
@@ -47,18 +48,18 @@ class ReschedulePage extends StatelessWidget {
               margin: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
               width: MediaQuery.of(context).size.width,
               height: 40,
-              child: ElevatedButton(onPressed: (){
-                log('Navigate to select time screen');
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const SelectDateTime()));
-              }, 
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all(
-                  const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20))
-                  )
-                )
-              ),
-                child: const Text('Next', style: TextStyle(fontSize: 16),)),
+              child: MyElevatedButton(
+                text: 'Next',
+                buttonColor: mainColor,
+                customFunction: () {
+                  // Navigator.push(context, MaterialPageRoute(builder: (_) => const SelectDateTime()));
+                  // Navigator.pushAndRemoveUntil(context, )
+                  Navigator.pushNamed(context, '/select_date_time');
+                  log('Submitted');
+                },
+                fontSize: 16,
+                textColor: Colors.white,
+              )
             ),
           )
         ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_health_assistant/src/styles/colors.dart';
 
 enum Reasons { scheduleClass, notAvailable, activity, dontWant, others}
 
@@ -18,6 +19,7 @@ class _MyRadioListTileState extends State<MyRadioListTile> {
     return Column(
       children: <Widget>[
         RadioListTile<Reasons>(
+          activeColor: MyColors.mainColor,
           title: const Text('I\'m having a schedule clash'),
           value: Reasons.scheduleClass,
           groupValue: reason,
@@ -28,6 +30,7 @@ class _MyRadioListTileState extends State<MyRadioListTile> {
           },
         ),
         RadioListTile<Reasons>(
+          activeColor: MyColors.mainColor,
           title: const Text('I\'m not available on schedule'),
           value: Reasons.notAvailable,
           groupValue: reason,
@@ -38,6 +41,7 @@ class _MyRadioListTileState extends State<MyRadioListTile> {
           },
         ),
         RadioListTile<Reasons>(
+          activeColor: MyColors.mainColor,
           title: const Text('I have an activity that can\'t left behind'),
           value: Reasons.activity,
           groupValue: reason,
@@ -48,6 +52,7 @@ class _MyRadioListTileState extends State<MyRadioListTile> {
           },
         ),
         RadioListTile<Reasons>(
+          activeColor: MyColors.mainColor,
           title: const Text('I don\'t want to tell'),
           value: Reasons.dontWant,
           groupValue: reason,
@@ -58,6 +63,7 @@ class _MyRadioListTileState extends State<MyRadioListTile> {
           },
         ),
         RadioListTile<Reasons>(
+          activeColor: MyColors.mainColor,
           title: const Text('Others'),
           value: Reasons.others,
           groupValue: reason,
