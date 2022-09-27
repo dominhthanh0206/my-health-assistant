@@ -36,6 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^1.1.5
   syncfusion_flutter_datepicker: ^20.2.50
+  intl: ^0.17.0
+  flutter_switch: ^0.3.2
 
 dev_dependencies:
   flutter_test:
@@ -65,6 +67,8 @@ flutter:
     - assets/images/
     - assets/images/bottom_navigation_bar/
     - assets/images/schedule_page/
+    - assets/images/profile/
+    - assets/images/home_page/
     - assets/fonts/
     - assets/data/
 

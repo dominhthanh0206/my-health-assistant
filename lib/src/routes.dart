@@ -1,22 +1,28 @@
+
+
 import 'package:flutter/material.dart';
-import 'package:my_health_assistant/src/pages/screens/get_started/get_started.dart';
-import 'package:my_health_assistant/src/pages/screens/schedule/reschedule_page/reschedule_page.dart';
-import 'package:my_health_assistant/src/pages/screens/schedule/reschedule_page/select_date_time_page.dart';
+
 import 'pages/screens/articles/articles_page.dart';
+import 'pages/screens/get_started/get_started.dart';
 import 'pages/screens/history/history_page.dart';
 import 'pages/screens/home/home_page.dart';
 import 'pages/screens/profile/profile_page.dart';
-import 'pages/screens/schedule/appointment_page.dart';
 import 'widgets/page_controller.dart';
 
+class MyRoutes{
+  static const startApp = '/';
+  static const home = '/home';
+  static const pageController = '/page_controller';
+  static const history = '/history';
+  static const article = '/article';
+  static const profile = '/profile';
+}
+
 var customRoutes = <String, WidgetBuilder>{
-    '/':(context) => const GetStarted(),
-    '/page_controller':(context) => const MyPageController(),
-    '/appointment_page':(context) => const AppointmentPage(),
-    '/home':(context) => const HomePage(),
-    '/history':(context) => const HistoryPage(),
-    '/article': (context) => const ArticlePage(),
-    '/profile':(context) => const ProfilePage(),
-    '/reschedule':(context) => const ReschedulePage(),
-    '/select_date_time': (context) => const SelectDateTimePage(),
+    MyRoutes.startApp:(context) => const GetStarted(),
+    MyRoutes.pageController:(context) => const MyPageController(),
+    MyRoutes.home:(context) => const HomePage(),
+    MyRoutes.history:(context) => const HistoryPage(),
+    MyRoutes.article: (context) => const ArticlePage(),
+    MyRoutes.profile:(context) => const ProfilePage(),
 };
