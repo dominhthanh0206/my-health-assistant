@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_health_assistant/src/routes.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
 class GetStarted extends StatelessWidget {
@@ -13,7 +14,7 @@ class GetStarted extends StatelessWidget {
           onPressed: (){
               Navigator.pushNamed(
                   context,
-                  '/page_controller');
+                  MyRoutes.pageController);
           },
           child: const Text('Get Started')
         ),

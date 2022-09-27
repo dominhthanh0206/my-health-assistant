@@ -69,7 +69,6 @@ class UpcomingPage extends StatelessWidget {
                           buttonColor: MyColors.mainColor,
                           customFunction: (){
                             log('Reschedule');
-                            // Navigator.push(context, MaterialPageRoute(builder: (_) => const ReschedulePage()));
                             // Navigator.pushNamed(context, '/reschedule');
                           },
                           fontSize: 13,
