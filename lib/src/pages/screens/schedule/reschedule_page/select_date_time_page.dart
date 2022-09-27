@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_health_assistant/src/pages/screens/schedule/appointment_page.dart';
 import 'package:my_health_assistant/src/pages/screens/schedule/reschedule_page/custom_time_container.dart';
 import 'package:my_health_assistant/src/widgets/buttons/my_elevated_button.dart';
 import 'package:my_health_assistant/src/widgets/buttons/my_text_button.dart';
@@ -32,83 +31,84 @@ class SelectDateTimePage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: CustomAppBar(title: 'Reschedule Appointment'),
-        body: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          height: size.height,
-          width: size.width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 1,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Select Date',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Card(
-                      child: SfDateRangePicker(
-                        todayHighlightColor: mainColor,
-                        selectionColor: mainColor,
-                        navigationMode: DateRangePickerNavigationMode.none,
-                        backgroundColor: Colors.blue[50],
-                        headerHeight: 30,
-                        enablePastDates: false,
-                        view: DateRangePickerView.month,
-                        showNavigationArrow: true,
+        body: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            height: size.height,
+            width: size.width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Select Date',
+                        style:
+                            TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Select Hour',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    GridView.builder(
-                        shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3, childAspectRatio: (3)),
-                        itemCount: times.length,
-                        itemBuilder: (context, index) {
-                          return CustomTimeContainer(hour: times[index]);
-                        }),
-                  ],
-                ),
-              ),
-              Center(
-                child: Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  width: MediaQuery.of(context).size.width,
-                  height: 40,
-                  child: MyElevatedButton(
-                    buttonColor: mainColor,
-                    customFunction: () =>
-                        showMyDialog(context, mainColor, size),
-                    fontSize: 16,
-                    text: 'Submit',
-                    textColor: Colors.white,
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Card(
+                        child: SfDateRangePicker(
+                          todayHighlightColor: mainColor,
+                          selectionColor: mainColor,
+                          navigationMode: DateRangePickerNavigationMode.none,
+                          backgroundColor: Colors.blue[50],
+                          enablePastDates: false,
+                          view: DateRangePickerView.month,
+                          showNavigationArrow: true,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              )
-            ],
+                Expanded(
+                  flex: 3,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Select Hour',
+                        style:
+                            TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      GridView.builder(
+                          shrinkWrap: true,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3, childAspectRatio: (3)),
+                          itemCount: times.length,
+                          itemBuilder: (context, index) {
+                            return CustomTimeContainer(hour: times[index]);
+                          }),
+                    ],
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    width: MediaQuery.of(context).size.width,
+                    height: 40,
+                    child: MyElevatedButton(
+                      buttonColor: mainColor,
+                      customFunction: () =>
+                          showMyDialog(context, mainColor, size),
+                      fontSize: 16,
+                      text: 'Submit',
+                      textColor: Colors.white,
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ));
   }
@@ -149,7 +149,7 @@ void showMyDialog(BuildContext context, Color mainColor, Size size) {
                   height: 40,
                   child: MyTextButton(
                     buttonColor: mainColor,
-                    customFunction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AppointmentPage())),
+                    customFunction: () => Navigator.pop(context),
                     fontSize: 16,
                     text: 'Cancel',
                     textColor: mainColor,
