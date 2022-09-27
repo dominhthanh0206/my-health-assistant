@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_health_assistant/src/styles/colors.dart';
 
 class InputPhoneNumber extends StatelessWidget {
   const InputPhoneNumber({
@@ -11,7 +12,7 @@ class InputPhoneNumber extends StatelessWidget {
       height: 48,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          border: Border.all(color: const Color.fromRGBO(209, 210, 212, 1)),
+          border: Border.all(color: MyColors.greyText),
           borderRadius: BorderRadius.circular(15)),
       child: Padding(
         padding: const EdgeInsets.only(left: 16),
@@ -32,7 +33,7 @@ class InputPhoneNumber extends StatelessWidget {
                       border: InputBorder.none,
                       hintText: "Enter Phone Number",
                       hintStyle: TextStyle(
-                          color: Color.fromRGBO(209, 210, 212, 1),
+                          color: MyColors.greyText,
                           fontSize: 15,
                           fontWeight: FontWeight.w400)),
                 ),

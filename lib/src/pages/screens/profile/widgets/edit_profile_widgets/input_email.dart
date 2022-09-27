@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_health_assistant/src/styles/colors.dart';
 
 class InputEmail extends StatelessWidget {
   const InputEmail({
@@ -13,7 +14,7 @@ class InputEmail extends StatelessWidget {
         height: 48,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-            border: Border.all(color: const Color.fromRGBO(209, 210, 212, 1)),
+            border: Border.all(color: MyColors.greyText),
             borderRadius: BorderRadius.circular(15)),
         child: Padding(
           padding: const EdgeInsets.only(left: 20),
@@ -25,7 +26,7 @@ class InputEmail extends StatelessWidget {
                       border: InputBorder.none,
                       hintText: 'Email',
                       hintStyle: TextStyle(
-                          color: Color.fromRGBO(209, 210, 212, 1),
+                          color: MyColors.greyText,
                           fontSize: 15,
                           fontWeight: FontWeight.w400)),
                 ),

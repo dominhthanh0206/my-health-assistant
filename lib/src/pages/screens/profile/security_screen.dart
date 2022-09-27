@@ -1,6 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:my_health_assistant/src/models/profile_model/security_model.dart';
+import 'package:my_health_assistant/src/styles/colors.dart';
+import 'package:my_health_assistant/src/styles/font_styles.dart';
+import 'package:my_health_assistant/src/widgets/buttons/my_elevated_button.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
 class SecurityScreen extends StatefulWidget {
@@ -68,41 +73,35 @@ class _SecurityScreenState extends State<SecurityScreen> {
           ),
         ),
         const SizedBox(height: 15),
-        const ButtonSecurity(title: 'Change Pin'),
-        const ButtonSecurity(title: 'Change Password'),
-      ]),
-    );
-  }
-}
-
-class ButtonSecurity extends StatelessWidget {
-  const ButtonSecurity({
-    Key? key,
-    required this.title,
-  }) : super(key: key);
-  final String title;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 15.0),
-      child: SizedBox(
-        height: 50,
-        width: MediaQuery.of(context).size.width,
-        child: ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-              elevation: 0.0,
-              primary: const Color.fromARGB(255, 185, 218, 246),
-              padding: const EdgeInsets.all(10),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100))),
-          child: Text(
-            title,
-            style: const TextStyle(
-                fontSize: 16, color: Color.fromARGB(255, 0, 124, 248)),
-          ),
+        Container(
+          margin: const EdgeInsets.all(10),
+          height: 50,
+          width: MediaQuery.of(context).size.width,
+          child: MyElevatedButton(
+            text: 'Change Pin',
+            buttonColor: MyColors.lightBlue,
+            fontSize: 16,
+            textColor: MyColors.mainColor,
+            customFunction: (() {
+              log('Change pin');
+            }),
+          )
         ),
-      ),
+        Container(
+          margin: const EdgeInsets.all(10),
+          height: 50,
+          width: MediaQuery.of(context).size.width,
+          child: MyElevatedButton(
+            text: 'Change password',
+            buttonColor: MyColors.lightBlue,
+            fontSize: 16,
+            textColor: MyColors.mainColor,
+            customFunction: (() {
+              log('Change password');
+            }),
+          )
+        ),
+      ]),
     );
   }
 }

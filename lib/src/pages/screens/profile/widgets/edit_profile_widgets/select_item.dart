@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_health_assistant/src/styles/colors.dart';
 
 // ignore: must_be_immutable
 class DropAction extends StatefulWidget {
@@ -22,7 +23,7 @@ class _DropActionScheduleState extends State<DropAction> {
         height: 48,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-            border: Border.all(color: const Color.fromRGBO(209, 210, 212, 1)),
+            border: Border.all(color: MyColors.greyText),
             borderRadius: BorderRadius.circular(15)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal:16.0),

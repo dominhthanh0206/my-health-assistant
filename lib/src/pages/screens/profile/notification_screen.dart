@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:my_health_assistant/src/models/profile_model/notification_model.dart';
+import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
 class NotificationInProfile extends StatefulWidget {
@@ -33,7 +34,7 @@ class _NotificationInProfileState extends State<NotificationInProfile> {
                       width: 35.0,
                       height: 17.0,
                       toggleSize: 16.5,
-                      activeColor: Colors.blue.shade600,
+                      activeColor: MyColors.mainColor,
                       value: listNotification[index].status,
                       onToggle: (val) {
                         setState(() {

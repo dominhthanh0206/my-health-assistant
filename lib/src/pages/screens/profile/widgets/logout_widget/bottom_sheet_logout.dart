@@ -1,5 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:my_health_assistant/src/pages/screens/profile/widgets/logout_widget/button_logout.dart';
+import 'package:my_health_assistant/src/routes.dart';
+import 'package:my_health_assistant/src/styles/colors.dart';
+import 'package:my_health_assistant/src/styles/font_styles.dart';
+import 'package:my_health_assistant/src/widgets/buttons/my_elevated_button.dart';
 
 class BottomSheetLogout extends StatelessWidget {
   const BottomSheetLogout({
@@ -7,7 +12,8 @@ class BottomSheetLogout extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {    
+    Size size = MediaQuery.of(context).size;
     return SizedBox(
       height: 250,
       child: Padding(
@@ -15,28 +21,48 @@ class BottomSheetLogout extends StatelessWidget {
         child: Column(
           children: [
             const Text(
-              'Lougout',
+              'Logout',
               style: TextStyle(
-                  color: Colors.red, fontSize: 20, fontWeight: FontWeight.w600),
+                  color: MyColors.alertColor, fontSize: 16, fontWeight: FontWeight.w500),
             ),
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Divider(thickness: 1),
             ),
             const Text('Are you sure you want to log out?',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                style: MyFontStyles.blackColorH2),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ButtonInLogoutBottomSheet(
-                  text: 'Cancel',
-                  primary: const Color.fromARGB(255, 189, 234, 255),
-                  textColor: Colors.blue.shade600,
+                Container(
+                  margin: const EdgeInsets.all(20),
+                  width: size.width / 3,
+                  height: size.height / 18,
+                  child: MyElevatedButton(
+                    text: 'Cancel',
+                    buttonColor: MyColors.lightBlue,
+                    textColor: MyColors.mainColor,
+                    fontSize: 15,
+                    customFunction: (() {
+                      log('Cancel');
+                      Navigator.pop(context);
+                    }),
+                  ),
                 ),
-                ButtonInLogoutBottomSheet(
-                  text: 'Logout',
-                  primary: Colors.blue.shade600,
-                  textColor: const Color.fromARGB(255, 189, 234, 255),
+                Container(
+                  margin: const EdgeInsets.all(20),
+                  width: size.width / 3,
+                  height: size.height / 18,
+                  child: MyElevatedButton(
+                    text: 'Logout',
+                    buttonColor: MyColors.mainColor,
+                    textColor:  MyColors.whiteText,
+                    fontSize: 15,
+                    customFunction: (() {
+                      log('log out');
+                      Navigator.popUntil(context, ModalRoute.withName(MyRoutes.startApp));
+                    }),
+                  ),
                 ),
               ],
             )

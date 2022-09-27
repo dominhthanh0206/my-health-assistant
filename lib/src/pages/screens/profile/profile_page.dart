@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:my_health_assistant/src/styles/colors.dart';
 import 'edit_profile.dart';
 import 'notification_screen.dart';
 import 'security_screen.dart';
@@ -34,7 +35,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: MyColors.whiteText,
           elevation: 0.0,
           leading: SvgPicture.asset('assets/images/main_icon.svg',
               color: Colors.blue),
