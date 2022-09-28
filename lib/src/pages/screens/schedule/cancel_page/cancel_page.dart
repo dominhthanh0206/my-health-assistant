@@ -7,18 +7,33 @@ import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/widgets/buttons/my_elevated_button.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
-class ReschedulePage extends StatelessWidget {
-  const ReschedulePage({super.key});
+import '../../../../widgets/buttons/my_text_button.dart';
+
+class CancelPage extends StatelessWidget {
+  const CancelPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    List<String> rescheduleReasons = [
-      'I\'m having a schedule clash',
-      'I\'m not available on schedule',
-      'I have an activity that can\'t left behind',
+    // List<String> rescheduleReasons = [
+    //   'I\'m having a schedule clash',
+    //   'I\'m not available on schedule',
+    //   'I have an activity that can\'t left behind',
+    //   'I don\'t want to tell',
+    //   'Others',
+    // ];
+
+    List<String> cancelReason = [
+      'I want to change another doctor',
+      'I want to change package',
+      'I don\'t want to consult',
+      'I have recovered from disease',
+      'I have found suitable medicine',
+      'I just want to cancel',
       'I don\'t want to tell',
       'Others',
     ];
+
+    Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: CustomAppBar(title: 'Reschedule Appointment'),
@@ -38,7 +53,7 @@ class ReschedulePage extends StatelessWidget {
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 17.5),
                   ),
                 ),
-                MyRadioListTile(reasons: rescheduleReasons),
+                MyRadioListTile(reasons: cancelReason),
                 Center(
                   child: Container(
                     padding: const EdgeInsets.all(20),
@@ -61,11 +76,11 @@ class ReschedulePage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   height: 40,
                   child: MyElevatedButton(
-                    text: 'Next',
+                    text: 'Submit',
                     buttonColor: MyColors.mainColor,
                     customFunction: () {
-                      Navigator.pushNamed(context, MyRoutes.selectDate);
-                      log('Next');
+                      showMyDialog(context, MyColors.mainColor, size);
+                      log('Submitted');
                     },
                     fontSize: 16,
                     textColor: Colors.white,
@@ -76,4 +91,39 @@ class ReschedulePage extends StatelessWidget {
       ),
     );
   }
+}
+
+void showMyDialog(BuildContext context, Color mainColor, Size size) {
+  showDialog<String>(
+    context: context,
+    builder: (BuildContext context) => Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: AlertDialog(
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(32.0))),
+        title: Text(
+          'Cancel Appointment Success',
+          textAlign: TextAlign.center,
+          style: TextStyle(color: mainColor, fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        content: const Text(
+            'We are very sad that you have canceled your appointment. We will always improve our service to satisfy you in the next appointment',
+            style: TextStyle(fontSize: 15)),
+        actions: <Widget>[
+          Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              width: size.width - 40,
+              height: 40,
+              child: MyElevatedButton(
+                buttonColor: mainColor,
+                customFunction: () => Navigator.popUntil(
+                    context, ModalRoute.withName(MyRoutes.pageController)),
+                fontSize: 16,
+                text: 'OK',
+                textColor: Colors.white,
+              ))
+        ],
+      ),
+    ),
+  );
 }
