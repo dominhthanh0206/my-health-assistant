@@ -4,10 +4,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
+import '../../../routes.dart';
 import 'edit_profile.dart';
 import 'notification_screen.dart';
 import 'security_screen.dart';
-import 'widgets/logout_widget/bottom_sheet_logout.dart';
+import '../../../widgets/bottom_sheet/bottom_sheet_logout.dart';
 
 final Map<String, dynamic> profileScreenData = {
   'Profile': [
@@ -101,7 +102,24 @@ class ProfilePage extends StatelessWidget {
                                 isScrollControlled: true,
                                 context: context,
                                 builder: (context) {
-                                  return const BottomSheetLogout();
+                                  return BottomSheetLogout(
+                                    text: 'Log out',
+                                    content: const Text(
+                                        'Are you sure you want to logout?'),
+                                    buttonText1: 'Cancel',
+                                    buttonText2: 'Logout',
+                                    function1: (() {
+                                      log('cancel');
+                                      Navigator.pop(context);
+                                    }),
+                                    function2: (() {
+                                      log('Logout');
+                                      Navigator.popUntil(
+                                          context,
+                                          ModalRoute.withName(
+                                              MyRoutes.startApp));
+                                    }),
+                                  );
                                 },
                               );
                             },
