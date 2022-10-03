@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_health_assistant/src/pages/screens/schedule/reschedule_page/custom_time_container.dart';
 import 'package:my_health_assistant/src/routes.dart';
 import 'package:my_health_assistant/src/widgets/buttons/my_elevated_button.dart';
 import 'package:my_health_assistant/src/widgets/buttons/my_text_button.dart';
@@ -13,23 +12,6 @@ class SelectDateTimePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // List<String> times = [
-    //   '09:00 AM',
-    //   '09:30 AM',
-    //   '10:00 AM',
-    //   '10:30 AM',
-    //   '11:00 AM',
-    //   '11:30 AM',
-    //   '12:00 AM',
-    //   '13:30 AM',
-    //   '14:00 AM',
-    //   '14:30 AM',
-    //   '15:00 AM',
-    //   '15:30 AM',
-    //   '16:00 AM',
-    //   '16:30 AM',
-    //   '17:00 AM',
-    // ];
     Color mainColor = const Color.fromARGB(255, 0, 106, 192);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -119,7 +101,6 @@ void showMyDialog(BuildContext context, Color mainColor, Size size) {
           Column(
             children: [
               SizedBox(
-                  // margin: const EdgeInsets.symmetric(vertical: 20),
                   width: size.width - 40,
                   height: 40,
                   child: MyElevatedButton(

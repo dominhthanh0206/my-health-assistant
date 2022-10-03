@@ -11,10 +11,9 @@ class StatusContainer extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
-        border: Border.all(color: color) // const Color.fromRGBO(247, 56, 89, 1)
+        border: Border.all(color: color) 
       ),
       child: Padding(
-        // padding: const EdgeInsets.only(top: 1, left: 3, right: 3, bottom: 3),
         padding: const EdgeInsets.all(3),
         child: Text(
           status,

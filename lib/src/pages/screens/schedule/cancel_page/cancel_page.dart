@@ -7,21 +7,11 @@ import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/widgets/buttons/my_elevated_button.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
-import '../../../../widgets/buttons/my_text_button.dart';
-
 class CancelPage extends StatelessWidget {
   const CancelPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // List<String> rescheduleReasons = [
-    //   'I\'m having a schedule clash',
-    //   'I\'m not available on schedule',
-    //   'I have an activity that can\'t left behind',
-    //   'I don\'t want to tell',
-    //   'Others',
-    // ];
-
     List<String> cancelReason = [
       'I want to change another doctor',
       'I want to change package',

@@ -26,6 +26,10 @@ class MyFontStyles{
 
   // normal text with 3 main colors: black, white, grey
   static const normalWhiteText = TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.normal);
-  static const normalBlackText = TextStyle(color: Colors.black, fontSize: 12, fontWeight: FontWeight.normal);
+  static const normalBlackText = TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.normal);
   static const normalGreyText = TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.normal);
+
+  static const articleTitle = TextStyle(color: MyColors.blackText, fontSize: 20, fontWeight: FontWeight.w500);
+
+
 }
