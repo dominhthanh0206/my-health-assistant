@@ -34,66 +34,68 @@ class SelectDateTimePage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: CustomAppBar(title: 'Reschedule Appointment'),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Select Date',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Card(
-                    child: SfDateRangePicker(
-                      todayHighlightColor: mainColor,
-                      selectionColor: mainColor,
-                      navigationMode: DateRangePickerNavigationMode.none,
-                      backgroundColor: Colors.blue[50],
-                      enablePastDates: false,
-                      view: DateRangePickerView.month,
-                      showNavigationArrow: true,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Select Date',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Card(
+                      child: SfDateRangePicker(
+                        todayHighlightColor: mainColor,
+                        selectionColor: mainColor,
+                        navigationMode: DateRangePickerNavigationMode.none,
+                        backgroundColor: Colors.blue[50],
+                        enablePastDates: false,
+                        view: DateRangePickerView.month,
+                        showNavigationArrow: true,
+                      ),
+                    ),
+                    
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text(
+                      'Select Hour',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const MyCustomGridViewHours()
+                  ],
+                ),
+                Center(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
+                    width: MediaQuery.of(context).size.width,
+                    height: 40,
+                    child: MyElevatedButton(
+                      buttonColor: mainColor,
+                      customFunction: () =>
+                          showMyDialog(context, mainColor, size),
+                      fontSize: 16,
+                      text: 'Submit',
+                      textColor: Colors.white,
                     ),
                   ),
-                  
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    'Select Hour',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const MyCustomGridViewHours()
-                ],
-              ),
-              Center(
-                child: Container(
-                  margin: const EdgeInsets.symmetric(
-                      horizontal: 20, vertical: 20),
-                  width: MediaQuery.of(context).size.width,
-                  height: 40,
-                  child: MyElevatedButton(
-                    buttonColor: mainColor,
-                    customFunction: () =>
-                        showMyDialog(context, mainColor, size),
-                    fontSize: 16,
-                    text: 'Submit',
-                    textColor: Colors.white,
-                  ),
-                ),
-              )
-              
-            ],
+                )
+                
+              ],
+            ),
           ),
         ));
   }

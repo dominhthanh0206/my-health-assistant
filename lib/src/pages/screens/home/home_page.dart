@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ),
             TitleOfList(title: 'Top Doctors', onPressed: () => log('See All')),
             SizedBox(
-              height: 40,
+              height: 43,
               child: TabBar(
                 controller: tabController,
                 labelColor: MyColors.whiteText,
