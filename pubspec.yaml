@@ -69,6 +69,7 @@ flutter:
     - assets/images/schedule_page/
     - assets/images/profile/
     - assets/images/home_page/
+    - assets/images/message_screen/
     - assets/fonts/
     - assets/data/
 
