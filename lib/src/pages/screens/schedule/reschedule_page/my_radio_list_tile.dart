@@ -11,14 +11,6 @@ class MyRadioListTile extends StatefulWidget {
 
 class _MyRadioListTileState extends State<MyRadioListTile> {
 
-  // List<String> reasons = [
-  //   'I\'m having a schedule clash',
-  //   'I\'m not available on schedule',
-  //   'I have an activity that can\'t left behind',
-  //   'I don\'t want to tell',
-  //   'Others',
-  // ];
-  
   String? selectionDefault;
 
   @override
@@ -49,60 +41,3 @@ class _MyRadioListTileState extends State<MyRadioListTile> {
     );
   }
 }
-
-
-// RadioListTile<Reasons>(
-//           activeColor: MyColors.mainColor,
-//           title: const Text('I\'m having a schedule clash'),
-//           value: Reasons.scheduleClass,
-//           groupValue: reason,
-//           onChanged: (Reasons? value) {
-//             setState(() {
-//               reason = value;
-//             });
-//           },
-//         ),
-//         RadioListTile<Reasons>(
-//           activeColor: MyColors.mainColor,
-//           title: const Text('I\'m not available on schedule'),
-//           value: Reasons.notAvailable,
-//           groupValue: reason,
-//           onChanged: (Reasons? value) {
-//             setState(() {
-//               reason = value;
-//             });
-//           },
-//         ),
-//         RadioListTile<Reasons>(
-//           activeColor: MyColors.mainColor,
-//           title: const Text('I have an activity that can\'t left behind'),
-//           value: Reasons.activity,
-//           groupValue: reason,
-//           onChanged: (Reasons? value) {
-//             setState(() {
-//               reason = value;
-//             });
-//           },
-//         ),
-//         RadioListTile<Reasons>(
-//           activeColor: MyColors.mainColor,
-//           title: const Text('I don\'t want to tell'),
-//           value: Reasons.dontWant,
-//           groupValue: reason,
-//           onChanged: (Reasons? value) {
-//             setState(() {
-//               reason = value;
-//             });
-//           },
-//         ),
-//         RadioListTile<Reasons>(
-//           activeColor: MyColors.mainColor,
-//           title: const Text('Others'),
-//           value: Reasons.others,
-//           groupValue: reason,
-//           onChanged: (Reasons? value) {
-//             setState(() {
-//               reason = value;
-//             });
-//           },
-//         ),

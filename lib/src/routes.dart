@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:my_health_assistant/src/pages/screens/articles/articles_container/all_articles/see_all_articles_page.dart';
 import 'package:my_health_assistant/src/pages/screens/schedule/cancel_page/cancel_page.dart';
 import 'package:my_health_assistant/src/pages/screens/schedule/reschedule_page/reschedule_page.dart';
 import 'package:my_health_assistant/src/pages/screens/schedule/reschedule_page/select_date_time_page.dart';
@@ -22,6 +23,7 @@ class MyRoutes{
   static const selectDate = '/select_date';
   static const reschedule = '/reschedule';
   static const cancel = '/cancel';
+  static const seeAllArticles = '/see_all_articles';
 }
 
 var customRoutes = <String, WidgetBuilder>{
@@ -34,4 +36,5 @@ var customRoutes = <String, WidgetBuilder>{
     MyRoutes.selectDate:(context) => const SelectDateTimePage(),
     MyRoutes.reschedule:(context) => const ReschedulePage(),
     MyRoutes.cancel:(context) => const CancelPage(),
+    // MyRoutes.seeAllArticles:(context) => const SeeAllArticlesPage(),
 };
