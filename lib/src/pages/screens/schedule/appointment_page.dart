@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:my_health_assistant/src/pages/screens/schedule/appointment.dart';
 import 'package:my_health_assistant/src/pages/screens/schedule/tab_bar/cancelled_page.dart';
 import 'package:my_health_assistant/src/pages/screens/schedule/tab_bar/completed_page.dart';
 import 'package:my_health_assistant/src/pages/screens/schedule/tab_bar/upcoming_page.dart';
-import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
+import 'package:my_health_assistant/src/styles/colors.dart';
 
 class AppointmentPage extends StatefulWidget {
   const AppointmentPage({Key? key}) : super(key: key);
@@ -100,9 +101,22 @@ class _AppointmentPageState extends State<AppointmentPage>
         appointments.where((element) => element.type == 2).toList();
 
     return Scaffold(
-      appBar: CustomAppBar(title: 'My Appointment', 
-      actions: const ['assets/images/schedule_page/search.svg',
-      'assets/images/schedule_page/more.svg',],),
+      appBar: AppBar(
+          backgroundColor: MyColors.whiteText,
+          elevation: 0.0,
+          leading: SvgPicture.asset('assets/images/main_icon.svg',
+              color: Colors.blue),
+          title: const Text(
+            "My Appointment",
+            style: TextStyle(color: Colors.black),
+          ),
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: SvgPicture.asset('assets/images/schedule_page/search.svg'),
+                color: Colors.black),
+            IconButton(onPressed: (){}, icon: SvgPicture.asset('assets/images/schedule_page/more.svg'))
+          ]),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),

@@ -1,12 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:my_health_assistant/src/pages/screens/articles/articles_container/all_articles/my_list_articles.dart';
 import 'package:my_health_assistant/src/pages/screens/articles/articles_container/all_articles/see_all_articles_page.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 import 'package:my_health_assistant/src/widgets/buttons/my_text_button.dart';
-import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
 import '../home/component/title_tabbar.dart';
 import 'article_object.dart';
@@ -266,13 +266,25 @@ class _ArticlePageState extends State<ArticlePage>
 
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: CustomAppBar(
-          title: 'Articles',
-          actions: const [
-            'assets/images/schedule_page/search.svg',
-            'assets/images/schedule_page/more.svg',
-          ],
-        ),
+        appBar: AppBar(
+          backgroundColor: MyColors.whiteText,
+          elevation: 0.0,
+          leading: SvgPicture.asset('assets/images/main_icon.svg',
+              color: Colors.blue),
+          title: const Text(
+            "Articles",
+            style: TextStyle(color: Colors.black),
+          ),
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: SvgPicture.asset('assets/images/schedule_page/search.svg'),
+                color: Colors.black),
+            IconButton(
+                onPressed: () {},
+                icon: SvgPicture.asset('assets/images/schedule_page/more.svg'),
+                color: Colors.black)
+          ]),
         body: Container(
           margin: const EdgeInsets.symmetric(horizontal: 20),
           height: size.height,

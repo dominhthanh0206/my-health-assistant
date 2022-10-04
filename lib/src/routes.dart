@@ -1,7 +1,6 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:my_health_assistant/src/pages/screens/articles/articles_container/all_articles/see_all_articles_page.dart';
 import 'package:my_health_assistant/src/pages/screens/schedule/cancel_page/cancel_page.dart';
 import 'package:my_health_assistant/src/pages/screens/schedule/reschedule_page/reschedule_page.dart';
 import 'package:my_health_assistant/src/pages/screens/schedule/reschedule_page/select_date_time_page.dart';

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:my_health_assistant/src/routes.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/widgets/buttons/my_elevated_button.dart';
 import 'package:my_health_assistant/src/widgets/buttons/my_text_button.dart';
@@ -55,7 +56,10 @@ class CompletedPage extends StatelessWidget {
                         flex: 1,
                         child: MyTextButton(
                           buttonColor: MyColors.mainColor,
-                          customFunction: (() => log('Book again')),
+                          customFunction: (() {
+                            log('Book again');
+                            Navigator.pushNamed(context, MyRoutes.selectDate);
+                          }),
                           fontSize: 13,
                           text: 'Book again',
                           textColor: MyColors.mainColor,

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:my_health_assistant/src/models/chat_model/message_model.dart';
 import 'package:my_health_assistant/src/pages/screens/history/widgets/chat_room.dart';
+import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
-import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({Key? key}) : super(key: key);
@@ -10,13 +11,25 @@ class HistoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar(
-          title: 'History',
-          actions: const [
-            'assets/images/schedule_page/search.svg',
-            'assets/images/schedule_page/more.svg',
-          ],
-        ),
+        appBar: AppBar(
+          backgroundColor: MyColors.whiteText,
+          elevation: 0.0,
+          leading: SvgPicture.asset('assets/images/main_icon.svg',
+              color: Colors.blue),
+          title: const Text(
+            "Articles",
+            style: TextStyle(color: Colors.black),
+          ),
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: SvgPicture.asset('assets/images/schedule_page/search.svg'),
+                color: Colors.black),
+            IconButton(
+                onPressed: () {},
+                icon: SvgPicture.asset('assets/images/schedule_page/more.svg'),
+                color: Colors.black)
+          ]),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical:8.0, horizontal: 16),
           child: ListView.builder(
