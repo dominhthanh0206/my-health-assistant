@@ -17,7 +17,6 @@ class UpcomingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Color mainColor = const Color.fromARGB(255, 0, 106, 192);
     return upcoming.isNotEmpty
         ? ListView.builder(
             itemCount: upcoming.length,

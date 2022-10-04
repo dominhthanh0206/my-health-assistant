@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 )),
             const BannerDoctor(),
             TitleOfList(
-              title: 'Doctor Speciality',
+              title: 'Doctor Specialty',
               onPressed: () => log('See All'),
             ),
             SizedBox(
@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ),
             TitleOfList(title: 'Top Doctors', onPressed: () => log('See All')),
             SizedBox(
-              height: 43,
+              height: 30,
               child: TabBar(
                 controller: tabController,
                 labelColor: MyColors.whiteText,
