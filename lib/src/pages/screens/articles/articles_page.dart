@@ -354,6 +354,7 @@ class _ArticlePageState extends State<ArticlePage>
                   controller: tabController,
                   labelColor: MyColors.whiteText,
                   isScrollable: true,
+                  unselectedLabelColor: Colors.black,
                   indicatorSize: TabBarIndicatorSize.label,
                   labelPadding: const EdgeInsets.symmetric(horizontal: 6),
                   indicator: BoxDecoration(

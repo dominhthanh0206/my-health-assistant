@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
-import 'package:my_health_assistant/src/styles/font_styles.dart';
 
 class TabbarTitle extends StatelessWidget {
   const TabbarTitle({
@@ -18,7 +17,7 @@ class TabbarTitle extends StatelessWidget {
             )),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-          child: Text(title, style: MyFontStyles.blackColorH4,),
+          child: Text(title),
         ));
   }
 }
