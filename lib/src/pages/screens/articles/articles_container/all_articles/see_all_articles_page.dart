@@ -42,6 +42,7 @@ class _SeeAllArticlesPageState extends State<SeeAllArticlesPage> with TickerProv
                   labelColor: MyColors.whiteText,
                   isScrollable: true,
                   indicatorSize: TabBarIndicatorSize.label,
+                  unselectedLabelColor: MyColors.blackText,
                   labelPadding: const EdgeInsets.symmetric(horizontal: 6),
                   indicator: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
