@@ -26,7 +26,7 @@ class CancelPage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: CustomAppBar(title: 'Reschedule Appointment'),
+      appBar: CustomAppBar(title: 'Cancel Appointment'),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
