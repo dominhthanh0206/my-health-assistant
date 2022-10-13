@@ -38,7 +38,7 @@ dependencies:
   syncfusion_flutter_datepicker: ^20.2.50
   intl: ^0.17.0
   flutter_switch: ^0.3.2
-
+  email_validator: ^2.1.17
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -70,6 +70,7 @@ flutter:
     - assets/images/profile/
     - assets/images/home_page/
     - assets/images/message_screen/
+    - assets/images/sign_in/
     - assets/fonts/
     - assets/data/
 

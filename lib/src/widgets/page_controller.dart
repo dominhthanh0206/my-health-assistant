@@ -6,6 +6,7 @@ import '../pages/screens/history/history_page.dart';
 import '../pages/screens/profile/profile_page.dart';
 import '../pages/screens/schedule/appointment_page.dart';
 import '../pages/screens/home/home_page.dart';
+
 class MyPageController extends StatefulWidget {
   const MyPageController({Key? key}) : super(key: key);
 
@@ -34,30 +35,39 @@ class _MyPageControllerState extends State<MyPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
-              icon: SvgPicture.asset('assets/images/bottom_navigation_bar/home.svg', color: MyColors.mainColor),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset('assets/images/bottom_navigation_bar/schedule.svg', color: MyColors.mainColor),
-              label: 'Appointment',
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset('assets/images/bottom_navigation_bar/history.svg', color: MyColors.mainColor),
-              label: 'History',
-            ), 
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset('assets/images/bottom_navigation_bar/article.svg', color: MyColors.mainColor),
-              label: 'Articles',
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset('assets/images/bottom_navigation_bar/user.svg', color: MyColors.mainColor),
-              label: 'Profile',
-            ),
+            icon: SvgPicture.asset(
+                'assets/images/bottom_navigation_bar/home.svg',
+                color: MyColors.mainColor),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+                'assets/images/bottom_navigation_bar/schedule.svg',
+                color: MyColors.mainColor),
+            label: 'Appointment',
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+                'assets/images/bottom_navigation_bar/history.svg',
+                color: MyColors.mainColor),
+            label: 'History',
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+                'assets/images/bottom_navigation_bar/article.svg',
+                color: MyColors.mainColor),
+            label: 'Articles',
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+                'assets/images/bottom_navigation_bar/user.svg',
+                color: MyColors.mainColor),
+            label: 'Profile',
+          ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: selectedColor,

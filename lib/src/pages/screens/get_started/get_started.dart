@@ -14,7 +14,7 @@ class GetStarted extends StatelessWidget {
           onPressed: (){
               Navigator.pushNamed(
                   context,
-                  MyRoutes.pageController);
+                  MyRoutes.signUp);
           },
           child: const Text('Get Started')
         ),
