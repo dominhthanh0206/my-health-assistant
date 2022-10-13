@@ -114,6 +114,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             SizedBox(
               height: 200,
               child: GridView.count(
+                  physics: const NeverScrollableScrollPhysics(),
                   crossAxisCount: 4,
                   mainAxisSpacing: 15.0,
                   children: List.generate(listDepartMent.length, (index) {
