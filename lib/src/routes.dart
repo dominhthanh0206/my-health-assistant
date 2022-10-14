@@ -4,6 +4,7 @@ import 'package:my_health_assistant/src/pages/screens/schedule/reschedule_page/r
 import 'package:my_health_assistant/src/pages/screens/schedule/reschedule_page/select_date_time_page.dart';
 import 'package:my_health_assistant/src/pages/screens/sign_in/sign_in_screen.dart';
 import 'package:my_health_assistant/src/pages/screens/sign_in/sign_up_screen.dart';
+import 'package:my_health_assistant/src/pages/screens/sign_in/waiting_verify_email.dart';
 
 import 'pages/screens/articles/articles_page.dart';
 import 'pages/screens/get_started/get_started.dart';
@@ -25,6 +26,7 @@ class MyRoutes {
   static const seeAllArticles = '/see_all_articles';
   static const signIn = '/sign_in';
   static const signUp = '/sign_up';
+  static const waitScreen = '/wait_screen';
 }
 
 var customRoutes = <String, WidgetBuilder>{
@@ -39,5 +41,6 @@ var customRoutes = <String, WidgetBuilder>{
   MyRoutes.cancel: (context) => const CancelPage(),
   // MyRoutes.seeAllArticles:(context) => const SeeAllArticlesPage(),
   MyRoutes.signIn: (context) => const SignInScreen(),
-  MyRoutes.signUp: (context) => const SignUpScreen()
+  MyRoutes.signUp: (context) => const SignUpScreen(),
+  MyRoutes.waitScreen:(context) => const WaitingVerifyScreen(),
 };
