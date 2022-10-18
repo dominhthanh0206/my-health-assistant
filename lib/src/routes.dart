@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:my_health_assistant/src/pages/screens/fill_profile/fill_profile.dart';
-import 'package:my_health_assistant/src/pages/screens/schedule/cancel_page/cancel_page.dart';
-import 'package:my_health_assistant/src/pages/screens/schedule/reschedule_page/reschedule_page.dart';
-import 'package:my_health_assistant/src/pages/screens/schedule/reschedule_page/select_date_time_page.dart';
-import 'package:my_health_assistant/src/pages/screens/sign_in/sign_in_screen.dart';
-import 'package:my_health_assistant/src/pages/screens/sign_in/sign_up_screen.dart';
-import 'package:my_health_assistant/src/pages/screens/sign_in/waiting_verify_email.dart';
+import 'package:my_health_assistant/src/pages/patient/screens/fill_profile/fill_profile.dart';
+import 'package:my_health_assistant/src/pages/patient/screens/schedule/cancel_page/cancel_page.dart';
+import 'package:my_health_assistant/src/pages/patient/screens/schedule/reschedule_page/reschedule_page.dart';
+import 'package:my_health_assistant/src/pages/patient/screens/schedule/reschedule_page/select_date_time_page.dart';
+import 'package:my_health_assistant/src/pages/patient/screens/sign_in/sign_in_screen.dart';
+import 'package:my_health_assistant/src/pages/patient/screens/sign_in/sign_up_screen.dart';
+import 'package:my_health_assistant/src/pages/patient/screens/sign_in/waiting_verify_email.dart';
 
-import 'pages/screens/articles/articles_page.dart';
-import 'pages/screens/get_started/get_started.dart';
-import 'pages/screens/history/history_page.dart';
-import 'pages/screens/home/home_page.dart';
-import 'pages/screens/profile/profile_page.dart';
+import 'pages/patient/screens/articles/articles_page.dart';
+import 'pages/patient/screens/get_started/get_started.dart';
+import 'pages/patient/screens/history/history_page.dart';
+import 'pages/patient/screens/home/home_page.dart';
+import 'pages/patient/screens/profile/profile_page.dart';
 import 'widgets/page_controller.dart';
 
-class MyRoutes {
+class PatientRoutes {
   static const startApp = '/';
   static const home = '/home';
   static const pageController = '/page_controller';
@@ -32,18 +32,18 @@ class MyRoutes {
 }
 
 var customRoutes = <String, WidgetBuilder>{
-  MyRoutes.startApp: (context) => const GetStarted(),
-  MyRoutes.pageController: (context) => const MyPageController(),
-  MyRoutes.home: (context) => const HomePage(),
-  MyRoutes.history: (context) => const HistoryPage(),
-  MyRoutes.article: (context) => const ArticlePage(),
-  MyRoutes.profile: (context) => const ProfilePage(),
-  MyRoutes.selectDate: (context) => const SelectDateTimePage(),
-  MyRoutes.reschedule: (context) => const ReschedulePage(),
-  MyRoutes.cancel: (context) => const CancelPage(),
+  PatientRoutes.startApp: (context) => const GetStarted(),
+  PatientRoutes.pageController: (context) => const MyPageController(),
+  PatientRoutes.home: (context) => const HomePage(),
+  PatientRoutes.history: (context) => const HistoryPage(),
+  PatientRoutes.article: (context) => const ArticlePage(),
+  PatientRoutes.profile: (context) => const ProfilePage(),
+  PatientRoutes.selectDate: (context) => const SelectDateTimePage(),
+  PatientRoutes.reschedule: (context) => const ReschedulePage(),
+  PatientRoutes.cancel: (context) => const CancelPage(),
   // MyRoutes.seeAllArticles:(context) => const SeeAllArticlesPage(),
-  MyRoutes.signIn: (context) => const SignInScreen(),
-  MyRoutes.signUp: (context) => const SignUpScreen(),
-  MyRoutes.fillProfile: (context) => const FillProfileScreen(),
-  MyRoutes.waitScreen:(context) => const WaitingVerifyScreen(),
+  PatientRoutes.signIn: (context) => const SignInScreen(),
+  PatientRoutes.signUp: (context) => const SignUpScreen(),
+  PatientRoutes.fillProfile: (context) => const FillProfileScreen(),
+  PatientRoutes.waitScreen:(context) => const WaitingVerifyScreen(),
 };
