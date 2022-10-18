@@ -8,6 +8,7 @@ import 'package:my_health_assistant/src/routes.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
+import '../../../../data/shared_preferences.dart';
 import '../../../../services/sign_in.dart';
 import '../../../../widgets/snack_bar.dart';
 
@@ -159,8 +160,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             password: _passwordController.text,
                             context: context);
                         if (user != null) {
-                          // final user = FirebaseAuth.instance.currentUser;
-                          // UserModel userModel = UserModel(email: _emailController.text, displayName: user?.displayName ?? '', address: _address.text, phoneNumber: _phone.text);
+                          SharedPrefs.isLoggedIn(true);
                           // ignore: use_build_context_synchronously
                           Navigator.pushNamed(context, PatientRoutes.fillProfile);
                         } else {

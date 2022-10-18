@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
+import '../../../../data/shared_preferences.dart';
 import '../../../../routes.dart';
+import '../../../../services/sign_out.dart';
 import 'edit_profile.dart';
 import 'notification_screen.dart';
 import 'security_screen.dart';
@@ -113,6 +115,8 @@ class ProfilePage extends StatelessWidget {
                                     }),
                                     function2: (() {
                                       log('Logout');
+                                      SignOut.signOut();
+                                      SharedPrefs.isLoggedOut();
                                       Navigator.popUntil(
                                           context,
                                           ModalRoute.withName(
@@ -149,7 +153,7 @@ class ProfilePage extends StatelessWidget {
   }
 
   Theme expansionTileCustom(int type, List keys, BuildContext context) {
-    List maps = profileScreenData[keys[type]];
+    List maps = profileScreenData[keys[type]]; 
     return Theme(
       data: Theme.of(context).copyWith(
           unselectedWidgetColor: Colors.white,
