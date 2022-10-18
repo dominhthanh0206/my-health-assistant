@@ -12,8 +12,5 @@ All icons: https://www.figma.com/file/pDJI3Ll0EXnKFxMP0Dww8b/Heroicons-(Communit
 
 TRANH THỦ LÀM NHANH ĐI MẤY ÔNG NỘI!!!!!!!!!!!!
 
-------------- ACCOUNT ------------------
 
-vienquangminh14@gmail.com
-
-11111111
+** Sign in xong thì push replacement ko cho back về trang sign in
