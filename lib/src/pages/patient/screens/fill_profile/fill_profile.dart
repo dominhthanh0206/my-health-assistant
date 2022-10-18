@@ -105,7 +105,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         context: context,
                         builder: (context) => const DialogBuilder(),
                       );
-                      Timer(const Duration(seconds: 5), () {
+                      Timer(const Duration(seconds: 3), () {
                         Navigator.pushNamed(context, PatientRoutes.pageController);
                       });
                     }
