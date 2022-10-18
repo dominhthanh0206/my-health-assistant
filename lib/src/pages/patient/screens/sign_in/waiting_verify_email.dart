@@ -1,10 +1,39 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 
-class WaitingVerifyScreen extends StatelessWidget {
+import '../../../../routes.dart';
+
+class WaitingVerifyScreen extends StatefulWidget {
   const WaitingVerifyScreen({Key? key}) : super(key: key);
 
+  @override
+  State<WaitingVerifyScreen> createState() => _WaitingVerifyScreenState();
+}
+
+class _WaitingVerifyScreenState extends State<WaitingVerifyScreen> {
+  FirebaseAuth auth = FirebaseAuth.instance;
+  late User user;
+  late Timer timer;
+  
+  @override
+  void initState() {
+    user = auth.currentUser!;
+    user.sendEmailVerification();
+    timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      checkEmailVerified();
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +53,7 @@ class WaitingVerifyScreen extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             Text(
-              'We noctied your email address has not been verified. '
+              'We noticed your email address has not been verified. '
               'By doing so. you will receive important notification and information about your account',
               textAlign: TextAlign.center,
               style: MyFontStyles.blackColorH2.copyWith(fontSize: 16),
@@ -33,5 +62,15 @@ class WaitingVerifyScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> checkEmailVerified() async {
+    await user.reload();
+    user = auth.currentUser!;
+    if(user.emailVerified){
+      timer.cancel();
+      // ignore: use_build_context_synchronously
+      Navigator.pushNamed(context, PatientRoutes.signIn);
+    }
   }
 }

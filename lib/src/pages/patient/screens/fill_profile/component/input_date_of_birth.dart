@@ -37,6 +37,7 @@ class _InputAgeState extends State<InputAge> {
           if (value!.isEmpty) {
             return 'Can not be empty';
           }
+          return null;
         },
         onTap: () async {
           DateTime? pickedDate = await showDatePicker(
