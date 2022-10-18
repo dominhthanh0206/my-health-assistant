@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_health_assistant/src/pages/patient/screens/fill_profile/fill_profile.dart';
 import 'package:my_health_assistant/src/routes.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 

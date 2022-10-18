@@ -4,6 +4,9 @@ import 'package:my_health_assistant/src/routes.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
+import '../../../../services/sign_up.dart';
+import '../../../../widgets/snack_bar.dart';
+
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
@@ -162,10 +165,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(100.0)),
                     fillColor: const Color(0XFF0069FE),
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        Navigator.pushReplacementNamed(
-                            context, PatientRoutes.signIn);
+                        await SignUp.createNewAccount(
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                            context: context);
+                        // ignore: use_build_context_synchronously
+                        Navigator.pushReplacementNamed(context, PatientRoutes.waitScreen);
+                      }
+                      else{
+                        showSnackBar('Error');
                       }
                     },
                     child: const Text(
