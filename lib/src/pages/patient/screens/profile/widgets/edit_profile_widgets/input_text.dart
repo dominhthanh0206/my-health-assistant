@@ -4,10 +4,10 @@ import 'package:my_health_assistant/src/styles/colors.dart';
 class InputText extends StatelessWidget {
   const InputText({
     Key? key,
-    required this.hint,
+    required this.hint, required this.controller,
   }) : super(key: key);
   final String hint;
-
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -21,6 +21,7 @@ class InputText extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(left: 20),
           child: TextField(
+            controller: controller,
             decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: hint,

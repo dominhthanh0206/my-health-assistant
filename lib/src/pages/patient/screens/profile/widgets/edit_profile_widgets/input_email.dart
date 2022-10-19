@@ -3,9 +3,9 @@ import 'package:my_health_assistant/src/styles/colors.dart';
 
 class InputEmail extends StatelessWidget {
   const InputEmail({
-    Key? key,
+    Key? key, required this.controller,
   }) : super(key: key);
-
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return Padding(
