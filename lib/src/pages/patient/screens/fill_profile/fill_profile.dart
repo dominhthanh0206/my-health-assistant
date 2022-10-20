@@ -2,6 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
+import 'package:my_health_assistant/src/data/firebase_firestore/patient/fill_information_firestore/fill_information_firestore.dart';
+import 'package:my_health_assistant/src/data/shared_preferences.dart';
+import 'package:my_health_assistant/src/models/users/patient.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/fill_profile/component/custom_texfield.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/fill_profile/component/gender.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/fill_profile/component/input_date_of_birth.dart';
@@ -133,15 +138,18 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                 width: MediaQuery.of(context).size.width,
                 height: 60,
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    String? uid = await SharedPrefs.getUid();
+                    Logger().i('uid from fill profile: $uid');
                     if (_formKey.currentState!.validate()) {
                       showDialog(
                         context: context,
                         builder: (context) => const DialogBuilder(),
                       );
                       Timer(const Duration(seconds: 3), () {
-                        Navigator.pushNamed(
-                            context, PatientRoutes.pageController);
+                        Patient patient = Patient(id: uid!, fullName: _nameController.text, nickname: _nicknameController.text, dateOfBirth: DateFormat('dd-MM-yyyy').parse(_dateInput.text), gender: 1, phoneNumber: _phoneNumberController.text, address: _addressController.text);
+                        FillInformation.addPatientInformation(patient.toJson());
+                        Navigator.pushNamed(context, PatientRoutes.pageController);
                       });
                     }
                   },
