@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 class Gender extends StatefulWidget {
-  const Gender({Key? key}) : super(key: key);
+  final Function(String value) onChanged;
+  const Gender({Key? key, required this.onChanged}) : super(key: key);
 
   @override
   State<Gender> createState() => _GenderState();
 }
 
 class _GenderState extends State<Gender> {
-  String dropdownvalue = 'Male';
+  String? dropdownvalue;
   var items = [
     'Male',
     'Female',
@@ -28,11 +29,11 @@ class _GenderState extends State<Gender> {
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
               value: dropdownvalue,
+              hint: const Text('Gender'),
               isDense: true,
-              onChanged: (String? newValue) {
-                setState(() {
-                  dropdownvalue = newValue!;
-                });
+              onChanged: (value) {
+                widget.onChanged(value ?? '');
+                dropdownvalue = value!;
               },
               items: items.map((String value) {
                 return DropdownMenuItem<String>(

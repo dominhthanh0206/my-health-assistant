@@ -18,15 +18,17 @@ class FillProfileScreen extends StatefulWidget {
 
 class _FillProfileScreenState extends State<FillProfileScreen> {
   final TextEditingController _dateInput = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _nicknameController = TextEditingController();
   final TextEditingController _datetimeController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  String? textGender;
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    _emailController.dispose();
+    _phoneNumberController.dispose();
     _nameController.dispose();
     _nicknameController.dispose();
     _datetimeController.dispose();
@@ -50,7 +52,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                       children: [
                         const Center(
                           child: CircleAvatar(
-                            radius: 80,
+                            radius: 65,
                             backgroundImage: AssetImage(
                                 'assets/images/schedule_page/doctor.png'),
                           ),
@@ -76,6 +78,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                     ),
                     const SizedBox(height: 20),
                     CustomTextFiled(
+                      controller: _nameController,
                       hint: 'Full name',
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -85,14 +88,45 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         }
                       },
                     ),
-                    const CustomTextFiled(
+                    CustomTextFiled(
+                      controller: _nicknameController,
                       hint: 'Nick name',
                     ),
                     InputAge(dateInput: _dateInput),
-                    const Gender()
+                    Gender(
+                      onChanged: (value) => _getGender(value),
+                    ),
+                    CustomTextFiled(
+                      surfixIcon: const Icon(Icons.phone_android),
+                      hint: 'Phone number',
+                      keyboardType: TextInputType.number,
+                      controller: _phoneNumberController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Please enter your phone number";
+                        } else if (value.length > 11 || value[0] != '0') {
+                          return "Please enter valid phone number";
+                        }
+                        else{
+                          return null;
+                        }
+                      },
+                    ),
+                    CustomTextFiled(
+                      hint: 'Address',
+                      controller: _addressController,
+                      surfixIcon: const Icon(Icons.location_on_sharp),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Can not be empty';
+                        } else {
+                          return null;
+                        }
+                      },
+                    )
                   ],
                 )),
-            SizedBox(height: MediaQuery.of(context).size.height / 6),
+            // SizedBox(height: MediaQuery.of(context).size.height / 60),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: SizedBox(
@@ -106,7 +140,8 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         builder: (context) => const DialogBuilder(),
                       );
                       Timer(const Duration(seconds: 3), () {
-                        Navigator.pushNamed(context, PatientRoutes.pageController);
+                        Navigator.pushNamed(
+                            context, PatientRoutes.pageController);
                       });
                     }
                   },
@@ -122,5 +157,13 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
         ),
       ),
     );
+  }
+
+  _getGender(value) {
+    if (value != null) {
+      setState(() {
+        textGender = value;
+      });
+    }
   }
 }
