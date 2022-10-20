@@ -1,8 +1,11 @@
-import 'dart:developer';
+// ignore_for_file: use_build_context_synchronously
+
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:logger/logger.dart';
+import 'package:my_health_assistant/src/data/firebase_firestore/patient/fill_information_firestore/fill_information_firestore.dart';
 import 'package:my_health_assistant/src/routes.dart';
 
 import 'package:my_health_assistant/src/styles/font_styles.dart';
@@ -38,6 +41,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Logger logger = Logger(printer: PrettyPrinter(),);
     return Scaffold(
       appBar: CustomAppBar(title: ''),
       body: Padding(
@@ -160,13 +164,24 @@ class _SignInScreenState extends State<SignInScreen> {
                             password: _passwordController.text,
                             context: context);
                         if (user != null) {
+                          await FillInformation.getPatient();
                           SharedPrefs.isLoggedIn(true);
-                          // ignore: use_build_context_synchronously
-                          Navigator.pushNamed(context, PatientRoutes.fillProfile);
-                        } else {
+                          SharedPrefs.writeUid(user.uid);
+                          logger.i('uid from user: ${user.uid}');
+                          String? uidFromPrefs = await SharedPrefs.getUid();
+                          logger.i('uid prefs user: $uidFromPrefs');
+                          
+                          final bool filled = await FillInformation.checkExist(user.uid);
+                          if(filled){
+                            Navigator.pushNamed(context, PatientRoutes.pageController);
+                          }
+                          else{
+                            Navigator.pushNamed(context, PatientRoutes.fillProfile);
+                          }
+                        }
+                        else {
                           final snackBar =
                               showSnackBar('Email or password is not correct');
-                          // ignore: use_build_context_synchronously
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
                       }
@@ -181,7 +196,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   height: 25.0,
                 ),
                 GestureDetector(
-                  onTap: () => log('Forgot password'),
+                  onTap: () => logger.i('Forgot password'),
                   child: const Text(
                     "Forgot the password?",
                     style: TextStyle(
