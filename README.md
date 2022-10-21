@@ -10,7 +10,5 @@ All icons: https://www.figma.com/file/pDJI3Ll0EXnKFxMP0Dww8b/Heroicons-(Communit
 
 ## Getting Started
 
-TRANH THỦ LÀM NHANH ĐI MẤY ÔNG NỘI!!!!!!!!!!!!
-
 
 ** Sign in xong thì push replacement ko cho back về trang sign in
