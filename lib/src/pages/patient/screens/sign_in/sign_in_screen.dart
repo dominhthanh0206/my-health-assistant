@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
@@ -12,6 +11,7 @@ import 'package:my_health_assistant/src/styles/font_styles.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
 import '../../../../data/shared_preferences.dart';
+import '../../../../services/reset_password.dart';
 import '../../../../services/sign_in.dart';
 import '../../../../widgets/snack_bar.dart';
 
@@ -41,7 +41,9 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Logger logger = Logger(printer: PrettyPrinter(),);
+    Logger logger = Logger(
+      printer: PrettyPrinter(),
+    );
     return Scaffold(
       appBar: CustomAppBar(title: ''),
       body: Padding(
@@ -170,16 +172,17 @@ class _SignInScreenState extends State<SignInScreen> {
                           logger.i('uid from user: ${user.uid}');
                           String? uidFromPrefs = await SharedPrefs.getUid();
                           logger.i('uid prefs user: $uidFromPrefs');
-                          
-                          final bool filled = await FillInformation.checkExist(user.uid);
-                          if(filled){
-                            Navigator.pushNamed(context, PatientRoutes.pageController);
+
+                          final bool filled =
+                              await FillInformation.checkExist(user.uid);
+                          if (filled) {
+                            Navigator.pushNamed(
+                                context, PatientRoutes.pageController);
+                          } else {
+                            Navigator.pushNamed(
+                                context, PatientRoutes.fillProfile);
                           }
-                          else{
-                            Navigator.pushNamed(context, PatientRoutes.fillProfile);
-                          }
-                        }
-                        else {
+                        } else {
                           final snackBar =
                               showSnackBar('Email or password is not correct');
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -196,7 +199,19 @@ class _SignInScreenState extends State<SignInScreen> {
                   height: 25.0,
                 ),
                 GestureDetector(
-                  onTap: () => logger.i('Forgot password'),
+                  onTap: () {
+                    logger.i('forgot password');
+                    if (_emailController.text.isEmpty) {
+                      final snackBar =
+                          showSnackBar('Email and Password must be filled');
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } else {
+                      ResetPassword.resetPassword(email: _emailController.text);
+                      final snackBar =
+                          showSnackBar('Please check your email');
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                  },
                   child: const Text(
                     "Forgot the password?",
                     style: TextStyle(
