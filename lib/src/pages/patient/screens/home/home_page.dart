@@ -9,6 +9,7 @@ import 'package:my_health_assistant/src/pages/patient/screens/home/component/ban
 import 'package:my_health_assistant/src/pages/patient/screens/home/component/medical_card.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/home/component/title_of_list.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/home/component/title_tabbar.dart';
+import 'package:my_health_assistant/src/pages/patient/screens/home/search_doctor_screen.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 
 import 'get_greeting.dart';
@@ -77,8 +78,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     IconButton(
                         onPressed: () {},
                         icon: SvgPicture.asset(
-                          'assets/images/home_page/bell-alert.svg',
-                        )),
+                            'assets/images/home_page/bell-alert.svg')),
                     IconButton(
                         onPressed: () {},
                         icon: SvgPicture.asset(
@@ -99,6 +99,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             offset: Offset(0.5, 2))
                       ]),
                   child: TextField(
+                    autofocus: false,
                     maxLines: 1,
                     style: const TextStyle(
                         fontSize: 14, color: Color.fromRGBO(138, 160, 188, 1)),
@@ -122,6 +123,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           ),
                           onPressed: () {}),
                     ),
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SearchDoctorScreen())),
                   ),
                 )),
             const BannerDoctor(),
