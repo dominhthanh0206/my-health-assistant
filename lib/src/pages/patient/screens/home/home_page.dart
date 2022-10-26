@@ -1,13 +1,17 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_health_assistant/src/models/department_model.dart';
+import 'package:my_health_assistant/src/pages/global_var.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/home/component/banner.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/home/component/medical_card.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/home/component/title_of_list.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/home/component/title_tabbar.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
+
+import 'get_greeting.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,6 +23,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+    final nameStream = FirebaseFirestore.instance.collection("patients").doc(auth.currentUser!.uid).snapshots();
     TabController tabController = TabController(length: 8, vsync: this);
     return SafeArea(
         child: SingleChildScrollView(
@@ -40,15 +45,28 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
-                            'Good Morning 👋',
-                            style: TextStyle(color: Colors.grey, fontSize: 16),
+                            GetGreeting.greeting(),
+                            style: const TextStyle(
+                                color: Colors.grey, fontSize: 16),
                           ),
-                          SizedBox(height: 8),
-                          Text('Andrew Ainsley',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20))
+                          const SizedBox(height: 8),
+                          StreamBuilder<DocumentSnapshot>(
+                              stream: nameStream,
+                              builder: ((context, snapshot) {
+                                if (snapshot.hasError) {
+                                  return const Text('Something went wrong');
+                                }
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const Text("Loading...",  style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20));
+                                }
+  
+                                return Text(snapshot.data!.get('nickname'),  style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20, ));
+                              }))
                         ],
                       ),
                     )

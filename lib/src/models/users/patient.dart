@@ -15,5 +15,5 @@ class Patient with _$Patient{
     required String address
   }) = _Patient;
 
-  factory Patient.fromJson(Map<String, Object?> json) => _$PatientFromJson(json);
+  factory Patient.fromJson(Map<String, dynamic> json) => _$PatientFromJson(json);
 }
