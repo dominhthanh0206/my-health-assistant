@@ -5,7 +5,6 @@ import 'package:my_health_assistant/src/pages/patient/screens/home/component/my_
 
 import 'package:my_health_assistant/src/pages/patient/screens/home/component/doctor_object.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/home/component/not_found.dart';
-import 'package:my_health_assistant/src/pages/patient/screens/profile/profile_page.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'component/title_tabbar.dart';
 
