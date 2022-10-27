@@ -6,6 +6,7 @@ import 'package:my_health_assistant/src/pages/patient/screens/home/component/my_
 import 'package:my_health_assistant/src/pages/patient/screens/home/component/doctor_object.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/home/component/not_found.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
+import 'package:my_health_assistant/src/styles/font_styles.dart';
 import 'component/title_tabbar.dart';
 
 class SearchDoctorScreen extends StatefulWidget {
@@ -55,41 +56,47 @@ class _SearchDoctorScreenState extends State<SearchDoctorScreen>
     TabController tabController = TabController(length: 8, vsync: this);
     return Scaffold(
       appBar: AppBar(
-          toolbarHeight: 80,
           iconTheme: const IconThemeData(color: Colors.black),
           backgroundColor: Colors.grey[50],
           elevation: 0.0,
-          title: TextField(
-            autofocus: true,
-            maxLines: 1,
-            style: const TextStyle(
-              fontSize: 16,
-            ),
-            textAlignVertical: TextAlignVertical.center,
-            decoration: InputDecoration(
-              filled: true,
-              prefixIcon: const Icon(
-                Icons.search,
-              ),
-              border: const OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.all(Radius.circular(18))),
-              fillColor: Colors.grey[200],
-              hintText: 'Search',
-              hintStyle: const TextStyle(fontSize: 16.0),
-              suffixIcon: IconButton(
-                  icon: SvgPicture.asset(
-                    'assets/images/home_page/filter.svg',
-                    color: MyColors.mainColor,
-                  ),
-                  onPressed: () {}),
-            ),
-            onChanged: searchDoctor,
+          title: Text(
+            'Search Doctor',
+            style: MyFontStyles.blackColorH1.copyWith(fontSize: 20),
           )),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Column(
           children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: TextField(
+                autofocus: true,
+                maxLines: 1,
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+                textAlignVertical: TextAlignVertical.center,
+                decoration: InputDecoration(
+                  filled: true,
+                  prefixIcon: const Icon(
+                    Icons.search,
+                  ),
+                  border: const OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.all(Radius.circular(18))),
+                  fillColor: Colors.grey[200],
+                  hintText: 'Search',
+                  hintStyle: const TextStyle(fontSize: 16.0),
+                  suffixIcon: IconButton(
+                      icon: SvgPicture.asset(
+                        'assets/images/home_page/filter.svg',
+                        color: MyColors.mainColor,
+                      ),
+                      onPressed: () {}),
+                ),
+                onChanged: searchDoctor,
+              ),
+            ),
             SizedBox(
               height: 30,
               child: TabBar(
@@ -121,7 +128,9 @@ class _SearchDoctorScreenState extends State<SearchDoctorScreen>
               child: TabBarView(
                 controller: tabController,
                 children: [
-                  doctors.isEmpty ? const NotFoundScreen() : MyListDoctor(department: doctors),
+                  doctors.isEmpty
+                      ? const NotFoundScreen()
+                      : MyListDoctor(department: doctors),
                   MyListDoctor(department: general),
                   MyListDoctor(department: dentist),
                   MyListDoctor(department: ophthalmologist),
