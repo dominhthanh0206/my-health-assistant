@@ -24,7 +24,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    final nameStream = FirebaseFirestore.instance.collection("patients").doc(auth.currentUser!.uid).snapshots();
+    final patient = FirebaseFirestore.instance.collection("patients").doc(auth.currentUser!.uid).snapshots();
     TabController tabController = TabController(length: 8, vsync: this);
     return SafeArea(
         child: SingleChildScrollView(
@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           ),
                           const SizedBox(height: 8),
                           StreamBuilder<DocumentSnapshot>(
-                              stream: nameStream,
+                              stream: patient,
                               builder: ((context, snapshot) {
                                 if (snapshot.hasError) {
                                   return const Text('Something went wrong');

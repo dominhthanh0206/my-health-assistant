@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class GenderEditProfile extends StatefulWidget {
-  final Function(String value) onChanged;
-  const GenderEditProfile({Key? key, required this.onChanged})
-      : super(key: key);
+  GenderEditProfile({
+    Key? key,
+    required this.gender,
+    required this.getText,
+  }) : super(key: key);
+  final Function(String value) getText;
+  String gender;
 
   @override
   State<GenderEditProfile> createState() => _GenderEditProfileState();
 }
 
 class _GenderEditProfileState extends State<GenderEditProfile> {
-  String? dropdownvalue;
+  String? dropDownValue;
   var items = [
     'Male',
     'Female',
@@ -26,15 +31,16 @@ class _GenderEditProfileState extends State<GenderEditProfile> {
               borderRadius: BorderRadius.circular(16),
             ),
           ),
-          isEmpty: dropdownvalue == '',
+          isEmpty: dropDownValue == '',
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
-              value: dropdownvalue,
-              hint: const Text('Gender'),
+              value: dropDownValue,
+              hint: Text(widget.gender),
               isDense: true,
               onChanged: (value) {
-                widget.onChanged(value ?? '');
-                dropdownvalue = value!;
+                widget.getText(value ?? '');
+                _getGender(value);
+                dropDownValue = value!;
               },
               items: items.map((String value) {
                 return DropdownMenuItem<String>(
@@ -45,5 +51,13 @@ class _GenderEditProfileState extends State<GenderEditProfile> {
             ),
           )),
     );
+  }
+
+  _getGender(value) {
+    if (value != null) {
+      setState(() {
+        widget.gender = value;
+      });
+    }
   }
 }
