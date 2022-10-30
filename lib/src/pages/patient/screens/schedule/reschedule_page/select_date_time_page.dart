@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_health_assistant/src/routes.dart';
 import 'package:my_health_assistant/src/widgets/buttons/my_elevated_button.dart';
-import 'package:my_health_assistant/src/widgets/buttons/my_text_button.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
+import 'package:my_health_assistant/src/widgets/my_dialog.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import 'my_custom_gridview_hours.dart';
@@ -68,7 +67,7 @@ class SelectDateTimePage extends StatelessWidget {
                     child: MyElevatedButton(
                       buttonColor: mainColor,
                       customFunction: () =>
-                          showMyDialog(context, mainColor, size),
+                          showMyDialog(context, mainColor, size, 'Reschedule Success', 'Appointment successfully changed. You will receive a notification and the doctor you selected will contact you.'),
                       fontSize: 16,
                       text: 'Submit',
                       textColor: Colors.white,
@@ -81,53 +80,4 @@ class SelectDateTimePage extends StatelessWidget {
           ),
         ));
   }
-}
-
-void showMyDialog(BuildContext context, Color mainColor, Size size) {
-  showDialog<String>(
-    context: context,
-    builder: (BuildContext context) => Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: AlertDialog(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(32.0))),
-        title: Text(
-          'Reschedule Success',
-          textAlign: TextAlign.center,
-          style: TextStyle(color: mainColor, fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        content: const Text(
-            'Appointment successfully changed. You will receive a notification and the doctor you selected will contact you.',
-            style: TextStyle(fontSize: 15)),
-        actions: <Widget>[
-          Column(
-            children: [
-              SizedBox(
-                  width: size.width - 40,
-                  height: 40,
-                  child: MyElevatedButton(
-                    buttonColor: mainColor,
-                    customFunction: () => Navigator.popUntil(
-                        context, ModalRoute.withName(PatientRoutes.pageController)),
-                    fontSize: 16,
-                    text: 'View Appointment',
-                    textColor: Colors.white,
-                  )),
-              Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  width: size.width - 40,
-                  height: 40,
-                  child: MyTextButton(
-                    buttonColor: mainColor,
-                    customFunction: () => Navigator.pop(context),
-                    fontSize: 16,
-                    text: 'Cancel',
-                    textColor: mainColor,
-                  )),
-            ],
-          )
-        ],
-      ),
-    ),
-  );
 }

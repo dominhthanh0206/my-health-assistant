@@ -5,15 +5,25 @@ class InputDate extends StatefulWidget {
   const InputDate({
     Key? key,
     required this.dateInput,
+    required this.date
   }) : super(key: key);
 
   final TextEditingController dateInput;
+  final String date;
 
   @override
   State<InputDate> createState() => _InputDateState();
 }
 
 class _InputDateState extends State<InputDate> {
+  
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    widget.dateInput.text = widget.date;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,7 +34,7 @@ class _InputDateState extends State<InputDate> {
         readOnly: true,
         keyboardType: TextInputType.datetime,
         decoration: InputDecoration(
-          hintText: 'Date of birth',
+          // hintText: DateFormat("dd-MM-yyyy").parse(widget.date).toIso8601String(),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
           ),

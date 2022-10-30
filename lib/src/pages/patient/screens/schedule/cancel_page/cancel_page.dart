@@ -2,10 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/schedule/reschedule_page/my_radio_list_tile.dart';
-import 'package:my_health_assistant/src/routes.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/widgets/buttons/my_elevated_button.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
+import 'package:my_health_assistant/src/widgets/my_dialog.dart';
+
 
 class CancelPage extends StatelessWidget {
   const CancelPage({super.key});
@@ -70,7 +71,7 @@ class CancelPage extends StatelessWidget {
                       text: 'Submit',
                       buttonColor: MyColors.mainColor,
                       customFunction: () {
-                        showMyDialog(context, MyColors.mainColor, size);
+                        showMyDialog(context, MyColors.mainColor, size, 'Cancel Appointment', 'We are very sad that you have canceled your appointment. We will always improve our service to satisfy you in the next appointment');
                         log('Submitted');
                       },
                       fontSize: 16,
@@ -83,39 +84,4 @@ class CancelPage extends StatelessWidget {
       ),
     );
   }
-}
-
-void showMyDialog(BuildContext context, Color mainColor, Size size) {
-  showDialog<String>(
-    context: context,
-    builder: (BuildContext context) => Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: AlertDialog(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(32.0))),
-        title: Text(
-          'Cancel Appointment Success',
-          textAlign: TextAlign.center,
-          style: TextStyle(color: mainColor, fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        content: const Text(
-            'We are very sad that you have canceled your appointment. We will always improve our service to satisfy you in the next appointment',
-            style: TextStyle(fontSize: 15)),
-        actions: <Widget>[
-          Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              width: size.width - 40,
-              height: 40,
-              child: MyElevatedButton(
-                buttonColor: mainColor,
-                customFunction: () => Navigator.popUntil(
-                    context, ModalRoute.withName(PatientRoutes.pageController)),
-                fontSize: 16,
-                text: 'OK',
-                textColor: Colors.white,
-              ))
-        ],
-      ),
-    ),
-  );
 }
