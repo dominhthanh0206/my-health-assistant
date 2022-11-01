@@ -25,6 +25,7 @@ mixin _$Doctor {
   DateTime get dateOfBirth => throw _privateConstructorUsedError;
   String get department => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  String get hospital => throw _privateConstructorUsedError;
   String get fullName => throw _privateConstructorUsedError;
   String get gender => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
@@ -46,6 +47,7 @@ abstract class $DoctorCopyWith<$Res> {
       DateTime dateOfBirth,
       String department,
       String description,
+      String hospital,
       String fullName,
       String gender,
       String id,
@@ -70,6 +72,7 @@ class _$DoctorCopyWithImpl<$Res, $Val extends Doctor>
     Object? dateOfBirth = null,
     Object? department = null,
     Object? description = null,
+    Object? hospital = null,
     Object? fullName = null,
     Object? gender = null,
     Object? id = null,
@@ -95,6 +98,10 @@ class _$DoctorCopyWithImpl<$Res, $Val extends Doctor>
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      hospital: null == hospital
+          ? _value.hospital
+          : hospital // ignore: cast_nullable_to_non_nullable
               as String,
       fullName: null == fullName
           ? _value.fullName
@@ -128,6 +135,7 @@ abstract class _$$_DoctorCopyWith<$Res> implements $DoctorCopyWith<$Res> {
       DateTime dateOfBirth,
       String department,
       String description,
+      String hospital,
       String fullName,
       String gender,
       String id,
@@ -149,6 +157,7 @@ class __$$_DoctorCopyWithImpl<$Res>
     Object? dateOfBirth = null,
     Object? department = null,
     Object? description = null,
+    Object? hospital = null,
     Object? fullName = null,
     Object? gender = null,
     Object? id = null,
@@ -174,6 +183,10 @@ class __$$_DoctorCopyWithImpl<$Res>
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      hospital: null == hospital
+          ? _value.hospital
+          : hospital // ignore: cast_nullable_to_non_nullable
               as String,
       fullName: null == fullName
           ? _value.fullName
@@ -204,6 +217,7 @@ class _$_Doctor implements _Doctor {
       required this.dateOfBirth,
       required this.department,
       required this.description,
+      required this.hospital,
       required this.fullName,
       required this.gender,
       required this.id,
@@ -223,6 +237,8 @@ class _$_Doctor implements _Doctor {
   @override
   final String description;
   @override
+  final String hospital;
+  @override
   final String fullName;
   @override
   final String gender;
@@ -233,7 +249,7 @@ class _$_Doctor implements _Doctor {
 
   @override
   String toString() {
-    return 'Doctor(address: $address, avatar: $avatar, dateOfBirth: $dateOfBirth, department: $department, description: $description, fullName: $fullName, gender: $gender, id: $id, phoneNumber: $phoneNumber)';
+    return 'Doctor(address: $address, avatar: $avatar, dateOfBirth: $dateOfBirth, department: $department, description: $description, hospital: $hospital, fullName: $fullName, gender: $gender, id: $id, phoneNumber: $phoneNumber)';
   }
 
   @override
@@ -249,6 +265,8 @@ class _$_Doctor implements _Doctor {
                 other.department == department) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.hospital, hospital) ||
+                other.hospital == hospital) &&
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
             (identical(other.gender, gender) || other.gender == gender) &&
@@ -260,7 +278,7 @@ class _$_Doctor implements _Doctor {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, address, avatar, dateOfBirth,
-      department, description, fullName, gender, id, phoneNumber);
+      department, description, hospital, fullName, gender, id, phoneNumber);
 
   @JsonKey(ignore: true)
   @override
@@ -283,6 +301,7 @@ abstract class _Doctor implements Doctor {
       required final DateTime dateOfBirth,
       required final String department,
       required final String description,
+      required final String hospital,
       required final String fullName,
       required final String gender,
       required final String id,
@@ -300,6 +319,8 @@ abstract class _Doctor implements Doctor {
   String get department;
   @override
   String get description;
+  @override
+  String get hospital;
   @override
   String get fullName;
   @override

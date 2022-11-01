@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:my_health_assistant/src/pages/patient/screens/home/component/doctor_object.dart';
 import 'package:my_health_assistant/src/routes.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
+
+import '../../../../../models/users/doctor.dart';
 
 class ContainerDoctor extends StatelessWidget {
   const ContainerDoctor({
@@ -12,7 +13,7 @@ class ContainerDoctor extends StatelessWidget {
     required this.index,
   }) : super(key: key);
 
-  final List<DoctorObject> department;
+  final List<Doctor> department;
   final int index;
   @override
   Widget build(BuildContext context) {
@@ -48,7 +49,7 @@ class ContainerDoctor extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              department[index].doctorName,
+                              department[index].fullName,
                               style: MyFontStyles.blackColorH1,
                             ),
                             SvgPicture.asset(
@@ -86,7 +87,7 @@ class ContainerDoctor extends StatelessWidget {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            department[index].phoneNumber!,
+                            department[index].phoneNumber,
                             style: const TextStyle(
                                 color: Colors.black54,
                                 fontWeight: FontWeight.w700,
@@ -123,7 +124,7 @@ class ContainerDoctor extends StatelessWidget {
                                 Padding(
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 4),
-                                  child: Text(department[index].gender!,
+                                  child: Text(department[index].gender,
                                       style: const TextStyle(
                                           color: Colors.black54,
                                           fontWeight: FontWeight.w700,
