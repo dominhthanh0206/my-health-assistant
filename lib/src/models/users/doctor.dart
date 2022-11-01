@@ -11,6 +11,7 @@ class Doctor with _$Doctor{
     required DateTime dateOfBirth,
     required String department,
     required String description,
+    required String hospital,
     required String fullName,
     required String gender,
     required String id,

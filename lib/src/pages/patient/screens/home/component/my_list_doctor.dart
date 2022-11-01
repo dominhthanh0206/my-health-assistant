@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:my_health_assistant/src/models/users/doctor.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/home/component/container_doctor.dart';
-import 'package:my_health_assistant/src/pages/patient/screens/home/component/doctor_object.dart';
 
 class MyListDoctor extends StatelessWidget {
   const MyListDoctor({
     Key? key,
     required this.department,
   }) : super(key: key);
-  final List<DoctorObject> department;
+  final List<Doctor> department;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
