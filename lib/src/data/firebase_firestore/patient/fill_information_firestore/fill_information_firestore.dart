@@ -14,7 +14,7 @@ class FillInformation {
   static Future<void> getPatient() async {
     await db.collection("patients").get().then((event) {
       for (var doc in event.docs) {
-        logger.e("${doc.id} => ${doc.data()}");
+        logger.i("${doc.id} => ${doc.data()}");
       }
     });
   }

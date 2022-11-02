@@ -10,7 +10,7 @@ class Patient with _$Patient{
     required String fullName,
     required String nickname,
     required DateTime dateOfBirth,
-    required int gender,
+    required String gender,
     required String phoneNumber,
     required String address
   }) = _Patient;

@@ -147,7 +147,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         builder: (context) => const DialogBuilder(),
                       );
                       Timer(const Duration(seconds: 3), () {
-                        Patient patient = Patient(id: uid!, fullName: _nameController.text, nickname: _nicknameController.text, dateOfBirth: DateFormat('dd-MM-yyyy').parse(_dateInput.text), gender: 1, phoneNumber: _phoneNumberController.text, address: _addressController.text);
+                        Patient patient = Patient(id: uid!, fullName: _nameController.text, nickname: _nicknameController.text, dateOfBirth: DateFormat('dd-MM-yyyy').parse(_dateInput.text), gender: textGender ?? '', phoneNumber: _phoneNumberController.text, address: _addressController.text);
                         FillInformation.addPatientInformation(patient.toJson());
                         Navigator.pushNamed(context, PatientRoutes.pageController);
                       });

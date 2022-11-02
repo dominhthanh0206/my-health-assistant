@@ -11,7 +11,7 @@ _$_Patient _$$_PatientFromJson(Map<String, dynamic> json) => _$_Patient(
       fullName: json['fullName'] as String,
       nickname: json['nickname'] as String,
       dateOfBirth: DateTime.parse(json['dateOfBirth'] as String),
-      gender: json['gender'] as int,
+      gender: json['gender'] as String,
       phoneNumber: json['phoneNumber'] as String,
       address: json['address'] as String,
     );
