@@ -5,12 +5,14 @@ import 'package:my_health_assistant/src/const_variables.dart';
 import 'package:my_health_assistant/src/data/firebase_firestore/patient/home_page/getDoctors.dart';
 import 'package:my_health_assistant/src/models/users/doctor.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/home/component/my_list_doctor.dart';
+import 'package:my_health_assistant/src/pages/patient/screens/home/component/not_found.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 import 'component/title_tabbar.dart';
 
 class SearchDoctorScreen extends StatefulWidget {
-  const SearchDoctorScreen({Key? key}) : super(key: key);
+  const SearchDoctorScreen({Key? key, required this.doctors}) : super(key: key);
+  final List<Doctor> doctors;
 
   @override
   State<SearchDoctorScreen> createState() => _SearchDoctorScreenState();
@@ -18,12 +20,14 @@ class SearchDoctorScreen extends StatefulWidget {
 
 class _SearchDoctorScreenState extends State<SearchDoctorScreen>
     with TickerProviderStateMixin {
-  List<Doctor> doctors = [];
+  List<Doctor> doctorsList = [];
   
   final TextEditingController _searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
+    doctorsList = widget.doctors;
   }
 
   @override
@@ -71,7 +75,7 @@ class _SearchDoctorScreenState extends State<SearchDoctorScreen>
                       onPressed: () {}),
                 ),
                 onChanged: ((value){
-                  searchDoctor(value, []); // de tam nhu vay sau nay sua lai
+                  searchDoctor(value, widget.doctors); // de tam nhu vay sau nay sua lai
                 }),
               ),
             ),
@@ -102,36 +106,21 @@ class _SearchDoctorScreenState extends State<SearchDoctorScreen>
             const SizedBox(
               height: 10,
             ),
-            StreamBuilder<List<Doctor>>(
-              stream: getAllDoctor(),
-              builder: ((context, snapshot) {
-                List<Doctor>? doctors = snapshot.data;
-                if (snapshot.hasError) {
-                  return Text('Something went wrong: ${snapshot.error}');
-                }
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Text('Loading...');
-                }
-                if (snapshot.hasData) {
-                  return Expanded(
+            Expanded(
                     child: TabBarView(
                       controller: tabController,
                       children: [
-                        MyListDoctor(department: doctors ?? []),
-                        MyListDoctor(department: getDoctorByDep(doctors ?? [], DepartmentValues.general)),
-                        MyListDoctor(department: getDoctorByDep(doctors ?? [], DepartmentValues.dentist)),
-                        MyListDoctor(department: getDoctorByDep(doctors ?? [], DepartmentValues.ophthalmologist)),
-                        MyListDoctor(department: getDoctorByDep(doctors ?? [], DepartmentValues.nutritionist)),
-                        MyListDoctor(department: getDoctorByDep(doctors ?? [], DepartmentValues.neurologist)),
-                        MyListDoctor(department: getDoctorByDep(doctors ?? [], DepartmentValues.pediatric)),
-                        MyListDoctor(department: getDoctorByDep(doctors ?? [], DepartmentValues.radiology))
+                        doctorsList.isNotEmpty ? MyListDoctor(department: doctorsList) : const NotFoundScreen(),
+                        getDoctorByDep(doctorsList, DepartmentValues.general).isNotEmpty ? MyListDoctor(department: getDoctorByDep(doctorsList, DepartmentValues.general)) : const NotFoundScreen(),
+                        getDoctorByDep(doctorsList, DepartmentValues.dentist).isNotEmpty ? MyListDoctor(department: getDoctorByDep(doctorsList, DepartmentValues.dentist)) : const NotFoundScreen(),
+                        getDoctorByDep(doctorsList, DepartmentValues.ophthalmologist).isNotEmpty ? MyListDoctor(department: getDoctorByDep(doctorsList, DepartmentValues.ophthalmologist)) : const NotFoundScreen(),
+                        getDoctorByDep(doctorsList, DepartmentValues.nutritionist).isNotEmpty ? MyListDoctor(department: getDoctorByDep(doctorsList, DepartmentValues.nutritionist)) : const NotFoundScreen(),
+                        getDoctorByDep(doctorsList, DepartmentValues.neurologist).isNotEmpty ? MyListDoctor(department: getDoctorByDep(doctorsList, DepartmentValues.neurologist)) : const NotFoundScreen(),
+                        getDoctorByDep(doctorsList, DepartmentValues.pediatric).isNotEmpty ? MyListDoctor(department: getDoctorByDep(doctorsList, DepartmentValues.pediatric)) : const NotFoundScreen(),
+                        getDoctorByDep(doctorsList, DepartmentValues.radiology).isNotEmpty ? MyListDoctor(department: getDoctorByDep(doctorsList, DepartmentValues.radiology)) : const NotFoundScreen()
                       ],
                     ),
-                  );
-                }
-                return const Text('nhu cc');
-              }),
-            ),
+                  )
           ],
         ),
       ),
@@ -149,9 +138,9 @@ class _SearchDoctorScreenState extends State<SearchDoctorScreen>
 
     setState(() {
       if (query.isNotEmpty) {
-        doctors = suggestions;
+        doctorsList = suggestions;
       } else {
-        doctors = doctorList;
+        doctorsList = doctorList;
       }
     });
   }

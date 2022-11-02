@@ -24,7 +24,7 @@ mixin _$Patient {
   String get fullName => throw _privateConstructorUsedError;
   String get nickname => throw _privateConstructorUsedError;
   DateTime get dateOfBirth => throw _privateConstructorUsedError;
-  int get gender => throw _privateConstructorUsedError;
+  String get gender => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
 
@@ -43,7 +43,7 @@ abstract class $PatientCopyWith<$Res> {
       String fullName,
       String nickname,
       DateTime dateOfBirth,
-      int gender,
+      String gender,
       String phoneNumber,
       String address});
 }
@@ -89,7 +89,7 @@ class _$PatientCopyWithImpl<$Res, $Val extends Patient>
       gender: null == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       phoneNumber: null == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
@@ -114,7 +114,7 @@ abstract class _$$_PatientCopyWith<$Res> implements $PatientCopyWith<$Res> {
       String fullName,
       String nickname,
       DateTime dateOfBirth,
-      int gender,
+      String gender,
       String phoneNumber,
       String address});
 }
@@ -157,7 +157,7 @@ class __$$_PatientCopyWithImpl<$Res>
       gender: null == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       phoneNumber: null == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
@@ -194,7 +194,7 @@ class _$_Patient implements _Patient {
   @override
   final DateTime dateOfBirth;
   @override
-  final int gender;
+  final String gender;
   @override
   final String phoneNumber;
   @override
@@ -248,7 +248,7 @@ abstract class _Patient implements Patient {
       required final String fullName,
       required final String nickname,
       required final DateTime dateOfBirth,
-      required final int gender,
+      required final String gender,
       required final String phoneNumber,
       required final String address}) = _$_Patient;
 
@@ -263,7 +263,7 @@ abstract class _Patient implements Patient {
   @override
   DateTime get dateOfBirth;
   @override
-  int get gender;
+  String get gender;
   @override
   String get phoneNumber;
   @override

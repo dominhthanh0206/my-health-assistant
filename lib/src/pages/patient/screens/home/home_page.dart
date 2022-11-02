@@ -12,6 +12,8 @@ import 'package:my_health_assistant/src/pages/patient/screens/home/component/tit
 import 'package:my_health_assistant/src/pages/patient/screens/home/search_doctor_screen.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 
+import '../../../../data/firebase_firestore/patient/home_page/getDoctors.dart';
+import '../../../../models/users/doctor.dart';
 import 'get_greeting.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,7 +26,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    final patient = FirebaseFirestore.instance.collection("patients").doc(auth.currentUser!.uid).snapshots();
+    final patient = FirebaseFirestore.instance
+        .collection("patients")
+        .doc(auth.currentUser!.uid)
+        .snapshots();
     TabController tabController = TabController(length: 8, vsync: this);
     return SafeArea(
         child: SingleChildScrollView(
@@ -61,12 +66,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 }
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return const Text("Loading...",  style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20));
+                                  return const Text("Loading...",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20));
                                 }
-  
-                                return Text(snapshot.data!.get('nickname'),  style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20, ));
+
+                                return Text(snapshot.data!.get('nickname'),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                    ));
                               }))
                         ],
                       ),
@@ -90,45 +100,64 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             Padding(
                 padding: const EdgeInsets.symmetric(vertical: 24),
                 child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(18),
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 3,
-                            offset: Offset(0.5, 2))
-                      ]),
-                  child: TextField(
-                    autofocus: false,
-                    maxLines: 1,
-                    style: const TextStyle(
-                        fontSize: 14, color: Color.fromRGBO(138, 160, 188, 1)),
-                    textAlignVertical: TextAlignVertical.center,
-                    decoration: InputDecoration(
-                      filled: true,
-                      prefixIcon: const Icon(Icons.search,
-                          color: Color.fromRGBO(138, 160, 188, 1)),
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.all(Radius.circular(18))),
-                      fillColor: const Color.fromRGBO(238, 246, 252, 1),
-                      hintText: 'Search',
-                      hintStyle: const TextStyle(
-                          fontSize: 14.0,
-                          color: Color.fromRGBO(138, 160, 188, 1)),
-                      suffixIcon: IconButton(
-                          icon: SvgPicture.asset(
-                            'assets/images/home_page/filter.svg',
-                            color: MyColors.mainColor,
-                          ),
-                          onPressed: () {}),
-                    ),
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SearchDoctorScreen())),
-                  ),
-                )),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(18),
+                        boxShadow: const [
+                          BoxShadow(
+                              color: Colors.grey,
+                              blurRadius: 3,
+                              offset: Offset(0.5, 2))
+                        ]),
+                    child: StreamBuilder<List<Doctor>>(
+                      stream: getAllDoctor(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return Text(
+                              'Something went wrong: ${snapshot.error}');
+                        }
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Text('Loading...');
+                        }
+                        if (snapshot.hasData) {
+                          List<Doctor> doctors = snapshot.data!;
+                          return TextField(
+                            autofocus: false,
+                            maxLines: 1,
+                            style: const TextStyle(
+                                fontSize: 14,
+                                color: Color.fromRGBO(138, 160, 188, 1)),
+                            textAlignVertical: TextAlignVertical.center,
+                            decoration: InputDecoration(
+                              filled: true,
+                              prefixIcon: const Icon(Icons.search,
+                                  color: Color.fromRGBO(138, 160, 188, 1)),
+                              border: const OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(18))),
+                              fillColor: const Color.fromRGBO(238, 246, 252, 1),
+                              hintText: 'Search',
+                              hintStyle: const TextStyle(
+                                  fontSize: 14.0,
+                                  color: Color.fromRGBO(138, 160, 188, 1)),
+                              suffixIcon: IconButton(
+                                  icon: SvgPicture.asset(
+                                    'assets/images/home_page/filter.svg',
+                                    color: MyColors.mainColor,
+                                  ),
+                                  onPressed: () {}),
+                            ),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        SearchDoctorScreen(doctors: doctors,))),
+                          );
+                        }
+                        return Container();
+                      },
+                    ))),
             const BannerDoctor(),
             TitleOfList(
               title: 'Doctor Specialty',
