@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_health_assistant/src/pages/patient/screens/schedule/appointment.dart';
+import 'package:my_health_assistant/src/models/appointment/appointment.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/schedule/tab_bar/status_container.dart';
 
 class AppointmentContainer extends StatelessWidget {
@@ -7,12 +7,12 @@ class AppointmentContainer extends StatelessWidget {
       {Key? key,
       required this.appointment,
       required this.img,
-      required this.status,
+      // required this.status,
       required this.color})
       : super(key: key);
   final Appointment appointment;
   final Widget img;
-  final String status;
+  // final String status;
   final Color color;
 
   @override
@@ -25,10 +25,11 @@ class AppointmentContainer extends StatelessWidget {
         ),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
-            appointment.doctorName ?? '',
+            appointment.doctorName ?? 'adfasfasadsf',
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 19),
           ),
-          StatusContainer(status: status, color: color),
+          StatusContainer(
+              status: appointment.status ?? 'aasfsafda', color: color),
           RichText(
             text: TextSpan(
               text: appointment.date,

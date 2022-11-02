@@ -1,9 +1,10 @@
-class Appointment{
-  String? doctorName;
-  int? type;
-  String? date;
-  String? time;
-  String? imgUrl;
+// class FAppointment {
+//   String? doctorName;
+//   int? type;
+//   String? date;
+//   String? time;
+//   String? imgUrl;
 
-  Appointment({required this.doctorName, this.date, this.type, this.time, this.imgUrl});
-}
+//   FAppointment(
+//       {required this.doctorName, this.date, this.type, this.time, this.imgUrl});
+// }

@@ -1,12 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:my_health_assistant/src/models/appointment/appointment.dart';
 import 'package:my_health_assistant/src/routes.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/widgets/buttons/my_elevated_button.dart';
 import 'package:my_health_assistant/src/widgets/buttons/my_text_button.dart';
 
-import '../appointment.dart';
 import 'appointment_container.dart';
 
 class CompletedPage extends StatelessWidget {
@@ -29,7 +29,7 @@ class CompletedPage extends StatelessWidget {
               children: [
                 AppointmentContainer(
                   color: MyColors.completedStatus,
-                  status: 'Completed',
+                  // status: completed[index].status,
                   appointment: completed[index],
                   img: ClipRRect(
                     borderRadius: BorderRadius.circular(20.0),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:my_health_assistant/src/pages/patient/screens/schedule/appointment.dart';
+import 'package:my_health_assistant/src/data/firebase_firestore/patient/appointment/appointment_functions.dart';
+import 'package:my_health_assistant/src/models/appointment/appointment.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/schedule/tab_bar/cancelled_page.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/schedule/tab_bar/completed_page.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/schedule/tab_bar/upcoming_page.dart';
@@ -33,72 +34,63 @@ class _AppointmentPageState extends State<AppointmentPage>
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    List<Appointment> appointments = [
+    // List<FAppointment> appointments = [
+    //   FAppointment(
+    //       doctorName: 'Royal Kludge',
+    //       date: 'Oct 20, 2022',
+    //       type: 0,
+    //       time: '09:00 AM',
+    //       imgUrl: 'assets/images/schedule_page/doctor.png'),
+    //   FAppointment(
+    //       doctorName: 'DareU DareU',
+    //       date: 'Sep 20, 2022',
+    //       type: 0,
+    //       time: '10:30 AM',
+    //       imgUrl: 'assets/images/schedule_page/doctor.png'),
+    //   FAppointment(
+    //       doctorName: 'Akko Akko',
+    //       date: 'Nov 20, 2022',
+    //       type: 0,
+    //       time: '10:30 AM',
+    //       imgUrl: 'assets/images/schedule_page/doctor.png'),
+    //   FAppointment(
+    //       doctorName: 'Newmen Newmen',
+    //       date: 'Nov 20, 2022',
+    //       type: 1,
+    //       time: '16:30 PM',
+    //       imgUrl: 'assets/images/schedule_page/doctor.png'),
+    //   FAppointment(
+    //       doctorName: 'Edra Edra',
+    //       date: 'Oct 20, 2022',
+    //       type: 1,
+    //       time: '13:00 PM',
+    //       imgUrl: 'assets/images/schedule_page/doctor.png'),
+    //   FAppointment(
+    //       doctorName: 'Fuhlen Fuhlen',
+    //       date: 'Nov 20, 2022',
+    //       type: 1,
+    //       time: '14:00 PM',
+    //       imgUrl: 'assets/images/schedule_page/doctor.png'),
+    //   FAppointment(
+    //       doctorName: 'Keychrone',
+    //       date: 'Dec 20, 2022',
+    //       type: 2,
+    //       time: '07:00 AM',
+    //       imgUrl: 'assets/images/schedule_page/doctor.png'),
+    //   FAppointment(
+    //       doctorName: 'Logitech',
+    //       date: 'Dec 20, 2022',
+    //       type: 2,
+    //       time: '15:30 PM',
+    //       imgUrl: 'assets/images/schedule_page/doctor.png'),
+    // ];
 
-      Appointment(
-          doctorName: 'Royal Kludge',
-          date: 'Oct 20, 2022',
-          type: 0,
-          time: '09:00 AM',
-          imgUrl: 'assets/images/schedule_page/doctor.png'),
-
-      Appointment(
-          doctorName: 'DareU DareU',
-          date: 'Sep 20, 2022',
-          type: 0,
-          time: '10:30 AM',
-          imgUrl: 'assets/images/schedule_page/doctor.png'),
-
-      Appointment(
-          doctorName: 'Akko Akko',
-          date: 'Nov 20, 2022',
-          type: 0,
-          time: '10:30 AM',
-          imgUrl: 'assets/images/schedule_page/doctor.png'),
-
-      Appointment(
-          doctorName: 'Newmen Newmen',
-          date: 'Nov 20, 2022',
-          type: 1,
-          time: '16:30 PM',
-          imgUrl: 'assets/images/schedule_page/doctor.png'),
-
-      Appointment(
-          doctorName: 'Edra Edra',
-          date: 'Oct 20, 2022',
-          type: 1,
-          time: '13:00 PM',
-          imgUrl: 'assets/images/schedule_page/doctor.png'),
-          
-      Appointment(
-          doctorName: 'Fuhlen Fuhlen',
-          date: 'Nov 20, 2022',
-          type: 1,
-          time: '14:00 PM',
-          imgUrl: 'assets/images/schedule_page/doctor.png'),
-      
-      Appointment(
-          doctorName: 'Keychrone',
-          date: 'Dec 20, 2022',
-          type: 2,
-          time: '07:00 AM',
-          imgUrl: 'assets/images/schedule_page/doctor.png'),
-      
-      
-      Appointment(
-          doctorName: 'Logitech',
-          date: 'Dec 20, 2022',
-          type: 2,
-          time: '15:30 PM',
-          imgUrl: 'assets/images/schedule_page/doctor.png'),
-    ];
-
-    List<Appointment> upcoming =
-        appointments.where((element) => element.type == 0).toList();
-    List<Appointment> completed =
-        appointments.where((element) => element.type == 1).toList();
-    List<Appointment> cancelled =
-        appointments.where((element) => element.type == 2).toList();
+    // List<FAppointment> upcoming =
+    //     appointments.where((element) => element.type == 0).toList();
+    // List<FAppointment> completed =
+    //     appointments.where((element) => element.type == 1).toList();
+    // List<FAppointment> cancelled =
+    //     appointments.where((element) => element.type == 2).toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -113,9 +105,12 @@ class _AppointmentPageState extends State<AppointmentPage>
           actions: [
             IconButton(
                 onPressed: () {},
-                icon: SvgPicture.asset('assets/images/schedule_page/search.svg'),
+                icon:
+                    SvgPicture.asset('assets/images/schedule_page/search.svg'),
                 color: Colors.black),
-            IconButton(onPressed: (){}, icon: SvgPicture.asset('assets/images/schedule_page/more.svg'))
+            IconButton(
+                onPressed: () {},
+                icon: SvgPicture.asset('assets/images/schedule_page/more.svg'))
           ]),
       body: SafeArea(
         child: Padding(
@@ -142,20 +137,44 @@ class _AppointmentPageState extends State<AppointmentPage>
                     )
                   ],
                 ),
-                Expanded(
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: [
-                      UpcomingPage(upcoming: upcoming),
-                      CompletedPage(
-                        completed: completed,
-                      ),
-                      CancelledPage(
-                        cancelled: cancelled,
-                      )
-                    ],
-                  ),
-                ),
+                StreamBuilder<List<Appointment>>(
+                  stream: getAllAppointment(),
+                  builder: ((context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Something went wrong ${snapshot.error}');
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (snapshot.hasData) {
+                      List<Appointment> appointments = snapshot.data!;
+                      return Expanded(
+                        child: TabBarView(
+                          controller: _tabController,
+                          children: [
+                            UpcomingPage(
+                                upcoming:
+                                    AppointmentFunctions.getAppointmentByCon(
+                                        appointments, 'Upcoming')),
+                            CompletedPage(
+                              completed:
+                                  AppointmentFunctions.getAppointmentByCon(
+                                      appointments, 'Completed'),
+                            ),
+                            CancelledPage(
+                              cancelled:
+                                  AppointmentFunctions.getAppointmentByCon(
+                                      appointments, 'Cancelled'),
+                            )
+                          ],
+                        ),
+                      );
+                    }
+                    return Container();
+                  }),
+                )
               ],
             ),
           ),
