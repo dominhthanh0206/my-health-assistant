@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_health_assistant/src/models/appointment/appointment.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/schedule/tab_bar/appointment_container.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
-
-import '../appointment.dart';
 
 class CancelledPage extends StatelessWidget {
   const CancelledPage({Key? key, required this.cancelled}) : super(key: key);
@@ -22,7 +21,7 @@ class CancelledPage extends StatelessWidget {
           ),
           child: AppointmentContainer(
             color: MyColors.cancelStatus,
-            status: 'Cancelled',
+            // status: 'Cancelled',
             appointment: cancelled[index],
             img: ClipRRect(
               borderRadius: BorderRadius.circular(20.0),

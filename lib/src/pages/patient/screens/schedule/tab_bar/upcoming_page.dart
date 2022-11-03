@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:my_health_assistant/src/pages/patient/screens/schedule/appointment.dart';
+import 'package:my_health_assistant/src/models/appointment/appointment.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/schedule/tab_bar/appointment_container.dart';
 import 'package:my_health_assistant/src/routes.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
@@ -31,7 +31,7 @@ class UpcomingPage extends StatelessWidget {
                   children: [
                     AppointmentContainer(
                       color: MyColors.mainColor,
-                      status: 'Upcoming',
+                      // status: 'Upcoming',
                       appointment: upcoming[index],
                       img: ClipRRect(
                         borderRadius:
@@ -76,7 +76,8 @@ class UpcomingPage extends StatelessWidget {
                                 customFunction: () {
                                   log('Reschedule');
                                   // Navigator.push(context, MaterialPageRoute(builder: (_) => const ReschedulePage()));
-                                  Navigator.pushNamed(context, PatientRoutes.reschedule);
+                                  Navigator.pushNamed(
+                                      context, PatientRoutes.reschedule);
                                 },
                                 fontSize: 13,
                                 text: 'Reschedule',
@@ -129,13 +130,14 @@ void _modalBottomSheetMenu(BuildContext context) {
     builder: (context) {
       return BottomSheetLogout(
         text: 'Cancel Appointment',
-        content: const Text('Are you sure you want to cancel your appointment?'),
+        content:
+            const Text('Are you sure you want to cancel your appointment?'),
         buttonText1: 'Back',
         buttonText2: 'Yes, cancel',
         function1: (() {
           Navigator.pop(context);
         }),
-        function2: ((){
+        function2: (() {
           Navigator.pushNamed(context, PatientRoutes.cancel);
         }),
       );
