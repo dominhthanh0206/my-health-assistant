@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:logger/logger.dart';
 import 'package:my_health_assistant/src/routes.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
@@ -144,8 +145,14 @@ class ContainerDoctor extends StatelessWidget {
                                           const RoundedRectangleBorder(
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(20))))),
-                                  onPressed: () => Navigator.pushNamed(
-                                      context, PatientRoutes.selectDate),
+                                  onPressed: () {
+                                    Logger().v(department[index].id.toString());
+                                    Navigator.pushNamed(
+                                        context, PatientRoutes.selectDate,
+                                        arguments: {
+                                          'doctor': department[index]
+                                        });
+                                  },
                                   child: const Text(
                                     'Book',
                                     style: MyFontStyles.whiteColorH2,

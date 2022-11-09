@@ -1,8 +1,9 @@
-import 'dart:developer';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:logger/logger.dart';
 import 'package:my_health_assistant/src/models/department_model.dart';
 import 'package:my_health_assistant/src/pages/global_var.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/home/component/banner.dart';
@@ -86,11 +87,49 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 Row(
                   children: [
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          // CollectionReference users =
+                          //     FirebaseFirestore.instance.collection('doctors');
+                          // final deps = [
+                          //   'General',
+                          //   'Dentist',
+                          //   'Ophthalmologist',
+                          //   'Nutritionist',
+                          //   'Neurologist',
+                          //   'Pediatric',
+                          //   'Radiology'
+                          // ];
+                          // String dep = deps[Random().nextInt(deps.length)];
+                          // users
+                          //     .add({
+                          //       'address': 'Da Nang',
+                          //       'avatar': 'image',
+                          //       'dateOfBirth': '1-10-2022',
+                          //       'department': dep,
+                          //       'description':
+                          //           'Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero\'s De Finibus Bonorum et Malorum for use in a type specimen book. It usually begins with',
+                          //       'fullName': 'Nguyen Van A',
+                          //       'gender': 'Male',
+                          //       'hospital': 'Vinmec',
+                          //       'phoneNumber': '0987656789'
+                          //     })
+                          //     .then((value) => print("User Added"))
+                          //     .catchError((error) =>
+                          //         print("Failed to add user: $error"));
+                          final key = UniqueKey();
+                          Logger().i(key.toString());
+                        },
                         icon: SvgPicture.asset(
                             'assets/images/home_page/bell-alert.svg')),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          // var collection = FirebaseFirestore.instance
+                          //     .collection('appointments');
+                          // var snapshots = await collection.get();
+                          // for (var doc in snapshots.docs) {
+                          //   await doc.reference.delete();
+                          // }
+                        },
                         icon: SvgPicture.asset(
                             'assets/images/home_page/heart.svg'))
                   ],
@@ -151,8 +190,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        SearchDoctorScreen(doctors: doctors,))),
+                                    builder: (context) => SearchDoctorScreen(
+                                          doctors: doctors,
+                                        ))),
                           );
                         }
                         return Container();
@@ -161,7 +201,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             const BannerDoctor(),
             TitleOfList(
               title: 'Doctor Specialty',
-              onPressed: () => log('See All'),
+              onPressed: () => Logger().i('See All'),
             ),
             SizedBox(
               height: 200,
@@ -173,7 +213,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     return MedicalCard(department: listDepartMent[index]);
                   })),
             ),
-            TitleOfList(title: 'Top Doctors', onPressed: () => log('See All')),
+            TitleOfList(
+                title: 'Top Doctors', onPressed: () => Logger().i('See All')),
             SizedBox(
               height: 30,
               child: TabBar(

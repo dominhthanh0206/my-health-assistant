@@ -10,6 +10,11 @@ class MyListDoctor extends StatelessWidget {
   final List<Doctor> department;
   @override
   Widget build(BuildContext context) {
+    department.sort((a, b) {
+      String aName = a.fullName;
+      String bName = b.fullName;
+      return aName.compareTo(bName);
+    });
     return ListView.builder(
         itemCount: department.length,
         itemBuilder: (context, index) {

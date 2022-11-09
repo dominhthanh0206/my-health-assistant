@@ -131,7 +131,6 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                     )
                   ],
                 )),
-            // SizedBox(height: MediaQuery.of(context).size.height / 60),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: SizedBox(

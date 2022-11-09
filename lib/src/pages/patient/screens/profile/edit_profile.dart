@@ -27,7 +27,7 @@ class _EditProfileState extends State<EditProfile> {
   final TextEditingController _nicknameController = TextEditingController();
 
   final TextEditingController _addressController = TextEditingController();
-  String textGender = '';
+  String textGender = 'Male';
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +115,10 @@ class _EditProfileState extends State<EditProfile> {
                       };
                       var collection =
                           FirebaseFirestore.instance.collection('patients');
+                          // var collectionAppointment =
+                          // FirebaseFirestore.instance.collection('appointments');
+                          // collectionAppointment.
+                          // final key = UniqueKey().toString();
                       collection.doc(auth.currentUser!.uid).update(data);
                       showMyDialog(context, MyColors.mainColor, MediaQuery.of(context).size, 'Success', 'You account has been saved.');
                     },

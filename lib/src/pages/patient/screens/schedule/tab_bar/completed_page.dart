@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:my_health_assistant/src/models/appointment/appointment.dart';
 import 'package:my_health_assistant/src/routes.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
@@ -16,6 +17,15 @@ class CompletedPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    completed.sort((a, b) {
+      DateTime aDate =
+          DateFormat('dd-MM-yyyy HH:mm').parse('${a.date} ${a.time}');
+      DateTime bDate =
+          DateFormat('dd-MM-yyyy HH:mm').parse('${b.date} ${b.time}');
+      return aDate.compareTo(bDate);
+    });
+
     return completed.isNotEmpty ? ListView.builder(
       itemCount: completed.length,
       itemBuilder: (context, index) {
@@ -29,7 +39,6 @@ class CompletedPage extends StatelessWidget {
               children: [
                 AppointmentContainer(
                   color: MyColors.completedStatus,
-                  // status: completed[index].status,
                   appointment: completed[index],
                   img: ClipRRect(
                     borderRadius: BorderRadius.circular(20.0),

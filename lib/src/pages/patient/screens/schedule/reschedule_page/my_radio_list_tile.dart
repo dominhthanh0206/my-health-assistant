@@ -1,16 +1,19 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 
 class MyRadioListTile extends StatefulWidget {
-  const MyRadioListTile({super.key, required this.reasons});
+  const MyRadioListTile(
+      {super.key, required this.reasons, required this.getReason});
   final List<String> reasons;
+  final Function(String value) getReason;
 
   @override
   State<MyRadioListTile> createState() => _MyRadioListTileState();
 }
 
 class _MyRadioListTileState extends State<MyRadioListTile> {
-
   String? selectionDefault;
 
   @override
@@ -18,14 +21,13 @@ class _MyRadioListTileState extends State<MyRadioListTile> {
     super.initState();
     selectionDefault = widget.reasons[0];
   }
-  
+
   @override
   Widget build(BuildContext context) {
-
     return ListView.builder(
       shrinkWrap: true,
       itemCount: widget.reasons.length,
-      itemBuilder: (context, index){
+      itemBuilder: (context, index) {
         return RadioListTile<String>(
           activeColor: MyColors.mainColor,
           title: Text(widget.reasons[index]),
@@ -35,9 +37,19 @@ class _MyRadioListTileState extends State<MyRadioListTile> {
             setState(() {
               selectionDefault = value;
             });
+
+            widget.getReason(value ?? 'abc');
           },
         );
       },
     );
   }
+
+  // _getGender(value) {
+  //   if (value != null) {
+  //     setState(() {
+  //       widget.reason = value;
+  //     });
+  //   }
+  // }
 }
