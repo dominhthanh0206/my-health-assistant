@@ -34,64 +34,6 @@ class _AppointmentPageState extends State<AppointmentPage>
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    // List<FAppointment> appointments = [
-    //   FAppointment(
-    //       doctorName: 'Royal Kludge',
-    //       date: 'Oct 20, 2022',
-    //       type: 0,
-    //       time: '09:00 AM',
-    //       imgUrl: 'assets/images/schedule_page/doctor.png'),
-    //   FAppointment(
-    //       doctorName: 'DareU DareU',
-    //       date: 'Sep 20, 2022',
-    //       type: 0,
-    //       time: '10:30 AM',
-    //       imgUrl: 'assets/images/schedule_page/doctor.png'),
-    //   FAppointment(
-    //       doctorName: 'Akko Akko',
-    //       date: 'Nov 20, 2022',
-    //       type: 0,
-    //       time: '10:30 AM',
-    //       imgUrl: 'assets/images/schedule_page/doctor.png'),
-    //   FAppointment(
-    //       doctorName: 'Newmen Newmen',
-    //       date: 'Nov 20, 2022',
-    //       type: 1,
-    //       time: '16:30 PM',
-    //       imgUrl: 'assets/images/schedule_page/doctor.png'),
-    //   FAppointment(
-    //       doctorName: 'Edra Edra',
-    //       date: 'Oct 20, 2022',
-    //       type: 1,
-    //       time: '13:00 PM',
-    //       imgUrl: 'assets/images/schedule_page/doctor.png'),
-    //   FAppointment(
-    //       doctorName: 'Fuhlen Fuhlen',
-    //       date: 'Nov 20, 2022',
-    //       type: 1,
-    //       time: '14:00 PM',
-    //       imgUrl: 'assets/images/schedule_page/doctor.png'),
-    //   FAppointment(
-    //       doctorName: 'Keychrone',
-    //       date: 'Dec 20, 2022',
-    //       type: 2,
-    //       time: '07:00 AM',
-    //       imgUrl: 'assets/images/schedule_page/doctor.png'),
-    //   FAppointment(
-    //       doctorName: 'Logitech',
-    //       date: 'Dec 20, 2022',
-    //       type: 2,
-    //       time: '15:30 PM',
-    //       imgUrl: 'assets/images/schedule_page/doctor.png'),
-    // ];
-
-    // List<FAppointment> upcoming =
-    //     appointments.where((element) => element.type == 0).toList();
-    // List<FAppointment> completed =
-    //     appointments.where((element) => element.type == 1).toList();
-    // List<FAppointment> cancelled =
-    //     appointments.where((element) => element.type == 2).toList();
-
     return Scaffold(
       appBar: AppBar(
           backgroundColor: MyColors.whiteText,
@@ -138,7 +80,7 @@ class _AppointmentPageState extends State<AppointmentPage>
                   ],
                 ),
                 StreamBuilder<List<Appointment>>(
-                  stream: getAllAppointment(),
+                  stream: AppointmentFunctions.getAllAppointment(),
                   builder: ((context, snapshot) {
                     if (snapshot.hasError) {
                       return Text('Something went wrong ${snapshot.error}');

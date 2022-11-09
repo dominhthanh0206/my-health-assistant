@@ -7,8 +7,15 @@ import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/widgets/buttons/my_elevated_button.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
-class ReschedulePage extends StatelessWidget {
+class ReschedulePage extends StatefulWidget {
   const ReschedulePage({super.key});
+
+  @override
+  State<ReschedulePage> createState() => _ReschedulePageState();
+}
+
+class _ReschedulePageState extends State<ReschedulePage> {
+  String reason = '';
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +45,7 @@ class ReschedulePage extends StatelessWidget {
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 17.5),
                   ),
                 ),
-                MyRadioListTile(reasons: rescheduleReasons),
+                MyRadioListTile(reasons: rescheduleReasons, getReason: (value) => _getReason(value),),
                 Center(
                   child: Container(
                     padding: const EdgeInsets.all(20),
@@ -65,7 +72,7 @@ class ReschedulePage extends StatelessWidget {
                     buttonColor: MyColors.mainColor,
                     customFunction: () {
                       Navigator.pushNamed(context, PatientRoutes.selectDate);
-                      log('Next');
+                      log('reschedule: ------------ $reason ------------');
                     },
                     fontSize: 16,
                     textColor: Colors.white,
@@ -75,5 +82,9 @@ class ReschedulePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _getReason(String value) {
+    reason = value;
   }
 }

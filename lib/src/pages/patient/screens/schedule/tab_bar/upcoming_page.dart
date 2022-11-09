@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 import 'package:my_health_assistant/src/models/appointment/appointment.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/schedule/tab_bar/appointment_container.dart';
 import 'package:my_health_assistant/src/routes.dart';
@@ -17,6 +19,14 @@ class UpcomingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    upcoming.sort((a, b) {
+      DateTime aDate =
+          DateFormat('dd-MM-yyyy HH:mm').parse('${a.date} ${a.time}');
+      DateTime bDate =
+          DateFormat('dd-MM-yyyy HH:mm').parse('${b.date} ${b.time}');
+      return aDate.compareTo(bDate);
+    });
+
     return upcoming.isNotEmpty
         ? ListView.builder(
             itemCount: upcoming.length,
@@ -31,7 +41,6 @@ class UpcomingPage extends StatelessWidget {
                   children: [
                     AppointmentContainer(
                       color: MyColors.mainColor,
-                      // status: 'Upcoming',
                       appointment: upcoming[index],
                       img: ClipRRect(
                         borderRadius:
@@ -60,7 +69,8 @@ class UpcomingPage extends StatelessWidget {
                               child: MyTextButton(
                                 buttonColor: MyColors.mainColor,
                                 customFunction: () {
-                                  _modalBottomSheetMenu(context);
+                                  // Logger().i(upcoming[index].toString());
+                                  _modalBottomSheetMenu(context, upcoming[index]);
                                 },
                                 fontSize: 13,
                                 text: 'Cancel Appointment',
@@ -118,7 +128,7 @@ class UpcomingPage extends StatelessWidget {
   }
 }
 
-void _modalBottomSheetMenu(BuildContext context) {
+void _modalBottomSheetMenu(BuildContext context, Appointment appointment) {
   showModalBottomSheet(
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
@@ -138,7 +148,8 @@ void _modalBottomSheetMenu(BuildContext context) {
           Navigator.pop(context);
         }),
         function2: (() {
-          Navigator.pushNamed(context, PatientRoutes.cancel);
+          Logger().e(appointment);
+          Navigator.pushNamed(context, PatientRoutes.cancel, arguments: {'appointment': appointment});
         }),
       );
     },

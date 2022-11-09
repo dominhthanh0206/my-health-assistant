@@ -1,18 +1,29 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:my_health_assistant/src/data/firebase_firestore/patient/appointment/appointment_functions.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/schedule/reschedule_page/my_radio_list_tile.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/widgets/buttons/my_elevated_button.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 import 'package:my_health_assistant/src/widgets/my_dialog.dart';
 
-
-class CancelPage extends StatelessWidget {
+class CancelPage extends StatefulWidget {
   const CancelPage({super.key});
 
   @override
+  State<CancelPage> createState() => _CancelPageState();
+}
+
+class _CancelPageState extends State<CancelPage> {
+  String reason = 'I want to change another doctor';
+
+  @override
   Widget build(BuildContext context) {
+    final arguments = (ModalRoute.of(context)?.settings.arguments ??
+        <String, dynamic>{}) as Map;
+
     List<String> cancelReason = [
       'I want to change another doctor',
       'I want to change package',
@@ -41,11 +52,14 @@ class CancelPage extends StatelessWidget {
                     padding: EdgeInsets.only(left: 20),
                     child: Text(
                       'Reason for Schedule Change',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17.5),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 17.5),
                     ),
                   ),
-                  MyRadioListTile(reasons: cancelReason),
+                  MyRadioListTile(
+                    reasons: cancelReason,
+                    getReason: (value) => _getText(value),
+                  ),
                   Center(
                     child: Container(
                       padding: const EdgeInsets.all(20),
@@ -63,16 +77,26 @@ class CancelPage extends StatelessWidget {
               ),
               Center(
                 child: Container(
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
                     width: MediaQuery.of(context).size.width,
                     height: 40,
                     child: MyElevatedButton(
                       text: 'Submit',
                       buttonColor: MyColors.mainColor,
                       customFunction: () {
-                        showMyDialog(context, MyColors.mainColor, size, 'Cancel Appointment', 'We are very sad that you have canceled your appointment. We will always improve our service to satisfy you in the next appointment');
-                        log('Submitted');
+                        // FirebaseFirestore.instance.collection('appointments').doc(arguments['appointment'].id).update({
+                        //   'status': 'Cancelled',
+                        //   'reason': reason,
+                        // });
+                        AppointmentFunctions.cancelAppointment(arguments['appointment'].id, reason);
+                        showMyDialog(
+                            context,
+                            MyColors.mainColor,
+                            size,
+                            'Cancel Appointment',
+                            'We are very sad that you have canceled your appointment. We will always improve our service to satisfy you in the next appointment');
+                        log('cancel: ----------- $reason ------------');
                       },
                       fontSize: 16,
                       textColor: Colors.white,
@@ -83,5 +107,9 @@ class CancelPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _getText(String value) {
+    reason = value;
   }
 }
