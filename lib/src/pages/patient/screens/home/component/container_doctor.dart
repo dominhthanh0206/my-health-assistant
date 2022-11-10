@@ -10,11 +10,11 @@ import '../../../../../models/users/doctor.dart';
 class ContainerDoctor extends StatelessWidget {
   const ContainerDoctor({
     Key? key,
-    required this.department,
+    required this.doctorsInDepartment,
     required this.index,
   }) : super(key: key);
 
-  final List<Doctor> department;
+  final List<Doctor> doctorsInDepartment;
   final int index;
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class ContainerDoctor extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              department[index].fullName,
+                              doctorsInDepartment[index].fullName,
                               style: MyFontStyles.blackColorH1,
                             ),
                             SvgPicture.asset(
@@ -63,7 +63,7 @@ class ContainerDoctor extends StatelessWidget {
                       const SizedBox(height: 8),
                       RichText(
                         text: TextSpan(
-                          text: department[index].department,
+                          text: doctorsInDepartment[index].department,
                           style: const TextStyle(
                               color: Colors.black54,
                               fontWeight: FontWeight.w700,
@@ -73,7 +73,7 @@ class ContainerDoctor extends StatelessWidget {
                               text: ' | ',
                             ),
                             TextSpan(
-                              text: department[index].hospital,
+                              text: doctorsInDepartment[index].hospital,
                             ),
                           ],
                         ),
@@ -88,7 +88,7 @@ class ContainerDoctor extends StatelessWidget {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            department[index].phoneNumber,
+                            doctorsInDepartment[index].phoneNumber,
                             style: const TextStyle(
                                 color: Colors.black54,
                                 fontWeight: FontWeight.w700,
@@ -104,19 +104,19 @@ class ContainerDoctor extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                if (department[index].gender == 'Male')
+                                if (doctorsInDepartment[index].gender == 'Male')
                                   const Icon(
                                     Icons.male_outlined,
                                     color: Colors.blue,
                                     size: 20,
                                   ),
-                                if (department[index].gender == 'Female')
+                                if (doctorsInDepartment[index].gender == 'Female')
                                   const Icon(
                                     Icons.female_outlined,
                                     color: Colors.pink,
                                     size: 20,
                                   ),
-                                if (department[index].gender == 'Others')
+                                if (doctorsInDepartment[index].gender == 'Others')
                                   const Icon(
                                     Icons.question_mark,
                                     color: Colors.blue,
@@ -125,7 +125,7 @@ class ContainerDoctor extends StatelessWidget {
                                 Padding(
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 4),
-                                  child: Text(department[index].gender,
+                                  child: Text(doctorsInDepartment[index].gender,
                                       style: const TextStyle(
                                           color: Colors.black54,
                                           fontWeight: FontWeight.w700,
@@ -146,11 +146,11 @@ class ContainerDoctor extends StatelessWidget {
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(20))))),
                                   onPressed: () {
-                                    Logger().v(department[index].id.toString());
+                                    Logger().v(doctorsInDepartment[index].id.toString());
                                     Navigator.pushNamed(
                                         context, PatientRoutes.selectDate,
                                         arguments: {
-                                          'doctor': department[index]
+                                          'doctor': doctorsInDepartment[index]
                                         });
                                   },
                                   child: const Text(

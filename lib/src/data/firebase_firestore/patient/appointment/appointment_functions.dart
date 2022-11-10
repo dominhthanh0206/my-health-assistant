@@ -39,18 +39,6 @@ class AppointmentFunctions {
     });
   }
 
-  static List<Appointment> getAppointmentOfDoctor(
-      List<Appointment> appointments, String condition) {
-    List<Appointment> appointmentList = [];
-    for (var element in appointments) {
-      if (element.status == condition &&
-          element.patientId == auth.currentUser!.uid) {
-        appointmentList.add(element);
-      }
-    }
-    return appointmentList;
-  }
-
   static Stream<List<Appointment>> getAllAppointment() {
     Logger().e(FirebaseFirestore.instance
         .collection('appointments')
@@ -66,5 +54,25 @@ class AppointmentFunctions {
         .map((snapshot) => snapshot.docs
             .map((doc) => Appointment.fromJson(doc.data()))
             .toList());
+  }
+
+  static List<Appointment> getAppointmentsOfSpecificDoctor(List<Appointment> appAppointments, String doctorId, List<Appointment> allAppointments){
+    List<Appointment> result =  [];
+    for (var element in allAppointments) {
+      if(element.doctorId == doctorId){
+        result.add(element);
+      }
+    }
+    return result;
+  }
+
+  static List<Appointment> getDotorAppointmentByDate(String date, String id, List<Appointment> allAppointments){
+    List<Appointment> result = [];
+    allAppointments.forEach((element) {
+      if(element.date == date){
+        result.add(element);
+      }
+    });
+    return result;
   }
 }

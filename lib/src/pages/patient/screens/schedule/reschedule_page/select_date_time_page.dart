@@ -1,3 +1,4 @@
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -24,9 +25,12 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
   String date = DateFormat('dd-MM-yyyy').format(DateTime.now());
   String status = 'Upcoming';
 
-  @override
-  Widget build(BuildContext context) {
-    List<String> times = [
+  final ValueNotifier<String> _dateNotifier = ValueNotifier<String>(DateFormat('dd-MM-yyyy').format(DateTime.now()));
+
+  List<String> times = [
+    '04:00',
+    '05:00',
+    '06:00',
       '09:00',
       '09:30',
       '10:00',
@@ -44,6 +48,9 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
       '17:00',
     ];
 
+  @override
+  Widget build(BuildContext context) {
+    
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
     Color mainColor = const Color.fromARGB(255, 0, 106, 192);
@@ -78,8 +85,12 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
                         showNavigationArrow: true,
                         onSelectionChanged:
                             (dateRangePickerSelectionChangedArgs) {
-                          date = DateFormat('dd-MM-yyyy').format(
+                          setState(() {
+                            date = DateFormat('dd-MM-yyyy').format(
                               dateRangePickerSelectionChangedArgs.value);
+                          });
+
+                          log(date);
                         },
                       ),
                     ),
@@ -94,10 +105,15 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    MyCustomGridViewHours(
-                      times: times,
-                      getTime: (value) => _getTime(value),
-                      date: date,
+                    ValueListenableBuilder<String>(
+                      builder: (context, value, child) {
+                        return MyCustomGridViewHours(
+                        times: times,
+                        getTime: (value) => _getTime(value),
+                        date: date,
+                      );
+                      },
+                      valueListenable: _dateNotifier,
                     )
                   ],
                 ),
@@ -111,8 +127,17 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
                       buttonColor: mainColor,
                       customFunction: () {
                         final key = UniqueKey().toString();
-                        Appointment appointment = Appointment(date: date, doctorId: arguments['doctor'].id, doctorName: arguments['doctor'].fullName, patientId: auth.currentUser!.uid, reason: '', status: status, time: time, id: key);
-                        AppointmentFunctions.addAppointment(appointment.toJson(), key);
+                        Appointment appointment = Appointment(
+                            date: date,
+                            doctorId: arguments['doctor'].id,
+                            doctorName: arguments['doctor'].fullName,
+                            patientId: auth.currentUser!.uid,
+                            reason: '',
+                            status: status,
+                            time: time,
+                            id: key);
+                        AppointmentFunctions.addAppointment(
+                            appointment.toJson(), key);
                         Logger().v(
                             '========== \n CurrentUser: ${auth.currentUser!.uid}\n DoctorId: ${arguments['doctor'].id}\n Time: $time\n Date: $date\n Status: $status\n=========');
                         showMyDialog(
