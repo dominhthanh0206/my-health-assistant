@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+import 'package:my_health_assistant/src/models/appointment/appointment.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 
 import 'custom_time_container.dart';
@@ -10,11 +12,13 @@ class MyCustomGridViewHours extends StatefulWidget {
       {Key? key,
       required this.times,
       required this.getTime,
-      required this.date})
+      required this.date,
+      required this.appointmentOfDoctor})
       : super(key: key);
   final List<String> times;
   final Function(String value) getTime;
   final String date;
+  final List<Appointment> appointmentOfDoctor;
 
   @override
   State<MyCustomGridViewHours> createState() => _MyCustomGridViewHoursState();
@@ -30,11 +34,13 @@ class _MyCustomGridViewHoursState extends State<MyCustomGridViewHours> {
     super.initState();
     // temp = widget.times;
     // handlePastDate();
+    Logger().d('All appointment custom grid: ${widget.appointmentOfDoctor}');
+    Logger().d('All appointment custom grid: ${widget.appointmentOfDoctor.length}');
   }
 
   List<String> handlePastDate(){
     // temp = widget.times;
-    List<String> temp = [];
+    List<String> result = [];
     DateTime dt = DateTime.now();
     String day = dt.day < 10 ? '0${dt.day}' : dt.day.toString();
     String month = dt.month < 10 ? '0${dt.month}' : dt.month.toString();
@@ -46,21 +52,41 @@ class _MyCustomGridViewHoursState extends State<MyCustomGridViewHours> {
 
     for (int i = 0; i < widget.times.length; i++) {
       String selection = '${widget.date} ${widget.times[i]}';
-      print('Compare: ------ ${selection.compareTo(now)}');
+      // print('Compare: ------ ${selection.compareTo(now)}');
       if (selection.compareTo(now) > 0) {
-        print('$i - ${widget.times[i]}');
+        // print('$i - ${widget.times[i]}');
         // widget.times.removeAt(i);
-        temp.add(widget.times[i]);
+        result.add(widget.times[i]);
       }
     }
-    print(temp);
-    return temp;
+    // print(temp);
+    return result;
+  }
+
+  List<String> getupComingDateTime(){
+    List<String> result = [];
+    widget.appointmentOfDoctor.forEach((element) {
+      result.add('${element.time}');
+    });
+    return result;
+  }
+
+  List<String> handleConflictingDate(){
+    List<String> removePastDate = handlePastDate();
+    log('PAST DATE: $removePastDate');
+    List<String> upcomingDateTime = getupComingDateTime();
+    log('UPCOMING DATE: $upcomingDateTime');
+    removePastDate.removeWhere((element) => upcomingDateTime.contains(element));
+    log('final list: $removePastDate');
+    return removePastDate;
   }
 
   @override
   Widget build(BuildContext context) {
-    List<String> result = handlePastDate();
-    log(handlePastDate().toString());
+    Logger().v('Check appointments: ${widget.appointmentOfDoctor}');
+    Logger().v('Check appointments length: ${widget.appointmentOfDoctor.length}');
+    List<String> result = handleConflictingDate();
+    log(handleConflictingDate().toString());
     return GridView.builder(
         shrinkWrap: true,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -70,6 +96,7 @@ class _MyCustomGridViewHoursState extends State<MyCustomGridViewHours> {
           return GestureDetector(
             onTap: () {
               log('${widget.date} - ${widget.times[index]}');
+              log('${widget.appointmentOfDoctor}');
               setState(() {
                 selectedIndex = index;
               });

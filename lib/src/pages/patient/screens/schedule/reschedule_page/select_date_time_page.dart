@@ -25,32 +25,32 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
   String date = DateFormat('dd-MM-yyyy').format(DateTime.now());
   String status = 'Upcoming';
 
-  final ValueNotifier<String> _dateNotifier = ValueNotifier<String>(DateFormat('dd-MM-yyyy').format(DateTime.now()));
+  final ValueNotifier<String> _dateNotifier =
+      ValueNotifier<String>(DateFormat('dd-MM-yyyy').format(DateTime.now()));
 
   List<String> times = [
     '04:00',
     '05:00',
     '06:00',
-      '09:00',
-      '09:30',
-      '10:00',
-      '10:30',
-      '11:00',
-      '11:30',
-      '12:00',
-      '13:30',
-      '14:00',
-      '14:30',
-      '15:00',
-      '15:30',
-      '16:00',
-      '16:30',
-      '17:00',
-    ];
+    '09:00',
+    '09:30',
+    '10:00',
+    '10:30',
+    '11:00',
+    '11:30',
+    '12:00',
+    '13:30',
+    '14:00',
+    '14:30',
+    '15:00',
+    '15:30',
+    '16:00',
+    '16:30',
+    '17:00',
+  ];
 
   @override
   Widget build(BuildContext context) {
-    
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
     Color mainColor = const Color.fromARGB(255, 0, 106, 192);
@@ -60,101 +60,117 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
+            // child: StreamBuilder<List<Appointment>>(
+            //     stream: AppointmentFunctions.getAllAppointment(),
+            //     builder: ((context, snapshot) {
+            //       if (snapshot.hasError) {
+            //         return const Text('Something went wrong');
+            //       }
+            //       if (snapshot.connectionState == ConnectionState.waiting) {
+            //         return const Center(
+            //           child: CircularProgressIndicator(),
+            //         );
+            //       }
+            //       if (snapshot.hasData) {
+            //         List<Appointment> allAppointments = snapshot.data!;
+            //         return 
+            //       }
+            //       return Container();
+            //     })),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Select Date',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Select Date',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 17),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Card(
+                              child: SfDateRangePicker(
+                                todayHighlightColor: mainColor,
+                                selectionColor: mainColor,
+                                navigationMode:
+                                    DateRangePickerNavigationMode.none,
+                                backgroundColor: Colors.blue[50],
+                                enablePastDates: false,
+                                view: DateRangePickerView.month,
+                                showNavigationArrow: true,
+                                onSelectionChanged:
+                                    (dateRangePickerSelectionChangedArgs) {
+                                  setState(() {
+                                    date = DateFormat('dd-MM-yyyy').format(
+                                        dateRangePickerSelectionChangedArgs
+                                            .value);
+                                  });
+                                },
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            const Text(
+                              'Select Hour',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 17),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            MyCustomGridViewHours(
+                              times: times,
+                              getTime: (value) => _getTime(value),
+                              date: date,
+                              appointmentOfDoctor: AppointmentFunctions
+                                  .getAppointmentsOfSpecificDoctorByDate(
+                                    arguments['appointments'], date
+                                  )
+                            )
+                          ],
+                        ),
+                        Center(
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 20),
+                            width: MediaQuery.of(context).size.width,
+                            height: 40,
+                            child: MyElevatedButton(
+                              buttonColor: mainColor,
+                              customFunction: () {
+                                final key = UniqueKey().toString();
+                                Appointment appointment = Appointment(
+                                    date: date,
+                                    doctorId: arguments['doctor'].id,
+                                    doctorName: arguments['doctor'].fullName,
+                                    patientId: auth.currentUser!.uid,
+                                    reason: '',
+                                    status: status,
+                                    time: time,
+                                    id: key);
+                                AppointmentFunctions.addAppointment(
+                                    appointment.toJson(), key);
+                                Logger().v(
+                                    '========== \n CurrentUser: ${auth.currentUser!.uid}\n DoctorId: ${arguments['doctor'].id}\n Time: $time\n Date: $date\n Status: $status\n=========');
+                                showMyDialog(
+                                    context,
+                                    mainColor,
+                                    size,
+                                    'Reschedule Success',
+                                    'Appointment successfully changed. You will receive a notification and the doctor you selected will contact you.');
+                              },
+                              fontSize: 16,
+                              text: 'Submit',
+                              textColor: Colors.white,
+                            ),
+                          ),
+                        )
+                      ],
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Card(
-                      child: SfDateRangePicker(
-                        todayHighlightColor: mainColor,
-                        selectionColor: mainColor,
-                        navigationMode: DateRangePickerNavigationMode.none,
-                        backgroundColor: Colors.blue[50],
-                        enablePastDates: false,
-                        view: DateRangePickerView.month,
-                        showNavigationArrow: true,
-                        onSelectionChanged:
-                            (dateRangePickerSelectionChangedArgs) {
-                          setState(() {
-                            date = DateFormat('dd-MM-yyyy').format(
-                              dateRangePickerSelectionChangedArgs.value);
-                          });
-
-                          log(date);
-                        },
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      'Select Hour',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    ValueListenableBuilder<String>(
-                      builder: (context, value, child) {
-                        return MyCustomGridViewHours(
-                        times: times,
-                        getTime: (value) => _getTime(value),
-                        date: date,
-                      );
-                      },
-                      valueListenable: _dateNotifier,
-                    )
-                  ],
-                ),
-                Center(
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 20),
-                    width: MediaQuery.of(context).size.width,
-                    height: 40,
-                    child: MyElevatedButton(
-                      buttonColor: mainColor,
-                      customFunction: () {
-                        final key = UniqueKey().toString();
-                        Appointment appointment = Appointment(
-                            date: date,
-                            doctorId: arguments['doctor'].id,
-                            doctorName: arguments['doctor'].fullName,
-                            patientId: auth.currentUser!.uid,
-                            reason: '',
-                            status: status,
-                            time: time,
-                            id: key);
-                        AppointmentFunctions.addAppointment(
-                            appointment.toJson(), key);
-                        Logger().v(
-                            '========== \n CurrentUser: ${auth.currentUser!.uid}\n DoctorId: ${arguments['doctor'].id}\n Time: $time\n Date: $date\n Status: $status\n=========');
-                        showMyDialog(
-                            context,
-                            mainColor,
-                            size,
-                            'Reschedule Success',
-                            'Appointment successfully changed. You will receive a notification and the doctor you selected will contact you.');
-                      },
-                      fontSize: 16,
-                      text: 'Submit',
-                      textColor: Colors.white,
-                    ),
-                  ),
-                )
-              ],
-            ),
           ),
         ));
   }

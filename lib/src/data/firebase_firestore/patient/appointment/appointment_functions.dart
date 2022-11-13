@@ -40,14 +40,6 @@ class AppointmentFunctions {
   }
 
   static Stream<List<Appointment>> getAllAppointment() {
-    Logger().e(FirebaseFirestore.instance
-        .collection('appointments')
-        .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => Appointment.fromJson(doc.data()))
-            .toList())
-        .length
-        .toString());
     return FirebaseFirestore.instance
         .collection('appointments')
         .snapshots()
@@ -56,19 +48,50 @@ class AppointmentFunctions {
             .toList());
   }
 
-  static List<Appointment> getAppointmentsOfSpecificDoctor(List<Appointment> appAppointments, String doctorId, List<Appointment> allAppointments){
+  static List<Appointment> getAllUpComingAppointment(List<Appointment> allAppointments, String doctorId){
+    List<Appointment> result = [];
+    allAppointments.forEach((element) {
+      if(element.status == 'Upcoming' && element.doctorId == doctorId){
+        result.add(element);
+      }
+    });
+    return result;
+  }
+  
+  static List<Appointment> getAppointmentsOfSpecificDoctorByDate(List<Appointment> appointment, String date){
+    List<Appointment> result = [];
+    appointment.forEach((element) {
+      if(element.date == date){
+        result.add(element);
+      }
+    });
+    return result;
+  }
+
+  static List<Appointment> getAppointmentsOfSpecificDoctor(List<Appointment> allAppointments, String doctorId, String date){
     List<Appointment> result =  [];
     for (var element in allAppointments) {
-      if(element.doctorId == doctorId){
+      if(element.doctorId == doctorId && element.date == date){
         result.add(element);
       }
     }
     return result;
   }
 
-  static List<Appointment> getDotorAppointmentByDate(String date, String id, List<Appointment> allAppointments){
+  static List<Appointment> getDoctorAppointment(String doctorId, List<Appointment> appointments){
     List<Appointment> result = [];
-    allAppointments.forEach((element) {
+    appointments.forEach((element) {
+      if(element.doctorId == doctorId){
+        result.add(element);
+      }
+    });
+    return result;
+  }
+
+  static List<Appointment> getDotorAppointmentByDate(String date, String doctorId, List<Appointment> allAppointments){
+    List<Appointment> result = [];
+    List<Appointment> doctorAppointment = getDoctorAppointment(doctorId, allAppointments);
+    doctorAppointment.forEach((element) {
       if(element.date == date){
         result.add(element);
       }
