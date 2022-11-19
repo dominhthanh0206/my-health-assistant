@@ -122,14 +122,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         icon: SvgPicture.asset(
                             'assets/images/home_page/bell-alert.svg')),
                     IconButton(
-                        onPressed: () async {
-                          // var collection = FirebaseFirestore.instance
-                          //     .collection('appointments');
-                          // var snapshots = await collection.get();
-                          // for (var doc in snapshots.docs) {
-                          //   await doc.reference.delete();
-                          // }
-                        },
+                        onPressed: () async {},
                         icon: SvgPicture.asset(
                             'assets/images/home_page/heart.svg'))
                   ],
@@ -161,39 +154,42 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         if (snapshot.hasData) {
                           List<Doctor> doctors = snapshot.data!;
                           return TextField(
-                            autofocus: false,
-                            maxLines: 1,
-                            style: const TextStyle(
-                                fontSize: 14,
-                                color: Color.fromRGBO(138, 160, 188, 1)),
-                            textAlignVertical: TextAlignVertical.center,
-                            decoration: InputDecoration(
-                              filled: true,
-                              prefixIcon: const Icon(Icons.search,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                  fontSize: 14,
                                   color: Color.fromRGBO(138, 160, 188, 1)),
-                              border: const OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(18))),
-                              fillColor: const Color.fromRGBO(238, 246, 252, 1),
-                              hintText: 'Search',
-                              hintStyle: const TextStyle(
-                                  fontSize: 14.0,
-                                  color: Color.fromRGBO(138, 160, 188, 1)),
-                              suffixIcon: IconButton(
-                                  icon: SvgPicture.asset(
-                                    'assets/images/home_page/filter.svg',
-                                    color: MyColors.mainColor,
-                                  ),
-                                  onPressed: () {}),
-                            ),
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SearchDoctorScreen(
-                                          doctors: doctors,
-                                        ))),
-                          );
+                              textAlignVertical: TextAlignVertical.center,
+                              decoration: InputDecoration(
+                                filled: true,
+                                prefixIcon: const Icon(Icons.search,
+                                    color: Color.fromRGBO(138, 160, 188, 1)),
+                                border: const OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(18))),
+                                fillColor:
+                                    const Color.fromRGBO(238, 246, 252, 1),
+                                hintText: 'Search',
+                                hintStyle: const TextStyle(
+                                    fontSize: 14.0,
+                                    color: Color.fromRGBO(138, 160, 188, 1)),
+                                suffixIcon: IconButton(
+                                    icon: SvgPicture.asset(
+                                      'assets/images/home_page/filter.svg',
+                                      color: MyColors.mainColor,
+                                    ),
+                                    onPressed: () {}),
+                              ),
+                              onTap: () {
+                                FocusManager.instance.primaryFocus?.unfocus();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SearchDoctorScreen(
+                                              doctors: doctors,
+                                            )));
+                              });
                         }
                         return Container();
                       },

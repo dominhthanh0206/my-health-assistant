@@ -35,10 +35,11 @@ class _MyCustomGridViewHoursState extends State<MyCustomGridViewHours> {
     // temp = widget.times;
     // handlePastDate();
     Logger().d('All appointment custom grid: ${widget.appointmentOfDoctor}');
-    Logger().d('All appointment custom grid: ${widget.appointmentOfDoctor.length}');
+    Logger()
+        .d('All appointment custom grid: ${widget.appointmentOfDoctor.length}');
   }
 
-  List<String> handlePastDate(){
+  List<String> handlePastDate() {
     // temp = widget.times;
     List<String> result = [];
     DateTime dt = DateTime.now();
@@ -48,11 +49,13 @@ class _MyCustomGridViewHoursState extends State<MyCustomGridViewHours> {
     String hour = dt.hour < 10 ? '0${dt.hour}' : dt.hour.toString();
     String minute = dt.minute < 10 ? '0${dt.minute}' : dt.minute.toString();
 
-    String now = '$day-$month-$year $hour:$minute';
+    String now = '$year-$month-$day $hour:$minute';
+    log('now: $now');
 
     for (int i = 0; i < widget.times.length; i++) {
       String selection = '${widget.date} ${widget.times[i]}';
-      // print('Compare: ------ ${selection.compareTo(now)}');
+      log('selection: $selection');
+      print('Compare: ------ ${selection.compareTo(now)}');
       if (selection.compareTo(now) > 0) {
         // print('$i - ${widget.times[i]}');
         // widget.times.removeAt(i);
@@ -63,15 +66,15 @@ class _MyCustomGridViewHoursState extends State<MyCustomGridViewHours> {
     return result;
   }
 
-  List<String> getupComingDateTime(){
+  List<String> getupComingDateTime() {
     List<String> result = [];
-    widget.appointmentOfDoctor.forEach((element) {
+    for (var element in widget.appointmentOfDoctor) {
       result.add('${element.time}');
-    });
+    }
     return result;
   }
 
-  List<String> handleConflictingDate(){
+  List<String> handleConflictingDate() {
     List<String> removePastDate = handlePastDate();
     log('PAST DATE: $removePastDate');
     List<String> upcomingDateTime = getupComingDateTime();
@@ -84,9 +87,10 @@ class _MyCustomGridViewHoursState extends State<MyCustomGridViewHours> {
   @override
   Widget build(BuildContext context) {
     Logger().v('Check appointments: ${widget.appointmentOfDoctor}');
-    Logger().v('Check appointments length: ${widget.appointmentOfDoctor.length}');
-    List<String> result = handleConflictingDate();
-    log(handleConflictingDate().toString());
+    Logger()
+        .v('Check appointments length: ${widget.appointmentOfDoctor.length}');
+    List<String> result = handlePastDate();
+    log(handlePastDate().toString());
     return GridView.builder(
         shrinkWrap: true,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

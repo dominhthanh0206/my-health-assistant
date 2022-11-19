@@ -47,6 +47,7 @@ dependencies:
   freezed_annotation: ^2.2.0
   json_annotation: ^4.7.0
   logger: ^1.1.0
+  fluttertoast: ^8.1.1
 
 
 dev_dependencies:
@@ -78,6 +79,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/images/bottom_navigation_bar/
+    - assets/images/common/
     - assets/images/schedule_page/
     - assets/images/profile/
     - assets/images/home_page/
