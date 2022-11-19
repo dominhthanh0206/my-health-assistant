@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
@@ -111,8 +110,17 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
                       buttonColor: mainColor,
                       customFunction: () {
                         final key = UniqueKey().toString();
-                        Appointment appointment = Appointment(date: date, doctorId: arguments['doctor'].id, doctorName: arguments['doctor'].fullName, patientId: auth.currentUser!.uid, reason: '', status: status, time: time, id: key);
-                        AppointmentFunctions.addAppointment(appointment.toJson(), key);
+                        Appointment appointment = Appointment(
+                            date: date,
+                            doctorId: arguments['doctor'].id,
+                            doctorName: arguments['doctor'].fullName,
+                            patientId: auth.currentUser!.uid,
+                            reason: '',
+                            status: status,
+                            time: time,
+                            id: key);
+                        AppointmentFunctions.addAppointment(
+                            appointment.toJson(), key);
                         Logger().v(
                             '========== \n CurrentUser: ${auth.currentUser!.uid}\n DoctorId: ${arguments['doctor'].id}\n Time: $time\n Date: $date\n Status: $status\n=========');
                         showMyDialog(
@@ -120,7 +128,8 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
                             mainColor,
                             size,
                             'Reschedule Success',
-                            'Appointment successfully changed. You will receive a notification and the doctor you selected will contact you.');
+                            'Appointment successfully changed. You will receive a notification and the doctor you selected will contact you.',
+                            'assets/images/schedule_page/schedule.png',206);
                       },
                       fontSize: 16,
                       text: 'Submit',

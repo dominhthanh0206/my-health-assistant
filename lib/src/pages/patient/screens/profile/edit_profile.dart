@@ -115,12 +115,18 @@ class _EditProfileState extends State<EditProfile> {
                       };
                       var collection =
                           FirebaseFirestore.instance.collection('patients');
-                          // var collectionAppointment =
-                          // FirebaseFirestore.instance.collection('appointments');
-                          // collectionAppointment.
-                          // final key = UniqueKey().toString();
+                      // var collectionAppointment =
+                      // FirebaseFirestore.instance.collection('appointments');
+                      // collectionAppointment.
+                      // final key = UniqueKey().toString();
                       collection.doc(auth.currentUser!.uid).update(data);
-                      showMyDialog(context, MyColors.mainColor, MediaQuery.of(context).size, 'Success', 'You account has been saved.');
+                      showMyDialog(
+                          context,
+                          MyColors.mainColor,
+                          MediaQuery.of(context).size,
+                          'Success',
+                          'You account has been saved.',
+                          'assets/images/sign_in/conratulation.png',188);
                     },
                     text: 'Update',
                     buttonColor: MyColors.mainColor,

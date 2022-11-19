@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../routes.dart';
 import 'buttons/my_elevated_button.dart';
 
-void showMyDialog(BuildContext context, Color mainColor, Size size, String title, String content) {
+void showMyDialog(BuildContext context, Color mainColor, Size size,
+    String title, String content, String image, double height) {
   showDialog<String>(
     context: context,
     builder: (BuildContext context) => Padding(
@@ -11,14 +12,24 @@ void showMyDialog(BuildContext context, Color mainColor, Size size, String title
       child: AlertDialog(
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(32.0))),
-        title: Text(
-          title,
-          // 'Cancel Appointment Success',
-          textAlign: TextAlign.center,
-          style: TextStyle(color: mainColor, fontSize: 20, fontWeight: FontWeight.bold),
+        title: SizedBox(
+          height: height,
+          child: Column(
+            children: [
+              Image.asset(image),
+              Text(
+                title,
+                // 'Cancel Appointment Success',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: mainColor,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
         ),
-        content: Text(
-          content,
+        content: Text(content,
             // 'We are very sad that you have canceled your appointment. We will always improve our service to satisfy you in the next appointment',
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 15)),
