@@ -27,8 +27,6 @@ class MyCustomGridViewHours extends StatefulWidget {
 class _MyCustomGridViewHoursState extends State<MyCustomGridViewHours> {
   int selectedIndex = 0;
 
-  // List<String> temp = [];
-
   @override
   void initState() {
     super.initState();

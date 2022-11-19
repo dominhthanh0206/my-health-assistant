@@ -88,12 +88,13 @@ class _CancelPageState extends State<CancelPage> {
                       customFunction: () {
                         AppointmentFunctions.cancelAppointment(
                             arguments['appointment'].id, reason);
-                        showMyDialog(
+                         showMyDialog(
                             context,
                             MyColors.mainColor,
                             size,
-                            'Cancel Appointment Success',
-                            'We are very sad that you have canceled your appointment. We will always improve our service to satisfy you in the next appointment');
+                            'Cancel Appointment',
+                            'We are very sad that you have canceled your appointment. We will always improve our service to satisfy you in the next appointment',
+                            'assets/images/schedule_page/cancel.png', 196);
                         log('cancel: ----------- $reason ------------');
                       },
                       fontSize: 16,

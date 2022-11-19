@@ -21,9 +21,10 @@ class UpcomingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     upcoming.sort((a, b) {
       DateTime aDate =
-          DateFormat('yyyy-MM-dd HH:mm').parse('${a.date} ${a.time}');
+          DateFormat('dd-MM-yyyy HH:mm').parse('${a.date} ${a.time}');
+      log(aDate.toString());
       DateTime bDate =
-          DateFormat('yyyy-MM-dd HH:mm').parse('${b.date} ${b.time}');
+          DateFormat('dd-MM-yyyy HH:mm').parse('${b.date} ${b.time}');
       return aDate.compareTo(bDate);
     });
 
@@ -70,7 +71,8 @@ class UpcomingPage extends StatelessWidget {
                                 buttonColor: MyColors.mainColor,
                                 customFunction: () {
                                   // Logger().i(upcoming[index].toString());
-                                  _modalBottomSheetMenu(context, upcoming[index]);
+                                  _modalBottomSheetMenu(
+                                      context, upcoming[index]);
                                 },
                                 fontSize: 13,
                                 text: 'Cancel Appointment',
@@ -149,7 +151,8 @@ void _modalBottomSheetMenu(BuildContext context, Appointment appointment) {
         }),
         function2: (() {
           Logger().e(appointment);
-          Navigator.pushNamed(context, PatientRoutes.cancel, arguments: {'appointment': appointment});
+          Navigator.pushNamed(context, PatientRoutes.cancel,
+              arguments: {'appointment': appointment});
         }),
       );
     },

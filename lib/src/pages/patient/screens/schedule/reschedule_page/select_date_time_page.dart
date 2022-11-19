@@ -24,9 +24,6 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
   String date = DateFormat('yyyy-MM-dd').format(DateTime.now());
   String status = 'Upcoming';
 
-  final ValueNotifier<String> _dateNotifier =
-      ValueNotifier<String>(DateFormat('dd-MM-yyyy').format(DateTime.now()));
-
   List<String> times = [
     '04:00',
     '05:00',
@@ -161,7 +158,8 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
                             mainColor,
                             size,
                             'Reschedule Success',
-                            'Appointment successfully changed. You will receive a notification and the doctor you selected will contact you.');
+                            'Appointment successfully changed. You will receive a notification and the doctor you selected will contact you.',
+                            'assets/images/schedule_page/schedule.png',206);
                       },
                       fontSize: 16,
                       text: 'Submit',

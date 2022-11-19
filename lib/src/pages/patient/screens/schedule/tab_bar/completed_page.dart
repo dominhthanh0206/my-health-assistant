@@ -20,9 +20,9 @@ class CompletedPage extends StatelessWidget {
 
     completed.sort((a, b) {
       DateTime aDate =
-          DateFormat('dd-MM-yyyy HH:mm').parse('${a.date} ${a.time}');
+          DateFormat('yyyy-MM-dd HH:mm').parse('${a.date} ${a.time}');
       DateTime bDate =
-          DateFormat('dd-MM-yyyy HH:mm').parse('${b.date} ${b.time}');
+          DateFormat('yyyy-MM-dd HH:mm').parse('${b.date} ${b.time}');
       return aDate.compareTo(bDate);
     });
 
