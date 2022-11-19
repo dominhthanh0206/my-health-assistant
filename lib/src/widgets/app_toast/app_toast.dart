@@ -43,40 +43,45 @@ class AppToasts {
     );
   }
 
-  // static void showErrorToast({
-  //   required String title,
-  //   required BuildContext context,
-  // }) {
-  //   FToast().init(context);
-  //   FToast().showToast(
-  //     positionedToastBuilder: (context, child) {
-  //       return Positioned(top: 44.0, left: 24.0, right: 24.0, child: child);
-  //     },
-  //     child: Container(
-  //       width: double.infinity,
-  //       decoration: BoxDecoration(
-  //           color: ThemePalatte.darkThemePalatte.corePalatte.redStatusBg,
-  //           borderRadius: BorderRadius.circular(10),
-  //           border: Border.all(
-  //             color:
-  //                 ThemePalatte.darkThemePalatte.corePalatte.redNotificationBg,
-  //           )),
-  //       child: Padding(
-  //         padding: const EdgeInsets.all(18),
-  //         child: Row(
-  //           children: [
-  //             Expanded(
-  //               child: Text(
-  //                 title,
-  //                 style: AppTextStyles.textBlackColorS16W400,
-  //                 textAlign: TextAlign.center,
-  //               ),
-  //             ),
-  //             Image.asset(AppAssets.icCross),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
+  static void showErrorToast({
+    required String title,
+    required BuildContext context,
+  }) {
+    FToast().init(context);
+    FToast().showToast(
+      positionedToastBuilder: (context, child) {
+        return Positioned(top: 44.0, left: 24.0, right: 24.0, child: child);
+      },
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: Color.fromARGB(255, 247, 170, 164),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: const Color.fromARGB(255, 240, 119, 110),
+            )),
+        child: Padding(
+          padding: const EdgeInsets.all(18),
+          child: Row(
+            children: [
+              Icon(
+                Icons.close,
+                color: const Color.fromARGB(255, 102, 7, 0),
+              ),
+              Expanded(
+                child: Text(
+                  title,
+                  style: MyFontStyles.mainColorH1.copyWith(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: const Color.fromARGB(255, 102, 7, 0)),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }

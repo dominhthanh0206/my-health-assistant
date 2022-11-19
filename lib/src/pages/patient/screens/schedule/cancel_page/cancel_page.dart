@@ -1,11 +1,9 @@
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:my_health_assistant/src/data/firebase_firestore/patient/appointment/appointment_functions.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/schedule/reschedule_page/my_radio_list_tile.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
-import 'package:my_health_assistant/src/widgets/app_toast/app_toast.dart';
 import 'package:my_health_assistant/src/widgets/buttons/my_elevated_button.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 import 'package:my_health_assistant/src/widgets/my_dialog.dart';
@@ -88,13 +86,14 @@ class _CancelPageState extends State<CancelPage> {
                       customFunction: () {
                         AppointmentFunctions.cancelAppointment(
                             arguments['appointment'].id, reason);
-                         showMyDialog(
+                        showMyDialog(
                             context,
                             MyColors.mainColor,
                             size,
                             'Cancel Appointment',
                             'We are very sad that you have canceled your appointment. We will always improve our service to satisfy you in the next appointment',
-                            'assets/images/schedule_page/cancel.png', 196);
+                            'assets/images/schedule_page/cancel.png',
+                            215);
                         log('cancel: ----------- $reason ------------');
                       },
                       fontSize: 16,

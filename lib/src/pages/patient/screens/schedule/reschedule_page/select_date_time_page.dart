@@ -25,6 +25,8 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
   String status = 'Upcoming';
 
   List<String> times = [
+    '01:00',
+    '01:30',
     '04:00',
     '05:00',
     '06:00',
@@ -104,6 +106,7 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
                           setState(() {
                             date = DateFormat('yyyy-MM-dd').format(
                                 dateRangePickerSelectionChangedArgs.value);
+                            log('date: date: date: $date');
                           });
                         },
                       ),
@@ -125,7 +128,7 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
                         date: date,
                         appointmentOfDoctor: AppointmentFunctions
                             .getAppointmentsOfSpecificDoctorByDate(
-                                arguments['appointments'], date))
+                                arguments['appointments'], DateFormat('dd-MM-yyyy').format(DateTime.parse(date))))
                   ],
                 ),
                 Center(
@@ -159,7 +162,8 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
                             size,
                             'Reschedule Success',
                             'Appointment successfully changed. You will receive a notification and the doctor you selected will contact you.',
-                            'assets/images/schedule_page/schedule.png',206);
+                            'assets/images/schedule_page/schedule.png',
+                            206);
                       },
                       fontSize: 16,
                       text: 'Submit',

@@ -31,7 +31,7 @@ class _MyCustomGridViewHoursState extends State<MyCustomGridViewHours> {
   void initState() {
     super.initState();
     // temp = widget.times;
-    // handlePastDate();
+    handlePastDate();
     Logger().d('All appointment custom grid: ${widget.appointmentOfDoctor}');
     Logger()
         .d('All appointment custom grid: ${widget.appointmentOfDoctor.length}');
@@ -48,11 +48,11 @@ class _MyCustomGridViewHoursState extends State<MyCustomGridViewHours> {
     String minute = dt.minute < 10 ? '0${dt.minute}' : dt.minute.toString();
 
     String now = '$year-$month-$day $hour:$minute';
-    log('now: $now');
+    // log('now: $now');
 
     for (int i = 0; i < widget.times.length; i++) {
       String selection = '${widget.date} ${widget.times[i]}';
-      log('selection: $selection');
+      // log('selection: $selection');
       print('Compare: ------ ${selection.compareTo(now)}');
       if (selection.compareTo(now) > 0) {
         // print('$i - ${widget.times[i]}');
@@ -65,20 +65,22 @@ class _MyCustomGridViewHoursState extends State<MyCustomGridViewHours> {
   }
 
   List<String> getupComingDateTime() {
+    log('widget.appointmentOfDoctor: ${widget.appointmentOfDoctor}');
     List<String> result = [];
     for (var element in widget.appointmentOfDoctor) {
       result.add('${element.time}');
     }
+    print('result: $result');
     return result;
   }
 
   List<String> handleConflictingDate() {
     List<String> removePastDate = handlePastDate();
-    log('PAST DATE: $removePastDate');
+    // log('PAST DATE: $removePastDate');
     List<String> upcomingDateTime = getupComingDateTime();
-    log('UPCOMING DATE: $upcomingDateTime');
+    // log('UPCOMING DATE: $upcomingDateTime');
     removePastDate.removeWhere((element) => upcomingDateTime.contains(element));
-    log('final list: $removePastDate');
+    // log('final list: $removePastDate');
     return removePastDate;
   }
 
@@ -88,7 +90,7 @@ class _MyCustomGridViewHoursState extends State<MyCustomGridViewHours> {
     Logger()
         .v('Check appointments length: ${widget.appointmentOfDoctor.length}');
     List<String> result = handleConflictingDate();
-    log(handleConflictingDate().toString());
+    // log(handleConflictingDate().toString());
     return GridView.builder(
         shrinkWrap: true,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -97,8 +99,8 @@ class _MyCustomGridViewHoursState extends State<MyCustomGridViewHours> {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
-              log('${widget.date} - ${widget.times[index]}');
-              log('${widget.appointmentOfDoctor}');
+              // log('${widget.date} - ${widget.times[index]}');
+              // log('${widget.appointmentOfDoctor}');
               setState(() {
                 selectedIndex = index;
               });
