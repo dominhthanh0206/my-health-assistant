@@ -89,8 +89,8 @@ class _MyCustomGridViewHoursState extends State<MyCustomGridViewHours> {
     Logger().v('Check appointments: ${widget.appointmentOfDoctor}');
     Logger()
         .v('Check appointments length: ${widget.appointmentOfDoctor.length}');
-    List<String> result = handlePastDate();
-    log(handlePastDate().toString());
+    List<String> result = handleConflictingDate();
+    log(handleConflictingDate().toString());
     return GridView.builder(
         shrinkWrap: true,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
