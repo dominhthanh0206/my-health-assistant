@@ -11,15 +11,6 @@ class AppointmentFunctions {
     db.collection('appointments').doc(id).set(json);
   }
 
-  // static Stream<List<Appointment>> getAllAppointment() {
-  //   Logger().e(FirebaseFirestore.instance.collection('appointments').snapshots().map(
-  //     (snapshot) =>
-  //         snapshot.docs.map((doc) => Appointment.fromJson(doc.data())).toList()).length.toString());
-  //   return FirebaseFirestore.instance.collection('appointments').snapshots().map(
-  //     (snapshot) =>
-  //         snapshot.docs.map((doc) => Appointment.fromJson(doc.data())).toList());
-  // }
-
   static List<Appointment> getAppointmentByCon(
       List<Appointment> appointments, String condition) {
     List<Appointment> appointmentList = [];
@@ -48,54 +39,65 @@ class AppointmentFunctions {
             .toList());
   }
 
-  static List<Appointment> getAllUpComingAppointment(List<Appointment> allAppointments, String doctorId){
+  static List<Appointment> getAllUpComingAppointment(
+      List<Appointment> allAppointments, String doctorId) {
     List<Appointment> result = [];
-    allAppointments.forEach((element) {
-      if(element.status == 'Upcoming' && element.doctorId == doctorId){
-        result.add(element);
-      }
-    });
-    return result;
-  }
-  
-  static List<Appointment> getAppointmentsOfSpecificDoctorByDate(List<Appointment> appointment, String date){
-    List<Appointment> result = [];
-    appointment.forEach((element) {
-      if(element.date == date){
-        result.add(element);
-      }
-    });
-    return result;
-  }
-
-  static List<Appointment> getAppointmentsOfSpecificDoctor(List<Appointment> allAppointments, String doctorId, String date){
-    List<Appointment> result =  [];
     for (var element in allAppointments) {
-      if(element.doctorId == doctorId && element.date == date){
+      if (element.status == 'Upcoming' && element.doctorId == doctorId) {
         result.add(element);
       }
     }
     return result;
   }
 
-  static List<Appointment> getDoctorAppointment(String doctorId, List<Appointment> appointments){
+  static List<Appointment> getAppointmentsOfSpecificDoctorByDate(
+      List<Appointment> appointment, String date) {
     List<Appointment> result = [];
-    appointments.forEach((element) {
-      if(element.doctorId == doctorId){
+    for (var element in appointment) {
+      if (element.date == date) {
+        result.add(element);
+      }
+    }
+    return result;
+  }
+
+  static List<Appointment> getAppointmentsOfSpecificDoctor(
+      List<Appointment> allAppointments, String doctorId, String date) {
+    List<Appointment> result = [];
+    for (var element in allAppointments) {
+      if (element.doctorId == doctorId && element.date == date) {
+        result.add(element);
+      }
+    }
+    return result;
+  }
+
+  static List<Appointment> getDoctorAppointment(
+      String doctorId, List<Appointment> appointments) {
+    List<Appointment> result = [];
+    for (var element in appointments) {
+      if (element.doctorId == doctorId) {
+        result.add(element);
+      }
+    }
+    return result;
+  }
+
+  static List<Appointment> getDotorAppointmentByDate(
+      String date, String doctorId, List<Appointment> allAppointments) {
+    List<Appointment> result = [];
+    List<Appointment> doctorAppointment =
+        getDoctorAppointment(doctorId, allAppointments);
+    doctorAppointment.forEach((element) {
+      if (element.date == date) {
         result.add(element);
       }
     });
     return result;
   }
 
-  static List<Appointment> getDotorAppointmentByDate(String date, String doctorId, List<Appointment> allAppointments){
-    List<Appointment> result = [];
-    List<Appointment> doctorAppointment = getDoctorAppointment(doctorId, allAppointments);
-    doctorAppointment.forEach((element) {
-      if(element.date == date){
-        result.add(element);
-      }
-    });
-    return result;
+  static void updateAppointment(String id, String date, String time) {
+    var appointment = FirebaseFirestore.instance.collection('appointments');
+    appointment.doc(id).update({'date': date, 'time': time});
   }
 }

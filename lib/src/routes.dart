@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/fill_profile/fill_profile.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/schedule/cancel_page/cancel_page.dart';
-import 'package:my_health_assistant/src/pages/patient/screens/schedule/reschedule_page/reschedule_page.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/schedule/reschedule_page/select_date_time_page.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/sign_in/sign_in_screen.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/sign_in/sign_up_screen.dart';
@@ -29,9 +28,10 @@ class PatientRoutes {
   static const signUp = '/sign_up';
   static const fillProfile = '/fillProfile';
   static const waitScreen = '/wait_screen';
+  static const rescheduleSelectDateTime = '/reschedule_select_date_time';
 }
 
-var customRoutes = <String, WidgetBuilder>{
+var customRoutes = <String, WidgetBuilder> {
   PatientRoutes.startApp: (context) => const GetStarted(),
   PatientRoutes.pageController: (context) => const MyPageController(),
   PatientRoutes.home: (context) => const HomePage(),
@@ -39,11 +39,13 @@ var customRoutes = <String, WidgetBuilder>{
   PatientRoutes.article: (context) => const ArticlePage(),
   PatientRoutes.profile: (context) => const ProfilePage(),
   PatientRoutes.selectDate: (context) => const SelectDateTimePage(),
-  PatientRoutes.reschedule: (context) => const ReschedulePage(),
+  // PatientRoutes.reschedule: (context) => const ReschedulePage(),
+  // PatientRoutes.rescheduleSelectDateTime: (context) =>
+  //     const RescheduleSelectDateTime(),
   PatientRoutes.cancel: (context) => const CancelPage(),
   // MyRoutes.seeAllArticles:(context) => const SeeAllArticlesPage(),
   PatientRoutes.signIn: (context) => const SignInScreen(),
   PatientRoutes.signUp: (context) => const SignUpScreen(),
   PatientRoutes.fillProfile: (context) => const FillProfileScreen(),
-  PatientRoutes.waitScreen:(context) => const WaitingVerifyScreen(),
+  PatientRoutes.waitScreen: (context) => const WaitingVerifyScreen(),
 };

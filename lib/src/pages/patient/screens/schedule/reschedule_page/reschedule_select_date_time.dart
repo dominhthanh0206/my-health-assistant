@@ -2,10 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:logger/logger.dart';
 import 'package:my_health_assistant/src/data/firebase_firestore/patient/appointment/appointment_functions.dart';
 import 'package:my_health_assistant/src/models/appointment/appointment.dart';
-import 'package:my_health_assistant/src/pages/global_var.dart';
 import 'package:my_health_assistant/src/widgets/buttons/my_elevated_button.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 import 'package:my_health_assistant/src/widgets/my_dialog.dart';
@@ -13,14 +11,26 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import 'my_custom_gridview_hours.dart';
 
-class SelectDateTimePage extends StatefulWidget {
-  const SelectDateTimePage({Key? key}) : super(key: key);
+class RescheduleSelectDateTime extends StatefulWidget {
+  const RescheduleSelectDateTime(
+      {Key? key, required this.currentAppointment, required this.appointments})
+      : super(key: key);
+  final Appointment currentAppointment;
+  final List<Appointment> appointments;
 
   @override
-  State<SelectDateTimePage> createState() => _SelectDateTimePageState();
+  State<RescheduleSelectDateTime> createState() =>
+      _RescheduleSelectDateTimeState();
 }
 
-class _SelectDateTimePageState extends State<SelectDateTimePage> {
+class _RescheduleSelectDateTimeState extends State<RescheduleSelectDateTime> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    log('check appointment: ${widget.appointments}');
+  }
+
   String date = DateFormat('yyyy-MM-dd').format(DateTime.now());
   String status = 'Upcoming';
 
@@ -51,13 +61,13 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
 
   @override
   Widget build(BuildContext context) {
-    log('default Time: $time');
-    final arguments = (ModalRoute.of(context)?.settings.arguments ??
-        <String, dynamic>{}) as Map;
-    Color mainColor = const Color.fromARGB(255, 0, 106, 192);
     Size size = MediaQuery.of(context).size;
+    log('default Time: $time');
+    // final arguments = (ModalRoute.of(context)?.settings.arguments ??
+    //     <String, dynamic>{}) as Map;
+    Color mainColor = const Color.fromARGB(255, 0, 106, 192);
     return Scaffold(
-        appBar: CustomAppBar(title: 'Reschedule Appointment'),
+        appBar: CustomAppBar(title: 'Make Appointment'),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -111,7 +121,7 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
                         date: date,
                         appointmentOfDoctor: AppointmentFunctions
                             .getAppointmentsOfSpecificDoctorByDate(
-                                arguments['appointments'],
+                                widget.appointments,
                                 DateFormat('dd-MM-yyyy')
                                     .format(DateTime.parse(date))))
                   ],
@@ -125,22 +135,10 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
                     child: MyElevatedButton(
                       buttonColor: mainColor,
                       customFunction: () {
-                        final key = UniqueKey().toString();
                         DateTime dt = DateTime.parse(date);
                         String fDate = DateFormat('dd-MM-yyyy').format(dt);
-                        Appointment appointment = Appointment(
-                            date: fDate,
-                            doctorId: arguments['doctor'].id,
-                            doctorName: arguments['doctor'].fullName,
-                            patientId: auth.currentUser!.uid,
-                            reason: '',
-                            status: status,
-                            time: time,
-                            id: key);
-                        AppointmentFunctions.addAppointment(
-                            appointment.toJson(), key);
-                        Logger().v(
-                            '========== \n CurrentUser: ${auth.currentUser!.uid}\n DoctorId: ${arguments['doctor'].id}\n Time: $time\n Date: $date\n Status: $status\n=========');
+                        AppointmentFunctions.updateAppointment(
+                            widget.currentAppointment.id ?? '', fDate, time);
                         showMyDialog(
                             context,
                             mainColor,
