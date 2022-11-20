@@ -25,11 +25,11 @@ class AppointmentContainer extends StatelessWidget {
         ),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
-            appointment.doctorName ?? 'abc',
+            appointment.doctorName ?? '',
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 19),
           ),
           StatusContainer(
-              status: appointment.status ?? 'abc', color: color),
+              status: appointment.status ?? '', color: color),
           RichText(
             text: TextSpan(
               text: appointment.date,

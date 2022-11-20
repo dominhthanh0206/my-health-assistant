@@ -1,7 +1,10 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_health_assistant/src/routes.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
+import 'package:my_health_assistant/src/widgets/app_toast/app_toast.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
 import '../../../../services/sign_up.dart';
@@ -167,14 +170,33 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     fillColor: const Color(0XFF0069FE),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        await SignUp.createNewAccount(
-                            email: _emailController.text,
-                            password: _passwordController.text,
-                            context: context);
-                        // ignore: use_build_context_synchronously
-                        Navigator.pushReplacementNamed(context, PatientRoutes.waitScreen);
-                      }
-                      else{
+                        bool isOk = false;
+                        try {
+                          await SignUp.createNewAccount(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                              context: context);
+                          isOk = true;
+                          // ignore: use_build_context_synchronously
+                          // Navigator.pushReplacementNamed(
+                          //     context, PatientRoutes.waitScreen);
+                        } catch (signUpError) {
+                          if (signUpError is PlatformException) {
+                            if (signUpError.code ==
+                                'ERROR_EMAIL_ALREADY_IN_USE') {
+                              AppToasts.showToast(
+                                  context: context, title: 'error');
+                            }
+                          }
+                        }
+                        FirebaseAuth.instance.currentUser != null
+                            ? Navigator.pushReplacementNamed(
+                                context, PatientRoutes.waitScreen)
+                            : AppToasts.showErrorToast(
+                                context: context,
+                                title:
+                                    'This email has been used! Please try another email.');
+                      } else {
                         showSnackBar('Error');
                       }
                     },

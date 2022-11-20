@@ -7,6 +7,7 @@ import 'package:my_health_assistant/src/pages/global_var.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/profile/widgets/edit_profile_widgets/gender.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/profile/widgets/edit_profile_widgets/input_date.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
+import 'package:my_health_assistant/src/widgets/app_toast/app_toast.dart';
 import 'package:my_health_assistant/src/widgets/buttons/my_elevated_button.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 import 'package:my_health_assistant/src/widgets/my_dialog.dart';
@@ -120,13 +121,9 @@ class _EditProfileState extends State<EditProfile> {
                       // collectionAppointment.
                       // final key = UniqueKey().toString();
                       collection.doc(auth.currentUser!.uid).update(data);
-                      showMyDialog(
-                          context,
-                          MyColors.mainColor,
-                          MediaQuery.of(context).size,
-                          'Success',
-                          'You account has been saved.',
-                          'assets/images/sign_in/conratulation.png',188);
+                      // showMyDialog(context, MyColors.mainColor, MediaQuery.of(context).size, 'Success', 'You account has been saved.');
+                      AppToasts.showToast(
+                          context: context, title: 'Update successfully');
                     },
                     text: 'Update',
                     buttonColor: MyColors.mainColor,

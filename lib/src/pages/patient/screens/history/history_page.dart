@@ -17,7 +17,7 @@ class HistoryPage extends StatelessWidget {
           leading: SvgPicture.asset('assets/images/main_icon.svg',
               color: Colors.blue),
           title: const Text(
-            "Articles",
+            "Chats",
             style: TextStyle(color: Colors.black),
           ),
           actions: [

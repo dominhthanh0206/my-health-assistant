@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
@@ -19,30 +21,37 @@ class SelectDateTimePage extends StatefulWidget {
 }
 
 class _SelectDateTimePageState extends State<SelectDateTimePage> {
-  String time = '09:00';
-  String date = DateFormat('dd-MM-yyyy').format(DateTime.now());
+  String date = DateFormat('yyyy-MM-dd').format(DateTime.now());
   String status = 'Upcoming';
+
+  List<String> times = [
+    '01:00',
+    '01:30',
+    '04:00',
+    '05:00',
+    '06:00',
+    '09:00',
+    '09:30',
+    '10:00',
+    '10:30',
+    '11:00',
+    '11:30',
+    '12:00',
+    '13:30',
+    '14:00',
+    '14:30',
+    '15:00',
+    '15:30',
+    '16:00',
+    '16:30',
+    '17:00',
+  ];
+
+  String time = '${DateTime.now().hour}:${DateTime.now().minute}';
 
   @override
   Widget build(BuildContext context) {
-    List<String> times = [
-      '09:00',
-      '09:30',
-      '10:00',
-      '10:30',
-      '11:00',
-      '11:30',
-      '12:00',
-      '13:30',
-      '14:00',
-      '14:30',
-      '15:00',
-      '15:30',
-      '16:00',
-      '16:30',
-      '17:00',
-    ];
-
+    log('default Time: $time');
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
     Color mainColor = const Color.fromARGB(255, 0, 106, 192);
@@ -52,6 +61,23 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
+            // child: StreamBuilder<List<Appointment>>(
+            //     stream: AppointmentFunctions.getAllAppointment(),
+            //     builder: ((context, snapshot) {
+            //       if (snapshot.hasError) {
+            //         return const Text('Something went wrong');
+            //       }
+            //       if (snapshot.connectionState == ConnectionState.waiting) {
+            //         return const Center(
+            //           child: CircularProgressIndicator(),
+            //         );
+            //       }
+            //       if (snapshot.hasData) {
+            //         List<Appointment> allAppointments = snapshot.data!;
+            //         return
+            //       }
+            //       return Container();
+            //     })),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -77,8 +103,11 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
                         showNavigationArrow: true,
                         onSelectionChanged:
                             (dateRangePickerSelectionChangedArgs) {
-                          date = DateFormat('dd-MM-yyyy').format(
-                              dateRangePickerSelectionChangedArgs.value);
+                          setState(() {
+                            date = DateFormat('yyyy-MM-dd').format(
+                                dateRangePickerSelectionChangedArgs.value);
+                            log('date: date: date: $date');
+                          });
                         },
                       ),
                     ),
@@ -94,10 +123,12 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
                       height: 10,
                     ),
                     MyCustomGridViewHours(
-                      times: times,
-                      getTime: (value) => _getTime(value),
-                      date: date,
-                    )
+                        times: times,
+                        getTime: (value) => _getTime(value),
+                        date: date,
+                        appointmentOfDoctor: AppointmentFunctions
+                            .getAppointmentsOfSpecificDoctorByDate(
+                                arguments['appointments'], DateFormat('dd-MM-yyyy').format(DateTime.parse(date))))
                   ],
                 ),
                 Center(
@@ -110,8 +141,10 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
                       buttonColor: mainColor,
                       customFunction: () {
                         final key = UniqueKey().toString();
+                        DateTime dt = DateTime.parse(date);
+                        String fDate = DateFormat('dd-MM-yyyy').format(dt);
                         Appointment appointment = Appointment(
-                            date: date,
+                            date: fDate,
                             doctorId: arguments['doctor'].id,
                             doctorName: arguments['doctor'].fullName,
                             patientId: auth.currentUser!.uid,
@@ -129,7 +162,8 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
                             size,
                             'Reschedule Success',
                             'Appointment successfully changed. You will receive a notification and the doctor you selected will contact you.',
-                            'assets/images/schedule_page/schedule.png',206);
+                            'assets/images/schedule_page/schedule.png',
+                            206);
                       },
                       fontSize: 16,
                       text: 'Submit',

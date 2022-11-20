@@ -19,7 +19,7 @@ class MyListDoctor extends StatelessWidget {
         itemCount: department.length,
         itemBuilder: (context, index) {
           return ContainerDoctor(
-            department: department,
+            doctorsInDepartment: department,
             index: index,
           );
         });
