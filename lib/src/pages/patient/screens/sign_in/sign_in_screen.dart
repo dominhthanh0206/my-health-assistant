@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:logger/logger.dart';
 import 'package:my_health_assistant/src/data/firebase_firestore/patient/fill_information_firestore/fill_information_firestore.dart';
+import 'package:my_health_assistant/src/pages/doctor/fill_profile/filll_profile_doctor.dart';
 import 'package:my_health_assistant/src/routes.dart';
 
 import 'package:my_health_assistant/src/styles/font_styles.dart';
@@ -27,7 +28,7 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool isChecked = false;
+  bool isDoctor = false;
   @override
   void dispose() {
     // TODO: implement dispose
@@ -136,14 +137,14 @@ class _SignInScreenState extends State<SignInScreen> {
                           // Making around shape
                           borderRadius: BorderRadius.circular(6)),
                       checkColor: Colors.white,
-                      value: isChecked,
+                      value: isDoctor,
                       onChanged: (bool? value) {
                         setState(() {
-                          isChecked = value!;
+                          isDoctor = value!;
                         });
                       },
                     ),
-                    const Text('Remember me',
+                    const Text('I am a Doctor',
                         style: MyFontStyles.normalBlackText)
                   ],
                 ),
@@ -159,33 +160,42 @@ class _SignInScreenState extends State<SignInScreen> {
                         borderRadius: BorderRadius.circular(100.0)),
                     fillColor: const Color(0XFF0069FE),
                     onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        // Navigator.pushNamed(context, MyRoutes.fillProfile);
-                        User? user = await SignIn.loginUsingEmailPassword(
-                            email: _emailController.text,
-                            password: _passwordController.text,
-                            context: context);
-                        if (user != null) {
-                          await FillInformation.getPatient();
-                          SharedPrefs.isLoggedIn(true);
-                          SharedPrefs.writeUid(user.uid);
-                          logger.i('uid from user: ${user.uid}');
-                          String? uidFromPrefs = await SharedPrefs.getUid();
-                          logger.i('uid prefs user: $uidFromPrefs');
+                      if (isDoctor == true) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const FillProfileDoctor(),
+                            ));
+                      } else {
+                        if (_formKey.currentState!.validate()) {
+                          // Navigator.pushNamed(context, MyRoutes.fillProfile);
+                          User? user = await SignIn.loginUsingEmailPassword(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                              context: context);
+                          if (user != null) {
+                            await FillInformation.getPatient();
+                            SharedPrefs.isLoggedIn(true);
+                            SharedPrefs.writeUid(user.uid);
+                            logger.i('uid from user: ${user.uid}');
+                            String? uidFromPrefs = await SharedPrefs.getUid();
+                            logger.i('uid prefs user: $uidFromPrefs');
 
-                          final bool filled =
-                              await FillInformation.checkExist(user.uid);
-                          if (filled) {
-                            Navigator.pushNamed(
-                                context, PatientRoutes.pageController);
+                            final bool filled =
+                                await FillInformation.checkExist(user.uid);
+                            if (filled) {
+                              Navigator.pushNamed(
+                                  context, PatientRoutes.pageController);
+                            } else {
+                              Navigator.pushNamed(
+                                  context, PatientRoutes.fillProfile);
+                            }
                           } else {
-                            Navigator.pushNamed(
-                                context, PatientRoutes.fillProfile);
+                            final snackBar = showSnackBar(
+                                'Email or password is not correct');
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                           }
-                        } else {
-                          final snackBar =
-                              showSnackBar('Email or password is not correct');
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
                       }
                     },
@@ -207,8 +217,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     } else {
                       ResetPassword.resetPassword(email: _emailController.text);
-                      final snackBar =
-                          showSnackBar('Please check your email');
+                      final snackBar = showSnackBar('Please check your email');
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     }
                   },
