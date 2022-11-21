@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:my_health_assistant/src/models/appointment/appointment.dart';
+import 'package:my_health_assistant/src/pages/patient/screens/schedule/reschedule_page/reschedule_page.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/schedule/tab_bar/appointment_container.dart';
 import 'package:my_health_assistant/src/routes.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
@@ -70,7 +71,6 @@ class UpcomingPage extends StatelessWidget {
                               child: MyTextButton(
                                 buttonColor: MyColors.mainColor,
                                 customFunction: () {
-                                  // Logger().i(upcoming[index].toString());
                                   _modalBottomSheetMenu(
                                       context, upcoming[index]);
                                 },
@@ -86,10 +86,12 @@ class UpcomingPage extends StatelessWidget {
                               child: MyElevatedButton(
                                 buttonColor: MyColors.mainColor,
                                 customFunction: () {
-                                  log('Reschedule');
-                                  // Navigator.push(context, MaterialPageRoute(builder: (_) => const ReschedulePage()));
-                                  Navigator.pushNamed(
-                                      context, PatientRoutes.reschedule);
+                                  log('current appointment ${upcoming[index]}');
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) =>
+                                              ReschedulePage(currentAppointment: upcoming[index],)));
                                 },
                                 fontSize: 13,
                                 text: 'Reschedule',

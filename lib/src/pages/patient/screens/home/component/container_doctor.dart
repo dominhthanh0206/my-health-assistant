@@ -175,13 +175,20 @@ class ContainerDoctor extends StatelessWidget {
                                                 doctorsInDepartment[index]
                                                     .id
                                                     .toString());
-                                            Navigator.pushNamed(context,
-                                                PatientRoutes.selectDate,
-                                                arguments: {
-                                                  'doctor':
-                                                      doctorsInDepartment[index],
-                                                  'appointments': AppointmentFunctions.getAllUpComingAppointment(allAppointments, doctorsInDepartment[index].id)
-                                                });
+                                            Navigator.pushNamed(
+                                              context,
+                                              PatientRoutes.selectDate,
+                                              arguments: {
+                                                'doctor':
+                                                    doctorsInDepartment[index],
+                                                'appointments':
+                                                    AppointmentFunctions
+                                                        .getAllUpComingAppointment(
+                                                  allAppointments,
+                                                  doctorsInDepartment[index].id,
+                                                )
+                                              },
+                                            );
                                           },
                                           child: const Text(
                                             'Book',
