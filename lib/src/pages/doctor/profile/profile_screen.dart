@@ -2,14 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:my_health_assistant/src/pages/doctor/profile/edit_profile_doctor.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
-import '../../../../data/shared_preferences.dart';
-import '../../../../routes.dart';
-import '../../../../services/sign_out.dart';
-import 'edit_profile.dart';
-import 'notification_screen.dart';
-import 'security_screen.dart';
-import '../../../../widgets/bottom_sheet/bottom_sheet_logout.dart';
+import 'package:my_health_assistant/src/widgets/bottom_sheet/bottom_sheet_logout.dart';
 
 final Map<String, dynamic> profileScreenData = {
   'Profile': [
@@ -30,27 +25,22 @@ final Map<String, dynamic> profileScreenData = {
   ]
 };
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+class ProfileDoctor extends StatelessWidget {
+  const ProfileDoctor({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: MyColors.whiteText,
-          elevation: 0.0,
-          leading: SvgPicture.asset('assets/images/main_icon.svg',
-              color: Colors.blue),
-          title: const Text(
-            "Profile",
-            style: TextStyle(color: Colors.black),
-          ),
-          actions: [
-            IconButton(
-                onPressed: () {},
-                icon: SvgPicture.asset('assets/images/profile/MoreCircle.svg'),
-                color: Colors.black)
-          ]),
+        backgroundColor: MyColors.whiteText,
+        elevation: 0.0,
+        leading:
+            SvgPicture.asset('assets/images/main_icon.svg', color: Colors.blue),
+        title: const Text(
+          "Profile",
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.only(top: 16.0),
         child: SingleChildScrollView(
@@ -115,13 +105,12 @@ class ProfilePage extends StatelessWidget {
                                     }),
                                     function2: (() {
                                       log('Logout');
-                                      SignOut.signOut();
-                                      SharedPrefs.isLoggedOut();
-                                      SharedPrefs.removeUid();
-                                      Navigator.popUntil(
-                                          context,
-                                          ModalRoute.withName(
-                                              PatientRoutes.startApp));
+                                      // SignOut.signOut();
+                                      // SharedPrefs.isLoggedOut();
+                                      // Navigator.popUntil(
+                                      //     context,
+                                      //     ModalRoute.withName(
+                                      //         PatientRoutes.startApp));
                                     }),
                                   );
                                 },
@@ -210,22 +199,14 @@ _onTap(BuildContext context, item) {
       return Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const EditProfile(),
+            builder: (context) => const EditProfileDoctor(),
           ));
     case 'Notification':
-      return Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const NotificationInProfile(),
-          ));
+      return log('Notification');
     case 'Payment':
       return log('Payment');
     case 'Security':
-      return Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const SecurityScreen(),
-          ));
+      return log('Security');
     case 'Language':
       return log('Language');
     case 'Dark Mode':

@@ -47,6 +47,7 @@ dependencies:
   freezed_annotation: ^2.2.0
   json_annotation: ^4.7.0
   logger: ^1.1.0
+  image_picker: ^0.8.6
   fluttertoast: ^8.1.1
 
 
@@ -84,6 +85,7 @@ flutter:
     - assets/images/profile/
     - assets/images/home_page/
     - assets/images/message_screen/
+    - assets/images/doctor_screen/
     - assets/images/sign_in/
     - assets/fonts/
     - assets/data/
