@@ -1,13 +1,16 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:logger/logger.dart';
+import 'package:my_health_assistant/src/data/firebase_firestore/doctor/authentication/sign_in.dart';
 import 'package:my_health_assistant/src/data/firebase_firestore/patient/fill_information_firestore/fill_information_firestore.dart';
-import 'package:my_health_assistant/src/pages/doctor/fill_profile/filll_profile_doctor.dart';
+import 'package:my_health_assistant/src/pages/doctor/doctor_page_controller.dart';
 import 'package:my_health_assistant/src/routes.dart';
-
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
@@ -129,25 +132,25 @@ class _SignInScreenState extends State<SignInScreen> {
                           borderRadius: BorderRadius.circular(16))),
                 ),
                 const SizedBox(height: 12.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Checkbox(
-                      shape: RoundedRectangleBorder(
-                          // Making around shape
-                          borderRadius: BorderRadius.circular(6)),
-                      checkColor: Colors.white,
-                      value: isDoctor,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          isDoctor = value!;
-                        });
-                      },
-                    ),
-                    const Text('I am a Doctor',
-                        style: MyFontStyles.normalBlackText)
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     Checkbox(
+                //       shape: RoundedRectangleBorder(
+                //           // Making around shape
+                //           borderRadius: BorderRadius.circular(6)),
+                //       checkColor: Colors.white,
+                //       value: isDoctor,
+                //       onChanged: (bool? value) {
+                //         setState(() {
+                //           isDoctor = value!;
+                //         });
+                //       },
+                //     ),
+                //     const Text('I am a Doctor',
+                //         style: MyFontStyles.normalBlackText)
+                //   ],
+                // ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -160,20 +163,60 @@ class _SignInScreenState extends State<SignInScreen> {
                         borderRadius: BorderRadius.circular(100.0)),
                     fillColor: const Color(0XFF0069FE),
                     onPressed: () async {
-                      if (isDoctor == true) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const FillProfileDoctor(),
-                            ));
-                      } else {
-                        if (_formKey.currentState!.validate()) {
-                          // Navigator.pushNamed(context, MyRoutes.fillProfile);
-                          User? user = await SignIn.loginUsingEmailPassword(
-                              email: _emailController.text,
-                              password: _passwordController.text,
-                              context: context);
-                          if (user != null) {
+                      // final String uid = FirebaseAuth.instance.currentUser!.uid;
+                      // final snapShot = await FirebaseFirestore.instance
+                      //     .collection('doctors')
+                      //     .doc(uid)
+                      //     .get();
+
+                      // if (snapShot.exists) {
+                      //   isDoctor = true;
+                      // }
+                      // else{
+                      //   isDoctor = false;
+                      // }
+
+                      if (_formKey.currentState!.validate()) {
+                        User? user = await SignIn.loginUsingEmailPassword(
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                            context: context);
+                        if (user != null) {
+                          final String uid =
+                              FirebaseAuth.instance.currentUser!.uid;
+                          final snapShot = await FirebaseFirestore.instance
+                              .collection('doctors')
+                              .doc(uid)
+                              .get();
+
+                          if (snapShot.exists) {
+                            isDoctor = true;
+                          } else {
+                            isDoctor = false;
+                          }
+                          if (isDoctor) {
+                            await SignInDoctor.getDoctor();
+                            SharedPrefs.isLoggedIn(true);
+                            SharedPrefs.writeUid(user.uid);
+                            logger.i('uid from user: ${user.uid}');
+                            String? uidFromPrefs = await SharedPrefs.getUid();
+                            logger.i('uid prefs user: $uidFromPrefs');
+
+                            final bool filled =
+                                await SignInDoctor.checkDoctorExist(user.uid);
+
+                            if (filled) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const DoctorPageController(),
+                                  ));
+                            } else {
+                              Navigator.pushNamed(
+                                  context, DoctorRoutes.fillDoctorProfile);
+                            }
+                          } else {
                             await FillInformation.getPatient();
                             SharedPrefs.isLoggedIn(true);
                             SharedPrefs.writeUid(user.uid);
@@ -190,14 +233,80 @@ class _SignInScreenState extends State<SignInScreen> {
                               Navigator.pushNamed(
                                   context, PatientRoutes.fillProfile);
                             }
-                          } else {
-                            final snackBar = showSnackBar(
-                                'Email or password is not correct');
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
                           }
                         }
+                      } else {
+                        final snackBar =
+                            showSnackBar('Email or password is not correct');
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
+
+                      // if (isDoctor) {
+                      //   if (_formKey.currentState!.validate()) {
+                      //     User? user = await SignIn.loginUsingEmailPassword(
+                      //         email: _emailController.text,
+                      //         password: _passwordController.text,
+                      //         context: context);
+                      //     if (user != null) {
+                      //       await SignInDoctor.getDoctor();
+                      //       SharedPrefs.isLoggedIn(true);
+                      //       SharedPrefs.writeUid(user.uid);
+                      //       logger.i('uid from user: ${user.uid}');
+                      //       String? uidFromPrefs = await SharedPrefs.getUid();
+                      //       logger.i('uid prefs user: $uidFromPrefs');
+
+                      //       final bool filled =
+                      //           await SignInDoctor.checkDoctorExist(user.uid);
+
+                      //       if (filled) {
+                      //         Navigator.push(
+                      //             context,
+                      //             MaterialPageRoute(
+                      //               builder: (context) =>
+                      //                   const DoctorPageController(),
+                      //             ));
+                      //       } else {
+                      //         Navigator.pushNamed(
+                      //             context, DoctorRoutes.fillDoctorProfile);
+                      //       }
+                      //     } else {
+                      //       final snackBar = showSnackBar(
+                      //           'Email or password is not correct');
+                      //       ScaffoldMessenger.of(context)
+                      //           .showSnackBar(snackBar);
+                      //     }
+                      //   }
+                      // } else {
+                      //   if (_formKey.currentState!.validate()) {
+                      //     User? user = await SignIn.loginUsingEmailPassword(
+                      //         email: _emailController.text,
+                      //         password: _passwordController.text,
+                      //         context: context);
+                      //     if (user != null) {
+                      //       await FillInformation.getPatient();
+                      //       SharedPrefs.isLoggedIn(true);
+                      //       SharedPrefs.writeUid(user.uid);
+                      //       logger.i('uid from user: ${user.uid}');
+                      //       String? uidFromPrefs = await SharedPrefs.getUid();
+                      //       logger.i('uid prefs user: $uidFromPrefs');
+
+                      //       final bool filled =
+                      //           await FillInformation.checkExist(user.uid);
+                      //       if (filled) {
+                      //         Navigator.pushNamed(
+                      //             context, PatientRoutes.pageController);
+                      //       } else {
+                      //         Navigator.pushNamed(
+                      //             context, PatientRoutes.fillProfile);
+                      //       }
+                      //     } else {
+                      //       final snackBar = showSnackBar(
+                      //           'Email or password is not correct');
+                      //       ScaffoldMessenger.of(context)
+                      //           .showSnackBar(snackBar);
+                      //     }
+                      //   }
+                      // }
                     },
                     child: const Text(
                       "Sign in",
