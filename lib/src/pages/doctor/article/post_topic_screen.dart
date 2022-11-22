@@ -22,6 +22,7 @@ class PostTopicScreen extends StatefulWidget {
 class _PostTopicScreenState extends State<PostTopicScreen> {
   final TextEditingController _titleTopic = TextEditingController();
   final TextEditingController _content = TextEditingController();
+  final TextEditingController _image = TextEditingController();
   File? image;
   String? getTextTopic;
   // final type = ValueNotifier<String?>(null);
@@ -85,6 +86,24 @@ class _PostTopicScreenState extends State<PostTopicScreen> {
                             ),
                           );
                         })),
+                const SizedBox(height: 25),
+                const Text(
+                  'Image',
+                  style: MyFontStyles.blackColorH1,
+                ),
+                const SizedBox(height: 10),
+                TextFormField(
+                  controller: _image,
+                  decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.image),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16)),
+                      hintText: 'Image Link',
+                      hintStyle: const TextStyle(
+                          color: MyColors.greyText,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400)),
+                ),
                 const SizedBox(height: 25),
                 const Text(
                   'Content',

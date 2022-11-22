@@ -22,6 +22,7 @@ class _FillProfileDoctorState extends State<FillProfileDoctor> {
   final TextEditingController _dateInput = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _datetimeController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   String? textGender;
@@ -33,6 +34,7 @@ class _FillProfileDoctorState extends State<FillProfileDoctor> {
     _nameController.dispose();
     _datetimeController.dispose();
     _dateInput.dispose();
+    _descriptionController.dispose();
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -94,6 +96,17 @@ class _FillProfileDoctorState extends State<FillProfileDoctor> {
                     ),
                     Gender(
                       onChanged: (value) => _getGender(value),
+                    ),
+                    CustomTextFiled(
+                      controller: _descriptionController,
+                      hint: 'Description',
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Can not be empty';
+                        } else {
+                          return null;
+                        }
+                      },
                     ),
                     CustomTextFiled(
                       surfixIcon: const Icon(Icons.phone_android),

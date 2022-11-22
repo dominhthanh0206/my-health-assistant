@@ -52,7 +52,7 @@ List<AppointmentObject> listAppointment = [
   AppointmentObject(
       type: 1,
       date: '23 Oc, 2022',
-      time: '10h00 AN',
+      time: '10h00 AM',
       name: 'Lionel Messi',
       status: 'Upcoming'),
 ];
