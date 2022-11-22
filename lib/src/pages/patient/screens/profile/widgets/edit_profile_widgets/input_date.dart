@@ -19,7 +19,6 @@ class _InputDateState extends State<InputDate> {
   
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     widget.dateInput.text = widget.date;
   }

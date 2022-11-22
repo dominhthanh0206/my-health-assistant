@@ -88,11 +88,11 @@ class AppointmentFunctions {
     List<Appointment> result = [];
     List<Appointment> doctorAppointment =
         getDoctorAppointment(doctorId, allAppointments);
-    doctorAppointment.forEach((element) {
+    for (var element in doctorAppointment) {
       if (element.date == date) {
         result.add(element);
       }
-    });
+    }
     return result;
   }
 

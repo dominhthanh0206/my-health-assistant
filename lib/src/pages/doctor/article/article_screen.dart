@@ -23,7 +23,6 @@ class _ArticleScreenState extends State<ArticleScreen>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     covidCategory =
         listArticle.where((element) => element.category == 'Covid-19').toList();

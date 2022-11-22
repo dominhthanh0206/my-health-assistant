@@ -20,7 +20,6 @@ class _EditProfileDoctorState extends State<EditProfileDoctor> {
   final TextEditingController _datetimeController = TextEditingController();
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _emailController.dispose();
     _nameController.dispose();

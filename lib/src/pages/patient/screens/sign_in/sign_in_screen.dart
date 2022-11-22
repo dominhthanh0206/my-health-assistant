@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,7 +32,6 @@ class _SignInScreenState extends State<SignInScreen> {
   bool isDoctor = false;
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
@@ -132,25 +129,6 @@ class _SignInScreenState extends State<SignInScreen> {
                           borderRadius: BorderRadius.circular(16))),
                 ),
                 const SizedBox(height: 12.0),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Checkbox(
-                //       shape: RoundedRectangleBorder(
-                //           // Making around shape
-                //           borderRadius: BorderRadius.circular(6)),
-                //       checkColor: Colors.white,
-                //       value: isDoctor,
-                //       onChanged: (bool? value) {
-                //         setState(() {
-                //           isDoctor = value!;
-                //         });
-                //       },
-                //     ),
-                //     const Text('I am a Doctor',
-                //         style: MyFontStyles.normalBlackText)
-                //   ],
-                // ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -240,73 +218,6 @@ class _SignInScreenState extends State<SignInScreen> {
                             showSnackBar('Email or password is not correct');
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
-
-                      // if (isDoctor) {
-                      //   if (_formKey.currentState!.validate()) {
-                      //     User? user = await SignIn.loginUsingEmailPassword(
-                      //         email: _emailController.text,
-                      //         password: _passwordController.text,
-                      //         context: context);
-                      //     if (user != null) {
-                      //       await SignInDoctor.getDoctor();
-                      //       SharedPrefs.isLoggedIn(true);
-                      //       SharedPrefs.writeUid(user.uid);
-                      //       logger.i('uid from user: ${user.uid}');
-                      //       String? uidFromPrefs = await SharedPrefs.getUid();
-                      //       logger.i('uid prefs user: $uidFromPrefs');
-
-                      //       final bool filled =
-                      //           await SignInDoctor.checkDoctorExist(user.uid);
-
-                      //       if (filled) {
-                      //         Navigator.push(
-                      //             context,
-                      //             MaterialPageRoute(
-                      //               builder: (context) =>
-                      //                   const DoctorPageController(),
-                      //             ));
-                      //       } else {
-                      //         Navigator.pushNamed(
-                      //             context, DoctorRoutes.fillDoctorProfile);
-                      //       }
-                      //     } else {
-                      //       final snackBar = showSnackBar(
-                      //           'Email or password is not correct');
-                      //       ScaffoldMessenger.of(context)
-                      //           .showSnackBar(snackBar);
-                      //     }
-                      //   }
-                      // } else {
-                      //   if (_formKey.currentState!.validate()) {
-                      //     User? user = await SignIn.loginUsingEmailPassword(
-                      //         email: _emailController.text,
-                      //         password: _passwordController.text,
-                      //         context: context);
-                      //     if (user != null) {
-                      //       await FillInformation.getPatient();
-                      //       SharedPrefs.isLoggedIn(true);
-                      //       SharedPrefs.writeUid(user.uid);
-                      //       logger.i('uid from user: ${user.uid}');
-                      //       String? uidFromPrefs = await SharedPrefs.getUid();
-                      //       logger.i('uid prefs user: $uidFromPrefs');
-
-                      //       final bool filled =
-                      //           await FillInformation.checkExist(user.uid);
-                      //       if (filled) {
-                      //         Navigator.pushNamed(
-                      //             context, PatientRoutes.pageController);
-                      //       } else {
-                      //         Navigator.pushNamed(
-                      //             context, PatientRoutes.fillProfile);
-                      //       }
-                      //     } else {
-                      //       final snackBar = showSnackBar(
-                      //           'Email or password is not correct');
-                      //       ScaffoldMessenger.of(context)
-                      //           .showSnackBar(snackBar);
-                      //     }
-                      //   }
-                      // }
                     },
                     child: const Text(
                       "Sign in",

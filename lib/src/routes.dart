@@ -11,7 +11,6 @@ import 'package:my_health_assistant/src/pages/patient/screens/sign_in/waiting_ve
 import 'pages/patient/screens/articles/articles_page.dart';
 import 'pages/patient/screens/get_started/get_started.dart';
 import 'pages/patient/screens/history/history_page.dart';
-import 'pages/patient/screens/home/home_page.dart';
 import 'pages/patient/screens/profile/profile_page.dart';
 import 'widgets/page_controller.dart';
 

@@ -26,7 +26,6 @@ class RescheduleSelectDateTime extends StatefulWidget {
 class _RescheduleSelectDateTimeState extends State<RescheduleSelectDateTime> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     log('check appointment: ${widget.appointments}');
   }
