@@ -70,7 +70,7 @@ class _WaitingVerifyScreenState extends State<WaitingVerifyScreen> {
     if(user.emailVerified){
       timer.cancel();
       // ignore: use_build_context_synchronously
-      Navigator.pushNamed(context, PatientRoutes.signIn);
+      Navigator.pushNamed(context, CommonRoutes.signIn);
     }
   }
 }

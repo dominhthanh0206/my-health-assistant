@@ -27,7 +27,7 @@ class GetStarted extends StatelessWidget {
               // final bool? filled = await SharedPrefs.getFilled();
               logger.i(status.toString());
               if(status == null){
-                Navigator.pushNamed(context, PatientRoutes.signUp);
+                Navigator.pushNamed(context, CommonRoutes.signUp);
               }
               else {
                 final String? uid = await SharedPrefs.getUid();

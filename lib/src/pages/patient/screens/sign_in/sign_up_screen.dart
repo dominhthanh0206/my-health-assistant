@@ -216,7 +216,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, PatientRoutes.signIn);
+                        Navigator.pushNamed(context, CommonRoutes.signIn);
                       },
                       child: Text(
                         "Sign in",

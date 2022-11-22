@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_health_assistant/src/pages/doctor/fill_profile/filll_profile_doctor.dart';
+import 'package:my_health_assistant/src/pages/doctor/profile/profile_screen.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/fill_profile/fill_profile.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/schedule/cancel_page/cancel_page.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/schedule/reschedule_page/select_date_time_page.dart';
@@ -13,9 +15,15 @@ import 'pages/patient/screens/home/home_page.dart';
 import 'pages/patient/screens/profile/profile_page.dart';
 import 'widgets/page_controller.dart';
 
-class PatientRoutes {
+
+class CommonRoutes {
   static const startApp = '/';
-  static const home = '/home';
+  // static const home = '/home';
+  static const signIn = '/sign_in';
+  static const signUp = '/sign_up';
+}
+
+class PatientRoutes {
   static const pageController = '/page_controller';
   static const history = '/history';
   static const article = '/article';
@@ -24,17 +32,13 @@ class PatientRoutes {
   static const reschedule = '/reschedule';
   static const cancel = '/cancel';
   static const seeAllArticles = '/see_all_articles';
-  static const signIn = '/sign_in';
-  static const signUp = '/sign_up';
   static const fillProfile = '/fillProfile';
   static const waitScreen = '/wait_screen';
   static const rescheduleSelectDateTime = '/reschedule_select_date_time';
 }
 
 var customRoutes = <String, WidgetBuilder> {
-  PatientRoutes.startApp: (context) => const GetStarted(),
   PatientRoutes.pageController: (context) => const MyPageController(),
-  PatientRoutes.home: (context) => const HomePage(),
   PatientRoutes.history: (context) => const HistoryPage(),
   PatientRoutes.article: (context) => const ArticlePage(),
   PatientRoutes.profile: (context) => const ProfilePage(),
@@ -44,8 +48,20 @@ var customRoutes = <String, WidgetBuilder> {
   //     const RescheduleSelectDateTime(),
   PatientRoutes.cancel: (context) => const CancelPage(),
   // MyRoutes.seeAllArticles:(context) => const SeeAllArticlesPage(),
-  PatientRoutes.signIn: (context) => const SignInScreen(),
-  PatientRoutes.signUp: (context) => const SignUpScreen(),
   PatientRoutes.fillProfile: (context) => const FillProfileScreen(),
   PatientRoutes.waitScreen: (context) => const WaitingVerifyScreen(),
+
+
+  CommonRoutes.startApp: (context) => const GetStarted(),
+  CommonRoutes.signIn: (context) => const SignInScreen(),
+  CommonRoutes.signUp: (context) => const SignUpScreen(),
+
+
+  DoctorRoutes.fillDoctorProfile: (context) => const FillProfileDoctor(),
+  DoctorRoutes.doctorPageController: (context) => const ProfileDoctor(),
 };
+
+class DoctorRoutes {
+  static const doctorPageController = '/dpage_controller';
+  static const fillDoctorProfile = '/dfillProfile';
+}
