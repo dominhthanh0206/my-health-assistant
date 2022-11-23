@@ -72,7 +72,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20));
                               }
-
                               return Text(snapshot.data!.get('nickname'),
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
