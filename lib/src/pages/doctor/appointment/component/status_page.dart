@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_health_assistant/src/pages/doctor/appointment/component/appointment_object.dart';
+import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 
 class MyListStatus extends StatelessWidget {
@@ -75,6 +76,26 @@ class MyListStatus extends StatelessWidget {
                                 ],
                               ),
                             ),
+                            const SizedBox(height: 10),
+                            if (status[index].status == 'Upcoming')
+                              SizedBox(
+                                width: 90,
+                                height: 30,
+                                child: ElevatedButton(
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                MyColors.mainColor),
+                                        shape: MaterialStateProperty.all(
+                                            const RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(20))))),
+                                    onPressed: () {},
+                                    child: const Text(
+                                      'Complete',
+                                      style: MyFontStyles.whiteColorH4,
+                                    )),
+                              )
                           ],
                         ),
                       ),
