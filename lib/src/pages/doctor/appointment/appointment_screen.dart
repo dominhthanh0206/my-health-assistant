@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:my_health_assistant/src/data/firebase_firestore/patient/appointment/appointment_functions.dart';
+import 'package:my_health_assistant/src/models/appointment/appointment.dart';
 import 'package:my_health_assistant/src/pages/doctor/appointment/component/appointment_object.dart';
 import 'package:my_health_assistant/src/pages/doctor/appointment/component/status_page.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
@@ -72,30 +74,51 @@ class _AppointmentScreenState extends State<AppointmentScreen>
                     )
                   ],
                 ),
-                Expanded(
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: [
-                      MyListStatus(
-                        status: upcoming,
-                        color: Colors.blue,
-                      ),
-                      MyListStatus(
-                        status: completed,
-                        color: Colors.green,
-                      ),
-                      MyListStatus(
-                        status: cancelled,
-                        color: Colors.red,
-                      )
-                    ],
-                  ),
-                ),
+                StreamBuilder<List<Appointment>>(
+                  stream: AppointmentFunctions.getAllAppointment(),
+                  builder: ((context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Something went wrong ${snapshot.error}');
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (snapshot.hasData) {
+                      List<Appointment> appointments = snapshot.data!;
+                      return Expanded(
+                        child: TabBarView(
+                          controller: _tabController,
+                          children: [
+                            MyListStatus(
+                              status: AppointmentFunctions
+                                  .getAppointmentOfDoctorByCon(
+                                      appointments, 'Upcoming'),
+                              color: Colors.blue,
+                            ),
+                            MyListStatus(
+                              status: AppointmentFunctions
+                                  .getAppointmentOfDoctorByCon(
+                                      appointments, 'Completed'),
+                              color: Colors.green,
+                            ),
+                            MyListStatus(
+                              status: AppointmentFunctions
+                                  .getAppointmentOfDoctorByCon(
+                                      appointments, 'Cancelled'),
+                              color: Colors.red,
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                    return Container();
+                  }),
+                )
               ],
             ),
           ),
         ));
   }
 }
-
-

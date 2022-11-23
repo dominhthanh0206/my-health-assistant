@@ -24,7 +24,10 @@ mixin _$Appointment {
   String? get date => throw _privateConstructorUsedError;
   String? get doctorId => throw _privateConstructorUsedError;
   String? get doctorName => throw _privateConstructorUsedError;
+  String? get doctorGender => throw _privateConstructorUsedError;
   String? get patientId => throw _privateConstructorUsedError;
+  String? get patientName => throw _privateConstructorUsedError;
+  String? get patientGender => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
   String? get reason => throw _privateConstructorUsedError;
   String? get time => throw _privateConstructorUsedError;
@@ -46,7 +49,10 @@ abstract class $AppointmentCopyWith<$Res> {
       String? date,
       String? doctorId,
       String? doctorName,
+      String? doctorGender,
       String? patientId,
+      String? patientName,
+      String? patientGender,
       String? status,
       String? reason,
       String? time});
@@ -69,7 +75,10 @@ class _$AppointmentCopyWithImpl<$Res, $Val extends Appointment>
     Object? date = freezed,
     Object? doctorId = freezed,
     Object? doctorName = freezed,
+    Object? doctorGender = freezed,
     Object? patientId = freezed,
+    Object? patientName = freezed,
+    Object? patientGender = freezed,
     Object? status = freezed,
     Object? reason = freezed,
     Object? time = freezed,
@@ -91,9 +100,21 @@ class _$AppointmentCopyWithImpl<$Res, $Val extends Appointment>
           ? _value.doctorName
           : doctorName // ignore: cast_nullable_to_non_nullable
               as String?,
+      doctorGender: freezed == doctorGender
+          ? _value.doctorGender
+          : doctorGender // ignore: cast_nullable_to_non_nullable
+              as String?,
       patientId: freezed == patientId
           ? _value.patientId
           : patientId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      patientName: freezed == patientName
+          ? _value.patientName
+          : patientName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      patientGender: freezed == patientGender
+          ? _value.patientGender
+          : patientGender // ignore: cast_nullable_to_non_nullable
               as String?,
       status: freezed == status
           ? _value.status
@@ -124,7 +145,10 @@ abstract class _$$_AppointmentCopyWith<$Res>
       String? date,
       String? doctorId,
       String? doctorName,
+      String? doctorGender,
       String? patientId,
+      String? patientName,
+      String? patientGender,
       String? status,
       String? reason,
       String? time});
@@ -145,7 +169,10 @@ class __$$_AppointmentCopyWithImpl<$Res>
     Object? date = freezed,
     Object? doctorId = freezed,
     Object? doctorName = freezed,
+    Object? doctorGender = freezed,
     Object? patientId = freezed,
+    Object? patientName = freezed,
+    Object? patientGender = freezed,
     Object? status = freezed,
     Object? reason = freezed,
     Object? time = freezed,
@@ -167,9 +194,21 @@ class __$$_AppointmentCopyWithImpl<$Res>
           ? _value.doctorName
           : doctorName // ignore: cast_nullable_to_non_nullable
               as String?,
+      doctorGender: freezed == doctorGender
+          ? _value.doctorGender
+          : doctorGender // ignore: cast_nullable_to_non_nullable
+              as String?,
       patientId: freezed == patientId
           ? _value.patientId
           : patientId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      patientName: freezed == patientName
+          ? _value.patientName
+          : patientName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      patientGender: freezed == patientGender
+          ? _value.patientGender
+          : patientGender // ignore: cast_nullable_to_non_nullable
               as String?,
       status: freezed == status
           ? _value.status
@@ -195,7 +234,10 @@ class _$_Appointment implements _Appointment {
       required this.date,
       required this.doctorId,
       required this.doctorName,
+      required this.doctorGender,
       required this.patientId,
+      required this.patientName,
+      required this.patientGender,
       required this.status,
       required this.reason,
       required this.time});
@@ -212,7 +254,13 @@ class _$_Appointment implements _Appointment {
   @override
   final String? doctorName;
   @override
+  final String? doctorGender;
+  @override
   final String? patientId;
+  @override
+  final String? patientName;
+  @override
+  final String? patientGender;
   @override
   final String? status;
   @override
@@ -222,7 +270,7 @@ class _$_Appointment implements _Appointment {
 
   @override
   String toString() {
-    return 'Appointment(id: $id, date: $date, doctorId: $doctorId, doctorName: $doctorName, patientId: $patientId, status: $status, reason: $reason, time: $time)';
+    return 'Appointment(id: $id, date: $date, doctorId: $doctorId, doctorName: $doctorName, doctorGender: $doctorGender, patientId: $patientId, patientName: $patientName, patientGender: $patientGender, status: $status, reason: $reason, time: $time)';
   }
 
   @override
@@ -236,8 +284,14 @@ class _$_Appointment implements _Appointment {
                 other.doctorId == doctorId) &&
             (identical(other.doctorName, doctorName) ||
                 other.doctorName == doctorName) &&
+            (identical(other.doctorGender, doctorGender) ||
+                other.doctorGender == doctorGender) &&
             (identical(other.patientId, patientId) ||
                 other.patientId == patientId) &&
+            (identical(other.patientName, patientName) ||
+                other.patientName == patientName) &&
+            (identical(other.patientGender, patientGender) ||
+                other.patientGender == patientGender) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.reason, reason) || other.reason == reason) &&
             (identical(other.time, time) || other.time == time));
@@ -245,8 +299,19 @@ class _$_Appointment implements _Appointment {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, date, doctorId, doctorName,
-      patientId, status, reason, time);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      date,
+      doctorId,
+      doctorName,
+      doctorGender,
+      patientId,
+      patientName,
+      patientGender,
+      status,
+      reason,
+      time);
 
   @JsonKey(ignore: true)
   @override
@@ -268,7 +333,10 @@ abstract class _Appointment implements Appointment {
       required final String? date,
       required final String? doctorId,
       required final String? doctorName,
+      required final String? doctorGender,
       required final String? patientId,
+      required final String? patientName,
+      required final String? patientGender,
       required final String? status,
       required final String? reason,
       required final String? time}) = _$_Appointment;
@@ -285,7 +353,13 @@ abstract class _Appointment implements Appointment {
   @override
   String? get doctorName;
   @override
+  String? get doctorGender;
+  @override
   String? get patientId;
+  @override
+  String? get patientName;
+  @override
+  String? get patientGender;
   @override
   String? get status;
   @override

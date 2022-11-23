@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:my_health_assistant/src/pages/doctor/appointment/component/appointment_object.dart';
+import 'package:logger/logger.dart';
+import 'package:my_health_assistant/src/models/appointment/appointment.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 
 class MyListStatus extends StatelessWidget {
   const MyListStatus({Key? key, required this.status, required this.color})
       : super(key: key);
-  final List<AppointmentObject> status;
+  final List<Appointment> status;
   final Color color;
   @override
   Widget build(BuildContext context) {
+    Logger().i('appointment of doctor $status');
     return ListView.builder(
         itemCount: status.length,
         itemBuilder: (context, index) {
@@ -40,7 +42,7 @@ class MyListStatus extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              status[index].name,
+                              status[index].patientName ?? '',
                               style: MyFontStyles.blackColorH1,
                             ),
                             const SizedBox(height: 8),
@@ -53,7 +55,7 @@ class MyListStatus extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(6),
                                 child: Text(
-                                  status[index].status,
+                                  status[index].status ?? '',
                                   style: TextStyle(color: color, fontSize: 12),
                                 ),
                               ),

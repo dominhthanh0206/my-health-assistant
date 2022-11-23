@@ -23,6 +23,18 @@ class AppointmentFunctions {
     return appointmentList;
   }
 
+  static List<Appointment> getAppointmentOfDoctorByCon(
+      List<Appointment> appointments, String condition) {
+    List<Appointment> appointmentList = [];
+    for (var element in appointments) {
+      if (element.status == condition &&
+          element.doctorId == auth.currentUser!.uid) {
+        appointmentList.add(element);
+      }
+    }
+    return appointmentList;
+  }
+
   static void cancelAppointment(String appointmentId, String reason) {
     db.collection('appointments').doc(appointmentId).update({
       'status': 'Cancelled',
