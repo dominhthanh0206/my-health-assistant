@@ -1,8 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:my_health_assistant/src/pages/doctor/profile/component/custom_texfield.dart';
-import 'package:my_health_assistant/src/pages/doctor/profile/component/gender.dart';
+import 'package:my_health_assistant/src/pages/doctor/profile/component/custom_texfield_doctor.dart';
+import '../../patient/screens/fill_profile/component/custom_texfield.dart';
+import 'package:my_health_assistant/src/pages/doctor/profile/component/gender_doctor.dart';
 import 'package:my_health_assistant/src/pages/doctor/profile/component/input_date_of_birth.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
@@ -15,16 +16,19 @@ class EditProfileDoctor extends StatefulWidget {
 
 class _EditProfileDoctorState extends State<EditProfileDoctor> {
   final TextEditingController _dateInput = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _datetimeController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
+
   @override
   void dispose() {
     super.dispose();
-    _emailController.dispose();
     _nameController.dispose();
-    _datetimeController.dispose();
+    _addressController.dispose();
     _dateInput.dispose();
+    _descriptionController.dispose();
+    _phoneNumberController.dispose();
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -40,7 +44,9 @@ class _EditProfileDoctorState extends State<EditProfileDoctor> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    CustomTextFiled(
+                    CustomTextFiledDoctor(
+                      enabled: false,
+                      controller: _nameController,
                       hint: 'Full name',
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -51,10 +57,23 @@ class _EditProfileDoctorState extends State<EditProfileDoctor> {
                       },
                     ),
                     InputAge(dateInput: _dateInput),
-                    const Gender(),
+                    const GenderDoctor(),
                     CustomTextFiled(
-                      hint: 'Phone Number',
-                      surfixIcon: const Icon(Icons.phone_android_rounded),
+                      controller: _descriptionController,
+                      hint: 'Description',
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Can not be empty';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    CustomTextFiled(
+                      surfixIcon: const Icon(Icons.phone_android),
+                      hint: 'Phone number',
+                      keyboardType: TextInputType.number,
+                      controller: _phoneNumberController,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return "Please enter your phone number";
@@ -67,6 +86,7 @@ class _EditProfileDoctorState extends State<EditProfileDoctor> {
                     ),
                     CustomTextFiled(
                       hint: 'Address',
+                      controller: _addressController,
                       surfixIcon: const Icon(Icons.location_on_sharp),
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -78,7 +98,7 @@ class _EditProfileDoctorState extends State<EditProfileDoctor> {
                     ),
                   ],
                 )),
-            SizedBox(height: MediaQuery.of(context).size.height / 3.5),
+            SizedBox(height: MediaQuery.of(context).size.height / 5),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: SizedBox(
@@ -86,7 +106,7 @@ class _EditProfileDoctorState extends State<EditProfileDoctor> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: () {
-                    if(_formKey.currentState!.validate()){
+                    if (_formKey.currentState!.validate()) {
                       log('update');
                     }
                   },
