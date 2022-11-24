@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:my_health_assistant/src/models/article/article.dart';
 import 'package:my_health_assistant/src/pages/doctor/article/component/article_container.dart';
 import 'package:my_health_assistant/src/pages/doctor/article/component/article_detail.dart';
-import 'package:my_health_assistant/src/pages/doctor/article/component/article_object.dart';
 
 class ListArticles extends StatelessWidget {
   const ListArticles({Key? key, required this.articles}) : super(key: key);
-  final List<ArticleObject> articles;
+  final List<Article> articles;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class ListArticles extends StatelessWidget {
                             )));
               }),
               child: ArticleContainer(
-                imgUrl: articles[index].imgUrl ??
+                imgUrl: articles[index].imageUrl ??
                     'https://res.edu.vn/wp-content/uploads/2021/12/unit-10-health-res-english.jpg',
                 time: articles[index].time ?? '',
                 title: articles[index].title ?? '',

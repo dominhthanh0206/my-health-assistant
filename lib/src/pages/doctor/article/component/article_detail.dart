@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:my_health_assistant/src/pages/doctor/article/component/article_object.dart';
+import 'package:my_health_assistant/src/models/article/article.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
 class ArticleDetail extends StatelessWidget {
   const ArticleDetail({Key? key, required this.article}) : super(key: key);
-  final ArticleObject article;
+  final Article article;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class ArticleDetail extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
                 child: SizedBox(
                   child: Image.network(
-                    'https://res.edu.vn/wp-content/uploads/2021/12/unit-10-health-res-english.jpg',
+                    article.imageUrl ?? 'https://res.edu.vn/wp-content/uploads/2021/12/unit-10-health-res-english.jpg',
                     fit: BoxFit.cover,
                   ),
                 ),
