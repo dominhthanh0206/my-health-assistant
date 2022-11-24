@@ -141,18 +141,6 @@ class _SignInScreenState extends State<SignInScreen> {
                         borderRadius: BorderRadius.circular(100.0)),
                     fillColor: const Color(0XFF0069FE),
                     onPressed: () async {
-                      // final String uid = FirebaseAuth.instance.currentUser!.uid;
-                      // final snapShot = await FirebaseFirestore.instance
-                      //     .collection('doctors')
-                      //     .doc(uid)
-                      //     .get();
-
-                      // if (snapShot.exists) {
-                      //   isDoctor = true;
-                      // }
-                      // else{
-                      //   isDoctor = false;
-                      // }
 
                       if (_formKey.currentState!.validate()) {
                         User? user = await SignIn.loginUsingEmailPassword(

@@ -19,11 +19,16 @@ class _InputAgeState extends State<InputAge> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: TextFormField(
+        enabled: false,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: widget.dateInput,
         readOnly: true,
         keyboardType: TextInputType.datetime,
         decoration: InputDecoration(
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: const BorderSide(width: 0.8),
+          ),
           hintText: 'Date of birth',
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),

@@ -60,25 +60,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           ),
                           const SizedBox(height: 8),
                           StreamBuilder<DocumentSnapshot>(
-                              stream: patient,
-                              builder: ((context, snapshot) {
-                                if (snapshot.hasError) {
-                                  return const Text('Something went wrong');
-                                }
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return const Text("Loading...",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20));
-                                }
-
-                                return Text(snapshot.data!.get('nickname'),
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                    ));
-                              }))
+                            stream: patient,
+                            builder: ((context, snapshot) {
+                              if (snapshot.hasError) {
+                                return const Text('Something went wrong');
+                              }
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Text("Loading...",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20));
+                              }
+                              return Text(snapshot.data!.get('nickname'),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ));
+                            }),
+                          )
                         ],
                       ),
                     )
@@ -122,7 +122,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         icon: SvgPicture.asset(
                             'assets/images/home_page/bell-alert.svg')),
                     IconButton(
-                        onPressed: () async {},
+                        onPressed: () async {
+                        },
                         icon: SvgPicture.asset(
                             'assets/images/home_page/heart.svg'))
                   ],

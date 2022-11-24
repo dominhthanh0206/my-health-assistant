@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
@@ -51,6 +52,10 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
 
   @override
   Widget build(BuildContext context) {
+    final patient = FirebaseFirestore.instance
+        .collection("patients")
+        .doc(auth.currentUser!.uid)
+        .snapshots();
     log('default Time: $time');
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
@@ -116,45 +121,65 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
                                     .format(DateTime.parse(date))))
                   ],
                 ),
-                Center(
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 20),
-                    width: MediaQuery.of(context).size.width,
-                    height: 40,
-                    child: MyElevatedButton(
-                      buttonColor: mainColor,
-                      customFunction: () {
-                        final key = UniqueKey().toString();
-                        DateTime dt = DateTime.parse(date);
-                        String fDate = DateFormat('dd-MM-yyyy').format(dt);
-                        Appointment appointment = Appointment(
-                            date: fDate,
-                            doctorId: arguments['doctor'].id,
-                            doctorName: arguments['doctor'].fullName,
-                            patientId: auth.currentUser!.uid,
-                            reason: '',
-                            status: status,
-                            time: time,
-                            id: key);
-                        AppointmentFunctions.addAppointment(
-                            appointment.toJson(), key);
-                        Logger().v(
-                            '========== \n CurrentUser: ${auth.currentUser!.uid}\n DoctorId: ${arguments['doctor'].id}\n Time: $time\n Date: $date\n Status: $status\n=========');
-                        showMyDialog(
-                            context,
-                            mainColor,
-                            size,
-                            'Reschedule Success',
-                            'Appointment successfully changed. You will receive a notification and the doctor you selected will contact you.',
-                            'assets/images/schedule_page/schedule.png',
-                            206);
-                      },
-                      fontSize: 16,
-                      text: 'Submit',
-                      textColor: Colors.white,
-                    ),
-                  ),
+                StreamBuilder<DocumentSnapshot>(
+                  stream: patient,
+                  builder: ((context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Something went wrong: ${snapshot.error}');
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (snapshot.hasData) {
+                      return Center(
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 20),
+                          width: MediaQuery.of(context).size.width,
+                          height: 40,
+                          child: MyElevatedButton(
+                            buttonColor: mainColor,
+                            customFunction: () {
+                              final key = UniqueKey().toString();
+                              DateTime dt = DateTime.parse(date);
+                              String fDate =
+                                  DateFormat('dd-MM-yyyy').format(dt);
+                              Appointment appointment = Appointment(
+                                  date: fDate,
+                                  doctorId: arguments['doctor'].id,
+                                  doctorName: arguments['doctor'].fullName,
+                                  doctorGender: arguments['doctor'].gender,
+                                  patientId: auth.currentUser!.uid,
+                                  reason: '',
+                                  patientName: snapshot.data?.get('fullName'),
+                                  patientGender: snapshot.data?.get('gender'),
+                                  status: status,
+                                  time: time,
+                                  id: key);
+                              AppointmentFunctions.addAppointment(
+                                  appointment.toJson(), key);
+                              Logger().v(
+                                  '========== \n CurrentUser: ${auth.currentUser!.uid}\n DoctorId: ${arguments['doctor'].id}\n Time: $time\n Date: $date\n Status: $status\n=========');
+                              showMyDialog(
+                                  context,
+                                  mainColor,
+                                  size,
+                                  'Reschedule Success',
+                                  'Appointment successfully changed. You will receive a notification and the doctor you selected will contact you.',
+                                  'assets/images/schedule_page/schedule.png',
+                                  206);
+                            },
+                            fontSize: 16,
+                            text: 'Submit',
+                            textColor: Colors.white,
+                          ),
+                        ),
+                      );
+                    }
+                    return Container();
+                  }),
                 )
               ],
             ),
