@@ -3,11 +3,16 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:my_health_assistant/src/data/firebase_firestore/doctor/article/article_functions.dart';
+import 'package:my_health_assistant/src/models/article/article.dart';
 import 'package:my_health_assistant/src/pages/doctor/article/component/container_of_content.dart';
 import 'package:my_health_assistant/src/pages/doctor/article/component/custom_topic_container.dart';
+import 'package:my_health_assistant/src/pages/global_var.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 
 import 'package:my_health_assistant/src/styles/font_styles.dart';
+import 'package:my_health_assistant/src/widgets/app_toast/app_toast.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
 const List<String> item = ['Medical', 'Health', 'Covid-19', 'Lifestyle'];
@@ -22,7 +27,7 @@ class PostTopicScreen extends StatefulWidget {
 class _PostTopicScreenState extends State<PostTopicScreen> {
   final TextEditingController _titleTopic = TextEditingController();
   final TextEditingController _content = TextEditingController();
-  final TextEditingController _image = TextEditingController();
+  final TextEditingController _imageUrl = TextEditingController();
   File? image;
   String? getTextTopic;
   // final type = ValueNotifier<String?>(null);
@@ -93,7 +98,7 @@ class _PostTopicScreenState extends State<PostTopicScreen> {
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
-                  controller: _image,
+                  controller: _imageUrl,
                   decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.image),
                       border: OutlineInputBorder(
@@ -135,10 +140,29 @@ class _PostTopicScreenState extends State<PostTopicScreen> {
                           borderRadius: BorderRadius.circular(100.0)),
                       fillColor: const Color(0XFF0069FE),
                       onPressed: () {
+                        final key = UniqueKey().toString();
                         log(image.toString());
                         log(type);
                         log(_titleTopic.text);
                         log(_content.text);
+                        log(_imageUrl.text);
+                        String timeF =
+                            DateFormat('dd-MM-yyyy').format(DateTime.now());
+                        Article article = Article(
+                            key: key,
+                            title: _titleTopic.text,
+                            content: _content.text,
+                            category: type,
+                            imageUrl: _imageUrl.text.isEmpty
+                                ? 'https://meadowbrookhealth.com/wp-content/uploads/2016/01/blank-photo.png'
+                                : _imageUrl.text,
+                            time: timeF,
+                            doctorID: auth.currentUser?.uid);
+
+                        ArticleFunctions.addArticle(article.toJson(), key);
+                        Navigator.pop(context);
+                        AppToasts.showToast(
+                            context: context, title: 'Post Article Success');
                       },
                       child: Text(
                         "Post",

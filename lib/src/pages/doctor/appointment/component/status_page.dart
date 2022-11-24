@@ -14,7 +14,6 @@ class MyListStatus extends StatelessWidget {
   final Color color;
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     Logger().i('appointment of doctor $status');
     return status.isNotEmpty
         ? ListView.builder(
@@ -171,7 +170,6 @@ class MyListStatus extends StatelessWidget {
                                       ),
                                       if (status[index].status == 'Upcoming')
                                         SizedBox(
-                                          width: 90,
                                           height: 30,
                                           child: ElevatedButton(
                                             style: ButtonStyle(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:my_health_assistant/src/pages/doctor/article/component/article_object.dart';
+import 'package:my_health_assistant/src/data/firebase_firestore/doctor/article/article_functions.dart';
+import 'package:my_health_assistant/src/models/article/article.dart';
 import 'package:my_health_assistant/src/pages/doctor/article/component/list_articles.dart';
 import 'package:my_health_assistant/src/pages/doctor/article/post_topic_screen.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/home/component/title_tabbar.dart';
@@ -16,23 +17,9 @@ class ArticleScreen extends StatefulWidget {
 
 class _ArticleScreenState extends State<ArticleScreen>
     with TickerProviderStateMixin {
-  List<ArticleObject> covidCategory = [];
-  List<ArticleObject> healthCategory = [];
-  List<ArticleObject> lifestyleCategory = [];
-  List<ArticleObject> medicalCategory = [];
-
   @override
   void initState() {
     super.initState();
-    covidCategory =
-        listArticle.where((element) => element.category == 'Covid-19').toList();
-    healthCategory =
-        listArticle.where((element) => element.category == 'Health').toList();
-    lifestyleCategory = listArticle
-        .where((element) => element.category == 'Lifestyle')
-        .toList();
-    medicalCategory =
-        listArticle.where((element) => element.category == 'Medical').toList();
   }
 
   @override
@@ -64,7 +51,7 @@ class _ArticleScreenState extends State<ArticleScreen>
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => PostTopicScreen(),
+                        builder: (context) => const PostTopicScreen(),
                       )),
                   child: Container(
                     decoration: BoxDecoration(
@@ -120,28 +107,51 @@ class _ArticleScreenState extends State<ArticleScreen>
           const SizedBox(
             height: 10,
           ),
-          Expanded(
-            child: TabBarView(
-              controller: tabController,
-              children: [
-                ListArticles(
-                  articles: listArticle,
-                ),
-                ListArticles(
-                  articles: medicalCategory,
-                ),
-                ListArticles(
-                  articles: healthCategory,
-                ),
-                ListArticles(
-                  articles: covidCategory,
-                ),
-                ListArticles(
-                  articles: lifestyleCategory,
-                ),
-              ],
-            ),
-          ),
+          StreamBuilder<List<Article>>(
+            stream: ArticleFunctions.getAllArticles(),
+            builder: ((context, snapshot) {
+              if (snapshot.hasError) {
+                return Text('Something went wrong ${snapshot.error}');
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (snapshot.hasData) {
+                List<Article> article = snapshot.data!;
+                return Expanded(
+                  child: TabBarView(
+                    controller: tabController,
+                    children: [
+                      ListArticles(
+                        articles:
+                            ArticleFunctions.getAllArticlesOfSpecificDoctor(
+                                article),
+                      ),
+                      ListArticles(
+                        articles: ArticleFunctions.getArticlesByCon(
+                            article, 'Medical'),
+                      ),
+                      ListArticles(
+                        articles: ArticleFunctions.getArticlesByCon(
+                            article, 'Health'),
+                      ),
+                      ListArticles(
+                        articles: ArticleFunctions.getArticlesByCon(
+                            article, 'Covid-19'),
+                      ),
+                      ListArticles(
+                        articles: ArticleFunctions.getArticlesByCon(
+                            article, 'Lifestyle'),
+                      ),
+                    ],
+                  ),
+                );
+              }
+              return Container();
+            }),
+          )
         ],
       ),
     );

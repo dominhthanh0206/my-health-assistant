@@ -141,7 +141,6 @@ class _SignInScreenState extends State<SignInScreen> {
                         borderRadius: BorderRadius.circular(100.0)),
                     fillColor: const Color(0XFF0069FE),
                     onPressed: () async {
-
                       if (_formKey.currentState!.validate()) {
                         User? user = await SignIn.loginUsingEmailPassword(
                             email: _emailController.text,
@@ -200,6 +199,10 @@ class _SignInScreenState extends State<SignInScreen> {
                                   context, PatientRoutes.fillProfile);
                             }
                           }
+                        } else {
+                          final snackBar =
+                              showSnackBar('Email or password is not correct');
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
                       } else {
                         final snackBar =
