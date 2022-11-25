@@ -145,7 +145,7 @@ class _RescheduleSelectDateTimeState extends State<RescheduleSelectDateTime> {
                             'Reschedule Success',
                             'Appointment successfully changed. You will receive a notification and the doctor you selected will contact you.',
                             'assets/images/schedule_page/schedule.png',
-                            206);
+                            );
                       },
                       fontSize: 16,
                       text: 'Submit',

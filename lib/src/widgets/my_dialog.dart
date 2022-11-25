@@ -4,7 +4,7 @@ import '../routes.dart';
 import 'buttons/my_elevated_button.dart';
 
 void showMyDialog(BuildContext context, Color mainColor, Size size,
-    String title, String content, String image, double height) {
+    String title, String content, String image) {
   showDialog<String>(
     context: context,
     builder: (BuildContext context) => Padding(
@@ -13,7 +13,6 @@ void showMyDialog(BuildContext context, Color mainColor, Size size,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(32.0))),
         title: SizedBox(
-          height: height,
           child: Column(
             children: [
               Image.asset(image),
