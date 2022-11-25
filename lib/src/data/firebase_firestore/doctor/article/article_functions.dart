@@ -43,4 +43,14 @@ class ArticleFunctions {
     }
     return articlesList;
   }
+
+  static List<Article> getArticlesByCategory(List<Article> allArticles, String category){
+    List<Article> articlesList = [];
+    for (var element in allArticles) {
+      if (element.category == category) {
+        articlesList.add(element);
+      }
+    }
+    return articlesList;
+  }
 }

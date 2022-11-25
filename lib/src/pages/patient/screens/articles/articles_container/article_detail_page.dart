@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_health_assistant/src/models/article/article.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/articles/articles_container/my_custom_category.dart';
-import 'package:my_health_assistant/src/pages/patient/screens/articles/article_object.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
@@ -57,7 +57,7 @@ class ArticleDetailPage extends StatelessWidget {
             ],
           ),
         ),
-      ),
+      ),  
     );
   }
 }
