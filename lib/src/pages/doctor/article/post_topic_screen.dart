@@ -11,6 +11,8 @@ import 'package:my_health_assistant/src/pages/doctor/article/component/custom_to
 import 'package:my_health_assistant/src/pages/global_var.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 
+import 'package:http/http.dart' as http;
+
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 import 'package:my_health_assistant/src/widgets/app_toast/app_toast.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
@@ -139,7 +141,8 @@ class _PostTopicScreenState extends State<PostTopicScreen> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100.0)),
                       fillColor: const Color(0XFF0069FE),
-                      onPressed: () {
+                      onPressed: () async {
+                        bool checkValidImg = false;
                         final key = UniqueKey().toString();
                         log(image.toString());
                         log(type);
@@ -159,10 +162,28 @@ class _PostTopicScreenState extends State<PostTopicScreen> {
                             time: timeF,
                             doctorID: auth.currentUser?.uid);
 
-                        ArticleFunctions.addArticle(article.toJson(), key);
-                        Navigator.pop(context);
-                        AppToasts.showToast(
-                            context: context, title: 'Post Article Success');
+                        try {
+                          final response =
+                              await http.head(Uri.parse(_imageUrl.text));
+                          if (response.statusCode == 200) {
+                            checkValidImg = true;
+                            ArticleFunctions.addArticle(article.toJson(), key);
+                            Navigator.pop(context);
+                            AppToasts.showToast(
+                                context: context,
+                                title: 'Post Article Success');
+                          }
+                        } catch (e) {
+                          AppToasts.showErrorToast(
+                              title: 'Invalid image url', context: context);
+                        }
+
+                        // if (checkValidImg) {
+
+                        // } else {
+                        //   AppToasts.showErrorToast(
+                        //       context: context, title: 'Invalid image url');
+                        // }
                       },
                       child: Text(
                         "Post",
