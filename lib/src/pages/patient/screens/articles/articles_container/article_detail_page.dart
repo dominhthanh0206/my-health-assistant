@@ -30,7 +30,7 @@ class ArticleDetailPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
                 child: SizedBox(
                   child: Image.network(
-                    'https://cdn.thuvienphapluat.vn/uploads/tintuc/2022/01/30/cap-nhat-huong-dan-dieu-tri-covid.jpg',
+                    article.imageUrl ?? 'https://cdn.thuvienphapluat.vn/uploads/tintuc/2022/01/30/cap-nhat-huong-dan-dieu-tri-covid.jpg',
                     fit: BoxFit.cover,
                   ),
                 ),

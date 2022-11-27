@@ -22,6 +22,7 @@ class ArticlePage extends StatefulWidget {
 
 class _ArticlePageState extends State<ArticlePage>
     with TickerProviderStateMixin {
+
   @override
   void initState() {
     super.initState();
@@ -54,146 +55,147 @@ class _ArticlePageState extends State<ArticlePage>
                 color: Colors.black)
           ]),
       body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20),
-        height: size.height,
-        width: size.width,
-        child: StreamBuilder<List<Article>>(
-          stream: ArticleFunctions.getAllArticles(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Text('Something went wrong ${snapshot.error}');
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            if (snapshot.hasData) {
-              List<Article> articles = snapshot.data!;
-              return Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Trending',
-                        style: MyFontStyles.blackColorH1,
-                      ),
-                      MyTextButton(
-                          buttonColor: Colors.transparent,
-                          textColor: MyColors.mainColor,
-                          text: 'See All',
-                          fontSize: 14,
-                          customFunction: (() {
-                            log('See All');
-                          }))
-                    ],
-                  ),
-                  SizedBox(
-                    height: size.height / 5,
-                    width: size.width,
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 3,
-                        itemBuilder: (context, index) {
-                          return MyTrendingContainer(
-                            size: size,
-                            text:
-                                'Adding salt in your food may increase risk of PrePre PrePrePrePrePrePrePrePrePrePre',
-                          );
-                        }),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Articles',
-                        style: MyFontStyles.blackColorH1,
-                      ),
-                      MyTextButton(
-                        buttonColor: Colors.transparent,
-                        textColor: MyColors.mainColor,
-                        text: 'See All',
-                        fontSize: 14,
-                        customFunction: (() {
-                          log('See All');
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SeeAllArticlesPage(
-                                covid19Category:
-                                    ArticleFunctions.getArticlesByCategory(
-                                        articles, 'Covid-19'),
-                                healthCategory:
-                                    ArticleFunctions.getArticlesByCategory(
-                                        articles, 'Health'),
-                                lifestyleCategory:
-                                    ArticleFunctions.getArticlesByCategory(
-                                        articles, 'Lifestyle'),
-                                medicalCategory:
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          height: size.height,
+          width: size.width,
+          child: StreamBuilder<List<Article>>(
+              stream: ArticleFunctions.getAllArticles(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Text('Something went wrong ${snapshot.error}');
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (snapshot.hasData) {
+                  List<Article> articles = snapshot.data!;
+                  return SizedBox(
+                    width: double.infinity,
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'Trending',
+                              style: MyFontStyles.blackColorH1,
+                            ),
+                            MyTextButton(
+                                buttonColor: Colors.transparent,
+                                textColor: MyColors.mainColor,
+                                text: 'See All',
+                                fontSize: 14,
+                                customFunction: (() {
+                                  log('See All');
+                                }))
+                          ],
+                        ),
+                        SizedBox(
+                          height: size.height / 5,
+                          width: size.width,
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: articles.length,
+                              itemBuilder: (context, index) {
+                                return MyTrendingContainer(
+                                  size: size,
+                                  article: articles[index],
+                                );
+                              }),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'Articles',
+                              style: MyFontStyles.blackColorH1,
+                            ),
+                            MyTextButton(
+                                buttonColor: Colors.transparent,
+                                textColor: MyColors.mainColor,
+                                text: 'See All',
+                                fontSize: 14,
+                                customFunction: (() {
+                                  log('See All');
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: ((context) => SeeAllArticlesPage(
+                                              covid19Category: ArticleFunctions
+                                                  .getArticlesByCategory(
+                                                      articles, 'Covid-19'),
+                                              healthCategory: ArticleFunctions
+                                                  .getArticlesByCategory(
+                                                      articles, 'Health'),
+                                              lifestyleCategory:
+                                                  ArticleFunctions.getArticlesByCategory(
+                                                      articles, 'Lifestyle'),
+                                              medicalCategory:
+                                                  ArticleFunctions.getArticlesByCategory(
+                                                      articles, 'Medical')))));
+                                }))
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                          child: TabBar(
+                            controller: tabController,
+                            labelColor: MyColors.whiteText,
+                            isScrollable: true,
+                            unselectedLabelColor: Colors.black,
+                            indicatorSize: TabBarIndicatorSize.label,
+                            labelPadding:
+                                const EdgeInsets.symmetric(horizontal: 6),
+                            indicator: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: MyColors.mainColor),
+                            tabs: const [
+                              TabbarTitle(title: 'Medical'),
+                              TabbarTitle(title: 'Health'),
+                              TabbarTitle(title: 'Covid-19'),
+                              TabbarTitle(title: 'Lifestyle'),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Expanded(
+                          child: TabBarView(
+                            controller: tabController,
+                            children: [
+                              MyListArticles(
+                                articles:
                                     ArticleFunctions.getArticlesByCategory(
                                         articles, 'Medical'),
                               ),
-                            ),
-                          );
-                        }),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30,
-                    child: TabBar(
-                      controller: tabController,
-                      labelColor: MyColors.whiteText,
-                      isScrollable: true,
-                      unselectedLabelColor: Colors.black,
-                      indicatorSize: TabBarIndicatorSize.label,
-                      labelPadding: const EdgeInsets.symmetric(horizontal: 6),
-                      indicator: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: MyColors.mainColor),
-                      tabs: const [
-                        TabbarTitle(title: 'Medical'),
-                        TabbarTitle(title: 'Health'),
-                        TabbarTitle(title: 'Covid-19'),
-                        TabbarTitle(title: 'Lifestyle'),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Expanded(
-                    child: TabBarView(
-                      controller: tabController,
-                      children: [
-                        MyListArticles(
-                          articles: ArticleFunctions.getArticlesByCategory(
-                              articles, 'Medical'),
-                        ),
-                        MyListArticles(
-                          articles: ArticleFunctions.getArticlesByCategory(
-                              articles, 'Health'),
-                        ),
-                        MyListArticles(
-                          articles: ArticleFunctions.getArticlesByCategory(
-                              articles, 'Covid-19'),
-                        ),
-                        MyListArticles(
-                          articles: ArticleFunctions.getArticlesByCategory(
-                              articles, 'Lifestyle'),
+                              MyListArticles(
+                                articles:
+                                    ArticleFunctions.getArticlesByCategory(
+                                        articles, 'Health'),
+                              ),
+                              MyListArticles(
+                                articles:
+                                    ArticleFunctions.getArticlesByCategory(
+                                        articles, 'Covid-19'),
+                              ),
+                              MyListArticles(
+                                articles:
+                                    ArticleFunctions.getArticlesByCategory(
+                                        articles, 'Lifestyle'),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                ],
-              );
-            }
-            return Container();
-          },
-        ),
-      ),
+                  );
+                }
+                return Container();
+              })),
     );
   }
 }
