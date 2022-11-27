@@ -1,3 +1,17 @@
-<svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M1.25 11L10.2045 2.04549C10.6438 1.60615 11.3562 1.60615 11.7955 2.04549L20.75 11M3.5 8.75V18.875C3.5 19.4963 4.00368 20 4.625 20H8.75V15.125C8.75 14.5037 9.25368 14 9.875 14H12.125C12.7463 14 13.25 14.5037 13.25 15.125V20H17.375C17.9963 20 18.5 19.4963 18.5 18.875V8.75M7.25 20H15.5" stroke="#0F172A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="24.000000pt" height="24.000000pt" viewBox="0 0 24.000000 24.000000"
+ preserveAspectRatio="xMidYMid meet">
+
+<g transform="translate(0.000000,24.000000) scale(0.100000,-0.100000)"
+fill="#000000" stroke="none">
+<path d="M52 177 c-29 -29 -52 -56 -52 -60 0 -19 29 -3 72 40 l48 47 48 -47
+c44 -44 72 -59 72 -39 0 5 -9 17 -20 27 -11 10 -20 31 -20 47 0 18 -5 28 -15
+28 -8 0 -15 -5 -15 -12 0 -6 -7 -4 -18 5 -29 26 -44 21 -100 -36z"/>
+<path d="M66 130 c-51 -57 -49 -120 5 -120 26 0 29 4 29 30 0 23 4 30 20 30
+16 0 20 -7 20 -30 0 -26 3 -30 29 -30 30 0 41 14 41 56 0 29 -65 104 -90 104
+-10 0 -34 -18 -54 -40z"/>
+</g>
 </svg>

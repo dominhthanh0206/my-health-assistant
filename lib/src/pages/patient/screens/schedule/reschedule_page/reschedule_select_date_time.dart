@@ -66,7 +66,7 @@ class _RescheduleSelectDateTimeState extends State<RescheduleSelectDateTime> {
     //     <String, dynamic>{}) as Map;
     Color mainColor = const Color.fromARGB(255, 0, 106, 192);
     return Scaffold(
-        appBar: CustomAppBar(title: 'Make Appointment'),
+        appBar: CustomAppBar(title: 'Reschedule Appointment'),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -145,7 +145,7 @@ class _RescheduleSelectDateTimeState extends State<RescheduleSelectDateTime> {
                             'Reschedule Success',
                             'Appointment successfully changed. You will receive a notification and the doctor you selected will contact you.',
                             'assets/images/schedule_page/schedule.png',
-                            206);
+                            );
                       },
                       fontSize: 16,
                       text: 'Submit',

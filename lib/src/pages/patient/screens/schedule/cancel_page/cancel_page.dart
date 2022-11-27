@@ -93,7 +93,7 @@ class _CancelPageState extends State<CancelPage> {
                             'Cancel Appointment',
                             'We are very sad that you have canceled your appointment. We will always improve our service to satisfy you in the next appointment',
                             'assets/images/schedule_page/cancel.png',
-                            215);
+                            );
                         log('cancel: ----------- $reason ------------');
                       },
                       fontSize: 16,

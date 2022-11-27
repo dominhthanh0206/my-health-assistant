@@ -28,8 +28,8 @@ class AppointmentContainer extends StatelessWidget {
             appointment.doctorName ?? '',
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 19),
           ),
-          StatusContainer(
-              status: appointment.status ?? '', color: color),
+          StatusContainer(status: appointment.status ?? '', color: color),
+          const SizedBox(height: 4),
           RichText(
             text: TextSpan(
               text: appointment.date,
@@ -44,7 +44,56 @@ class AppointmentContainer extends StatelessWidget {
                 TextSpan(text: appointment.time),
               ],
             ),
-          )
+          ),
+          const SizedBox(height: 6),
+          Row(
+            children: const [
+              Icon(
+                Icons.phone,
+                size: 15,
+                color: Colors.black54,
+              ),
+              SizedBox(width: 4),
+              Text(
+                '0905221133',
+                style: TextStyle(
+                    color: Colors.black54,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Row(
+            children: [
+              if (appointment.doctorGender == 'Male')
+                const Icon(
+                  Icons.male_outlined,
+                  color: Colors.blue,
+                  size: 20,
+                ),
+              if (appointment.doctorGender == 'Female')
+                const Icon(
+                  Icons.female_outlined,
+                  color: Colors.pink,
+                  size: 20,
+                ),
+              if (appointment.doctorGender == 'Others')
+                const Icon(
+                  Icons.question_mark,
+                  color: Colors.blue,
+                  size: 20,
+                ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 2),
+                child: Text(appointment.doctorGender ?? '',
+                    style: const TextStyle(
+                        color: Colors.black54,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12)),
+              ),
+            ],
+          ),
         ])
       ],
     );
