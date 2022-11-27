@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs {
-
-  static final Future<SharedPreferences> _preferences = SharedPreferences.getInstance();
+  static final Future<SharedPreferences> _preferences =
+      SharedPreferences.getInstance();
 
   static isLoggedIn(bool status) async {
     final prefs = await _preferences;
@@ -33,6 +33,21 @@ class SharedPrefs {
   //   return prefs.getBool('filled');
   // }
 
+  static setRole(bool isPatient) async {
+    final prefs = await _preferences;
+    await prefs.setBool('isPatient', isPatient);
+  }
+
+  static Future<bool?> getRole() async {
+    final prefs = await _preferences;
+    return prefs.getBool('isPatient');
+  }
+
+  static void removeRole() async {
+    final prefs = await _preferences;
+    prefs.remove('isPatient');
+  }
+
   static writeUid(String uid) async {
     final prefs = await _preferences;
     await prefs.setString('uid', uid);
@@ -48,5 +63,4 @@ class SharedPrefs {
     final prefs = await _preferences;
     return prefs.getString('uid');
   }
-
 }

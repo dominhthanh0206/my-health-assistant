@@ -166,7 +166,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             logger.i('uid from user: ${user.uid}');
                             String? uidFromPrefs = await SharedPrefs.getUid();
                             logger.i('uid prefs user: $uidFromPrefs');
-
+                            SharedPrefs.setRole(false);
                             final bool filled =
                                 await SignInDoctor.checkDoctorExist(user.uid);
 
@@ -188,7 +188,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             logger.i('uid from user: ${user.uid}');
                             String? uidFromPrefs = await SharedPrefs.getUid();
                             logger.i('uid prefs user: $uidFromPrefs');
-
+                            SharedPrefs.setRole(true);
                             final bool filled =
                                 await FillInformation.checkExist(user.uid);
                             if (filled) {

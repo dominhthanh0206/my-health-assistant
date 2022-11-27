@@ -117,6 +117,7 @@ class ProfilePage extends StatelessWidget {
                                       log('Logout');
                                       SignOut.signOut();
                                       SharedPrefs.isLoggedOut();
+                                      SharedPrefs.removeRole();
                                       SharedPrefs.removeUid();
                                       Navigator.popUntil(
                                           context,
