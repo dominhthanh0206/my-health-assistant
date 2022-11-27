@@ -54,7 +54,7 @@ class _MyPageControllerState extends State<MyPageController> {
             icon: SvgPicture.asset(
                 'assets/images/bottom_navigation_bar/history.svg',
                 color: MyColors.mainColor),
-            label: 'History',
+            label: 'Chats',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(

@@ -62,7 +62,7 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
     Color mainColor = const Color.fromARGB(255, 0, 106, 192);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: CustomAppBar(title: 'Reschedule Appointment'),
+        appBar: CustomAppBar(title: 'Make Appointments'),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -163,13 +163,13 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
                               Logger().v(
                                   '========== \n CurrentUser: ${auth.currentUser!.uid}\n DoctorId: ${arguments['doctor'].id}\n Time: $time\n Date: $date\n Status: $status\n=========');
                               showMyDialog(
-                                  context,
-                                  mainColor,
-                                  size,
-                                  'Reschedule Success',
-                                  'Appointment successfully changed. You will receive a notification and the doctor you selected will contact you.',
-                                  'assets/images/schedule_page/schedule.png',
-                                  206);
+                                context,
+                                mainColor,
+                                size,
+                                'Make Appointment Success',
+                                'Appointment successfully changed. You will receive a notification and the doctor you selected will contact you.',
+                                'assets/images/schedule_page/schedule.png',
+                              );
                             },
                             fontSize: 16,
                             text: 'Submit',

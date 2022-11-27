@@ -132,7 +132,7 @@ class _PostTopicScreenState extends State<PostTopicScreen> {
                     });
                   },
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height / 6),
+                SizedBox(height: MediaQuery.of(context).size.height / 22),
                 SizedBox(
                     width: double.infinity,
                     child: RawMaterialButton(
