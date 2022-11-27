@@ -62,7 +62,7 @@ class _SelectDateTimePageState extends State<SelectDateTimePage> {
     Color mainColor = const Color.fromARGB(255, 0, 106, 192);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: CustomAppBar(title: 'Reschedule Appointment'),
+        appBar: CustomAppBar(title: 'Make Appointments'),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
