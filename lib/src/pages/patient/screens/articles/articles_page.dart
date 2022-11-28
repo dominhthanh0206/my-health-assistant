@@ -22,7 +22,6 @@ class ArticlePage extends StatefulWidget {
 
 class _ArticlePageState extends State<ArticlePage>
     with TickerProviderStateMixin {
-
   @override
   void initState() {
     super.initState();

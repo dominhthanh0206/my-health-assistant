@@ -88,21 +88,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   children: [
                     IconButton(
                         onPressed: () {
-                          
                           final key = UniqueKey();
                           Logger().i(key.toString());
                         },
                         icon: SvgPicture.asset(
                             'assets/images/home_page/bell-alert.svg')),
                     IconButton(
-                        onPressed: () async {
-                          var collection = FirebaseFirestore.instance
-                              .collection('appointments');
-                          var snapshots = await collection.get();
-                          for (var doc in snapshots.docs) {
-                            await doc.reference.delete();
-                          }
-                        },
+                        onPressed: () async {},
                         icon: SvgPicture.asset(
                             'assets/images/home_page/heart.svg'))
                   ],

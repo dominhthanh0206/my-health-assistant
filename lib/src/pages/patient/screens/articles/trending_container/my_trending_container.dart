@@ -42,7 +42,7 @@ class MyTrendingContainer extends StatelessWidget {
               height: 5,
             ),
             Text(
-              article.content ?? 'Something went wrong',
+              article.title ?? 'Something went wrong',
               style: MyFontStyles.blackColorH3,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,

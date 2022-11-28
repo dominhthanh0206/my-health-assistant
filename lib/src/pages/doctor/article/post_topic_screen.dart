@@ -177,13 +177,6 @@ class _PostTopicScreenState extends State<PostTopicScreen> {
                           AppToasts.showErrorToast(
                               title: 'Invalid image url', context: context);
                         }
-
-                        // if (checkValidImg) {
-
-                        // } else {
-                        //   AppToasts.showErrorToast(
-                        //       context: context, title: 'Invalid image url');
-                        // }
                       },
                       child: Text(
                         "Post",
