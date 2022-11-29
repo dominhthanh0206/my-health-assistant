@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -30,7 +30,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -38,6 +37,19 @@ dependencies:
   syncfusion_flutter_datepicker: ^20.2.50
   intl: ^0.17.0
   flutter_switch: ^0.3.2
+  email_validator: ^2.1.17
+  loading_indicator: ^3.1.0
+  firebase_auth: ^3.11.2
+  firebase_core: ^1.24.0
+  cloud_firestore: ^3.5.1
+  firebase_core_platform_interface: 4.5.1
+  shared_preferences: ^2.0.15
+  freezed_annotation: ^2.2.0
+  json_annotation: ^4.7.0
+  logger: ^1.1.0
+  image_picker: ^0.8.6
+  fluttertoast: ^8.1.1
+  flutter_screenutil: ^5.6.0
 
 dev_dependencies:
   flutter_test:
@@ -49,13 +61,15 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  build_runner: ^2.3.2
+  freezed: ^2.2.0
+  json_serializable: ^6.5.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -66,9 +80,13 @@ flutter:
     - assets/
     - assets/images/
     - assets/images/bottom_navigation_bar/
+    - assets/images/common/
     - assets/images/schedule_page/
     - assets/images/profile/
     - assets/images/home_page/
+    - assets/images/message_screen/
+    - assets/images/doctor_screen/
+    - assets/images/sign_in/
     - assets/fonts/
     - assets/data/
 
