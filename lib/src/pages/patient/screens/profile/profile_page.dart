@@ -1,7 +1,9 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:my_health_assistant/src/pages/global_var.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import '../../../../data/shared_preferences.dart';
 import '../../../../routes.dart';
@@ -35,6 +37,10 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final patient = FirebaseFirestore.instance
+        .collection("patients")
+        .doc(auth.currentUser!.uid)
+        .snapshots();
     return Scaffold(
       appBar: AppBar(
           backgroundColor: MyColors.whiteText,
@@ -61,23 +67,49 @@ class ProfilePage extends StatelessWidget {
                 radius: 60,
                 backgroundImage: AssetImage("assets/images/profile/avatar.jpg"),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.0),
-                child: Text("Andrew Ainley",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style:
-                        TextStyle(fontWeight: FontWeight.w600, fontSize: 20)),
+              StreamBuilder<DocumentSnapshot>(
+                stream: patient,
+                builder: ((context, snapshot) {
+                  if (snapshot.hasError) {
+                    return const Text('Something went wrong');
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Text("Loading...",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20));
+                  }
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Text(snapshot.data!.get('fullName'),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 20)),
+                  );
+                }),
               ),
               const SizedBox(height: 4),
-              Text(
-                "+84 905430873",
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 12,
-                    color: Colors.grey.shade700),
+              StreamBuilder<DocumentSnapshot>(
+                stream: patient,
+                builder: ((context, snapshot) {
+                  if (snapshot.hasError) {
+                    return const Text('Something went wrong');
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Text("Loading...",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20));
+                  }
+                  return Text(
+                    snapshot.data!.get('phoneNumber'),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12,
+                        color: Colors.grey.shade700),
+                  );
+                }),
               ),
               ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
@@ -117,6 +149,7 @@ class ProfilePage extends StatelessWidget {
                                       log('Logout');
                                       SignOut.signOut();
                                       SharedPrefs.isLoggedOut();
+                                      SharedPrefs.removeRole();
                                       SharedPrefs.removeUid();
                                       Navigator.popUntil(
                                           context,

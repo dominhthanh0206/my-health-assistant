@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:my_health_assistant/src/models/article/article.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/articles/articles_container/article_detail_page.dart';
-import 'package:my_health_assistant/src/pages/patient/screens/articles/article_object.dart';
 import '../my_articles_container.dart';
 
 class MyListArticles extends StatelessWidget {
@@ -21,7 +21,7 @@ class MyListArticles extends StatelessWidget {
             Navigator.push(context, MaterialPageRoute(builder: (_) => ArticleDetailPage(article: articles[index],)));
           }),
           child: MyArticleContainer(
-            imgUrl: articles[index].imgUrl ?? 'https://cdn.thuvienphapluat.vn/uploads/tintuc/2022/01/30/cap-nhat-huong-dan-dieu-tri-covid.jpg',
+            imgUrl: articles[index].imageUrl ?? 'https://cdn.thuvienphapluat.vn/uploads/tintuc/2022/01/30/cap-nhat-huong-dan-dieu-tri-covid.jpg',
             time: articles[index].time ?? '',
             title:
                 articles[index].title ?? '',
