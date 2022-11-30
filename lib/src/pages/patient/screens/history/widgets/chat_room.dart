@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_health_assistant/src/models/chat_model/user_model.dart';
+import 'package:my_health_assistant/src/models/users/doctor.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/history/widgets/conversation.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
@@ -7,11 +8,11 @@ import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart
 import 'build_chat.dart';
 
 class ChatRoom extends StatefulWidget {
-  const ChatRoom({Key? key, required this.user}) : super(key: key);
+  const ChatRoom({Key? key, required this.doctor}) : super(key: key);
 
   @override
   State<ChatRoom> createState() => _ChatRoomState();
-  final User user;
+  final Doctor doctor;
 }
 
 class _ChatRoomState extends State<ChatRoom> {
@@ -19,7 +20,7 @@ class _ChatRoomState extends State<ChatRoom> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: widget.user.name,
+        title: widget.doctor.fullName,
         actions: const [
           'assets/images/schedule_page/search.svg',
           'assets/images/schedule_page/more.svg',
@@ -39,11 +40,11 @@ class _ChatRoomState extends State<ChatRoom> {
                   color: Colors.white,
                 ),
                 child: ClipRRect(
-                  child: Conversation(user: widget.user),
+                  child: Conversation(doctor: widget.doctor),
                 ),
               ),
             ),
-            const BuildChat()
+            const BuildChat(),
           ],
         ),
       ),
