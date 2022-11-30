@@ -13,6 +13,7 @@ class BuildChat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController _messageController = TextEditingController();
     return ScreenUtilInit(
       designSize: const Size(428, 882),
       builder: (context, child) {
@@ -41,6 +42,7 @@ class BuildChat extends StatelessWidget {
                       ),
                       Expanded(
                         child: TextFormField(
+                          controller: _messageController,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: 'Type a message ...',
@@ -119,13 +121,20 @@ class BuildChat extends StatelessWidget {
               const SizedBox(
                 width: 8,
               ),
-              const CircleAvatar(
-                backgroundColor: MyColors.mainColor,
-                child: Icon(
-                  Icons.send,
-                  color: Colors.white,
-                ),
-              )
+              CircleAvatar(
+                radius: 20,
+                  backgroundColor: MyColors.mainColor,
+                  child: IconButton(
+                    onPressed: () {
+                      log('send');
+                      log(_messageController.text);
+                    },
+                    icon: const Icon(
+                      Icons.send,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                  ))
             ],
           ),
         );
