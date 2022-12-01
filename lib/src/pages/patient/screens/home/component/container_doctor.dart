@@ -82,30 +82,95 @@ class ContainerDoctor extends StatelessWidget {
                                         doctorsInDepartment[index].fullName,
                                         style: MyFontStyles.blackColorH1,
                                       ),
-                                      GestureDetector(
-                                        onTap: () async {
-                                          String key = '${auth.currentUser?.uid}${doctorsInDepartment[index].id}';
-                                          Chat chat = Chat(
-                                            conversationId: key,
-                                            doctorId: doctorsInDepartment[index].id,
-                                            isActive: false,
-                                            patientId: auth.currentUser?.uid,
-                                            messages: []
-                                          );
-                                          ChatFunctions.addMessage(chat.toJson(), key);
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (_) => ChatRoom(
-                                                      doctor:
-                                                          doctorsInDepartment[
-                                                              index])));
-                                        },
-                                        child: SvgPicture.asset(
-                                          'assets/images/home_page/heart.svg',
-                                          color: Colors.blue,
-                                        ),
-                                      )
+                                      StreamBuilder<List<ConversationModel>>(
+                                        stream:
+                                            ChatFunctions.getAllConversation(),
+                                        builder: ((context, snapshot) {
+                                          if (snapshot.hasError) {
+                                            return Text(
+                                                'Something went wrong ${snapshot.error}');
+                                          }
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return const Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            );
+                                          }
+                                          if (snapshot.hasData) {
+                                            List<ConversationModel>
+                                                conversations = snapshot.data!;
+                                            return GestureDetector(
+                                              onTap: () async {
+                                                ConversationModel
+                                                    conversationModel =
+                                                    ChatFunctions
+                                                        .getConversationByCon(
+                                                            conversations,
+                                                            doctorsInDepartment[
+                                                                    index]
+                                                                .id)!;
+                                                if (!conversationModel
+                                                    .isActive!) {
+                                                  String key =
+                                                      '${auth.currentUser?.uid}${doctorsInDepartment[index].id}';
+                                                  ConversationModel chat =
+                                                      ConversationModel(
+                                                          conversationId: key,
+                                                          doctorId:
+                                                              doctorsInDepartment[
+                                                                      index]
+                                                                  .id,
+                                                          isActive: false,
+                                                          patientId: auth
+                                                              .currentUser?.uid,
+                                                          messages: []);
+                                                  ChatFunctions.addMessage(
+                                                      chat.toJson(), key);
+                                                }
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (_) => ChatRoom(
+                                                            doctor:
+                                                                doctorsInDepartment[
+                                                                    index])));
+                                              },
+                                              child: SvgPicture.asset(
+                                                'assets/images/home_page/heart.svg',
+                                                color: Colors.blue,
+                                              ),
+                                            );
+                                          }
+                                          return Container();
+                                        }),
+                                      ),
+                                      // GestureDetector(
+                                      //   onTap: () async {
+                                      //     // String key =
+                                      //     //     '${auth.currentUser?.uid}${doctorsInDepartment[index].id}';
+                                      //     // ConversationModel chat = ConversationModel(
+                                      //     //     conversationId: key,
+                                      //     //     doctorId:
+                                      //     //         doctorsInDepartment[index].id,
+                                      //     //     isActive: false,
+                                      //     //     patientId: auth.currentUser?.uid,
+                                      //     //     messages: []);
+                                      //     // ChatFunctions.addMessage(
+                                      //     //     chat.toJson(), key);
+                                      //     Navigator.push(
+                                      //         context,
+                                      //         MaterialPageRoute(
+                                      //             builder: (_) => ChatRoom(
+                                      //                 doctor:
+                                      //                     doctorsInDepartment[
+                                      //                         index])));
+                                      //   },
+                                      //   child: SvgPicture.asset(
+                                      //     'assets/images/home_page/heart.svg',
+                                      //     color: Colors.blue,
+                                      //   ),
+                                      // )
                                     ],
                                   ),
                                 ),

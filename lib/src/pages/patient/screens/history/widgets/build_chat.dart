@@ -10,9 +10,10 @@ import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 
 class BuildChat extends StatelessWidget {
-  const BuildChat({
-    Key? key,
-  }) : super(key: key);
+  const BuildChat({Key? key, required this.existedConversation, required this.doctorId})
+      : super(key: key);
+  final ConversationModel? existedConversation;
+  final String doctorId;
 
   @override
   Widget build(BuildContext context) {
@@ -130,13 +131,28 @@ class BuildChat extends StatelessWidget {
                   onPressed: () {
                     log('send');
                     log(messageController.text);
-                    List<Message> messages = [];
-                    Message message = Message(content: messageController.text, dateTime: DateTime.now().toString(), senderId: auth.currentUser?.uid);
-                    messages.add(message);
-                    
+                    // List<Map<String, dynamic>> messages = [
+                     Map<String, dynamic> currentMessage = Message(
+                              content: messageController.text,
+                              dateTime: DateTime.now().toString(),
+                              senderId: auth.currentUser?.uid)
+                          .toJson();
+                    // ];
+                    List<Map<String, dynamic>> ls = existedConversation!
+                        .messages!
+                        .map((e) => e.toJson())
+                        .toList();
+                    log('ls: $ls');
+                    // Message message = Message(content: messageController.text, dateTime: DateTime.now().toString(), senderId: auth.currentUser?.uid);
+                    ls.add(currentMessage);
+                    log('id: ${auth.currentUser!.uid}$doctorId');
                     var collection =
-                          FirebaseFirestore.instance.collection('chats');
-                    collection.doc(auth.currentUser!.uid).update({});
+                        FirebaseFirestore.instance.collection('conversations');
+                    collection
+                        .doc(
+                            '${auth.currentUser!.uid}$doctorId}')
+                        .update({'messages': ls, 'isActive': true});
+                    messageController.text = '';
                   },
                   icon: const Icon(
                     Icons.send,

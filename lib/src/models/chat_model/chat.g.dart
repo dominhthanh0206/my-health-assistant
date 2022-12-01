@@ -6,7 +6,8 @@ part of 'chat.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Chat _$$_ChatFromJson(Map<String, dynamic> json) => _$_Chat(
+_$_ConversationModel _$$_ConversationModelFromJson(Map<String, dynamic> json) =>
+    _$_ConversationModel(
       conversationId: json['conversationId'] as String?,
       doctorId: json['doctorId'] as String?,
       patientId: json['patientId'] as String?,
@@ -18,7 +19,9 @@ _$_Chat _$$_ChatFromJson(Map<String, dynamic> json) => _$_Chat(
       isActive: json['isActive'] as bool?,
     );
 
-Map<String, dynamic> _$$_ChatToJson(_$_Chat instance) => <String, dynamic>{
+Map<String, dynamic> _$$_ConversationModelToJson(
+        _$_ConversationModel instance) =>
+    <String, dynamic>{
       'conversationId': instance.conversationId,
       'doctorId': instance.doctorId,
       'patientId': instance.patientId,

@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Chat _$ChatFromJson(Map<String, dynamic> json) {
-  return _Chat.fromJson(json);
+ConversationModel _$ConversationModelFromJson(Map<String, dynamic> json) {
+  return _ConversationModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Chat {
+mixin _$ConversationModel {
   String? get conversationId => throw _privateConstructorUsedError;
   String? get doctorId => throw _privateConstructorUsedError;
   String? get patientId => throw _privateConstructorUsedError;
@@ -30,13 +30,15 @@ mixin _$Chat {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ChatCopyWith<Chat> get copyWith => throw _privateConstructorUsedError;
+  $ConversationModelCopyWith<ConversationModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ChatCopyWith<$Res> {
-  factory $ChatCopyWith(Chat value, $Res Function(Chat) then) =
-      _$ChatCopyWithImpl<$Res, Chat>;
+abstract class $ConversationModelCopyWith<$Res> {
+  factory $ConversationModelCopyWith(
+          ConversationModel value, $Res Function(ConversationModel) then) =
+      _$ConversationModelCopyWithImpl<$Res, ConversationModel>;
   @useResult
   $Res call(
       {String? conversationId,
@@ -49,9 +51,9 @@ abstract class $ChatCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ChatCopyWithImpl<$Res, $Val extends Chat>
-    implements $ChatCopyWith<$Res> {
-  _$ChatCopyWithImpl(this._value, this._then);
+class _$ConversationModelCopyWithImpl<$Res, $Val extends ConversationModel>
+    implements $ConversationModelCopyWith<$Res> {
+  _$ConversationModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -103,9 +105,11 @@ class _$ChatCopyWithImpl<$Res, $Val extends Chat>
 }
 
 /// @nodoc
-abstract class _$$_ChatCopyWith<$Res> implements $ChatCopyWith<$Res> {
-  factory _$$_ChatCopyWith(_$_Chat value, $Res Function(_$_Chat) then) =
-      __$$_ChatCopyWithImpl<$Res>;
+abstract class _$$_ConversationModelCopyWith<$Res>
+    implements $ConversationModelCopyWith<$Res> {
+  factory _$$_ConversationModelCopyWith(_$_ConversationModel value,
+          $Res Function(_$_ConversationModel) then) =
+      __$$_ConversationModelCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -119,9 +123,11 @@ abstract class _$$_ChatCopyWith<$Res> implements $ChatCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ChatCopyWithImpl<$Res> extends _$ChatCopyWithImpl<$Res, _$_Chat>
-    implements _$$_ChatCopyWith<$Res> {
-  __$$_ChatCopyWithImpl(_$_Chat _value, $Res Function(_$_Chat) _then)
+class __$$_ConversationModelCopyWithImpl<$Res>
+    extends _$ConversationModelCopyWithImpl<$Res, _$_ConversationModel>
+    implements _$$_ConversationModelCopyWith<$Res> {
+  __$$_ConversationModelCopyWithImpl(
+      _$_ConversationModel _value, $Res Function(_$_ConversationModel) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -135,7 +141,7 @@ class __$$_ChatCopyWithImpl<$Res> extends _$ChatCopyWithImpl<$Res, _$_Chat>
     Object? lastTime = freezed,
     Object? isActive = freezed,
   }) {
-    return _then(_$_Chat(
+    return _then(_$_ConversationModel(
       conversationId: freezed == conversationId
           ? _value.conversationId
           : conversationId // ignore: cast_nullable_to_non_nullable
@@ -170,8 +176,8 @@ class __$$_ChatCopyWithImpl<$Res> extends _$ChatCopyWithImpl<$Res, _$_Chat>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Chat implements _Chat {
-  _$_Chat(
+class _$_ConversationModel implements _ConversationModel {
+  _$_ConversationModel(
       {this.conversationId,
       this.doctorId,
       this.patientId,
@@ -181,7 +187,8 @@ class _$_Chat implements _Chat {
       this.isActive})
       : _messages = messages;
 
-  factory _$_Chat.fromJson(Map<String, dynamic> json) => _$$_ChatFromJson(json);
+  factory _$_ConversationModel.fromJson(Map<String, dynamic> json) =>
+      _$$_ConversationModelFromJson(json);
 
   @override
   final String? conversationId;
@@ -207,14 +214,14 @@ class _$_Chat implements _Chat {
 
   @override
   String toString() {
-    return 'Chat(conversationId: $conversationId, doctorId: $doctorId, patientId: $patientId, messages: $messages, lastMessage: $lastMessage, lastTime: $lastTime, isActive: $isActive)';
+    return 'ConversationModel(conversationId: $conversationId, doctorId: $doctorId, patientId: $patientId, messages: $messages, lastMessage: $lastMessage, lastTime: $lastTime, isActive: $isActive)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Chat &&
+            other is _$_ConversationModel &&
             (identical(other.conversationId, conversationId) ||
                 other.conversationId == conversationId) &&
             (identical(other.doctorId, doctorId) ||
@@ -245,28 +252,30 @@ class _$_Chat implements _Chat {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ChatCopyWith<_$_Chat> get copyWith =>
-      __$$_ChatCopyWithImpl<_$_Chat>(this, _$identity);
+  _$$_ConversationModelCopyWith<_$_ConversationModel> get copyWith =>
+      __$$_ConversationModelCopyWithImpl<_$_ConversationModel>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ChatToJson(
+    return _$$_ConversationModelToJson(
       this,
     );
   }
 }
 
-abstract class _Chat implements Chat {
-  factory _Chat(
+abstract class _ConversationModel implements ConversationModel {
+  factory _ConversationModel(
       {final String? conversationId,
       final String? doctorId,
       final String? patientId,
       final List<Message>? messages,
       final String? lastMessage,
       final String? lastTime,
-      final bool? isActive}) = _$_Chat;
+      final bool? isActive}) = _$_ConversationModel;
 
-  factory _Chat.fromJson(Map<String, dynamic> json) = _$_Chat.fromJson;
+  factory _ConversationModel.fromJson(Map<String, dynamic> json) =
+      _$_ConversationModel.fromJson;
 
   @override
   String? get conversationId;
@@ -284,7 +293,8 @@ abstract class _Chat implements Chat {
   bool? get isActive;
   @override
   @JsonKey(ignore: true)
-  _$$_ChatCopyWith<_$_Chat> get copyWith => throw _privateConstructorUsedError;
+  _$$_ConversationModelCopyWith<_$_ConversationModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 Message _$MessageFromJson(Map<String, dynamic> json) {

@@ -4,8 +4,8 @@ part 'chat.g.dart';
 part 'chat.freezed.dart';
 
 @freezed
-class Chat with _$Chat {
-  factory Chat({
+class ConversationModel with _$ConversationModel {
+  factory ConversationModel({
     String? conversationId,
     String? doctorId,
     String? patientId,
@@ -13,9 +13,9 @@ class Chat with _$Chat {
     String? lastMessage,
     String? lastTime,
     bool? isActive,
-  }) = _Chat;
+  }) = _ConversationModel;
 
-  factory Chat.fromJson(Map<String, dynamic> json) => _$ChatFromJson(json);
+  factory ConversationModel.fromJson(Map<String, dynamic> json) => _$ConversationModelFromJson(json);
 }
 
 
