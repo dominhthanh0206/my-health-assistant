@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_health_assistant/src/data/firebase_firestore/chat/chat_functions.dart';
 import 'package:my_health_assistant/src/models/chat_model/chat.dart';
 import 'package:my_health_assistant/src/models/chat_model/message_model.dart';
+import 'package:my_health_assistant/src/pages/global_var.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/history/widgets/chat_room.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
@@ -44,78 +46,122 @@ class HistoryPage extends StatelessWidget {
             child: StreamBuilder<List<ConversationModel>>(
               stream: ChatFunctions.getAllConversation(),
               builder: ((context, snapshot) {
-                if(snapshot.hasError){
+                if (snapshot.hasError) {
                   return Text('Something went wrong ${snapshot.error}');
                 }
-                if(snapshot.connectionState == ConnectionState.waiting){
-                  return const Center(child: CircularProgressIndicator(),);
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
-                if(snapshot.hasData){
+                if (snapshot.hasData) {
                   List<ConversationModel> conversations = snapshot.data ?? [];
                   return ListView.builder(
-                itemCount: conversations.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return ChatRoom(
-                          doctorId: conversations[index].doctorId ?? '',
-                        );
-                      }));
+                    itemCount: conversations.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return StreamBuilder<DocumentSnapshot>(
+                              stream: FirebaseFirestore.instance
+                                  .collection("doctors")
+                                  .doc(conversations[index].doctorId)
+                                  .snapshots(),
+                              builder: ((context, snapshot) {
+                                if (snapshot.hasError) {
+                                  return const Text('Something went wrong');
+                                }
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const Text("Loading...",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20));
+                                }
+                                return ChatRoom(
+                                  doctorId: conversations[index].doctorId ?? '',
+                                  doctorName: snapshot.data!.get('fullName'),
+                                );
+                              }),
+                            );
+                          }));
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(top: 24.h),
+                          child: Row(
+                            children: [
+                              // CircleAvatar(
+                              //   radius: 25,
+                              //   backgroundImage:
+                              //       AssetImage(conversations[index].avatar!),
+                              // ),
+                              SizedBox(width: 20.w),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  StreamBuilder<DocumentSnapshot>(
+                                    stream: FirebaseFirestore.instance
+                                        .collection("doctors")
+                                        .doc(conversations[index].doctorId)
+                                        .snapshots(),
+                                    builder: ((context, snapshot) {
+                                      if (snapshot.hasError) {
+                                        return const Text(
+                                            'Something went wrong');
+                                      }
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return const Text("Loading...",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20));
+                                      }
+                                      return Text(
+                                        snapshot.data!.get('fullName'),
+                                        style: MyFontStyles.blackColorH1,
+                                      );
+                                    }),
+                                  ),
+                                  // Text(
+                                  //   'conversations[index].sender.name',
+
+                                  // ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    'conversations[index].text',
+                                    style: MyFontStyles.normalGreyText
+                                        .copyWith(fontSize: 14.sp),
+                                  ),
+                                ],
+                              ),
+                              const Spacer(),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    'recentChats[index].day!',
+                                    style: MyFontStyles.normalGreyText
+                                        .copyWith(fontSize: 14.sp),
+                                  ),
+                                  SizedBox(height: 6.h),
+                                  Text(
+                                    'recentChats[index].time',
+                                    style: MyFontStyles.normalGreyText
+                                        .copyWith(fontSize: 14.sp),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
                     },
-                    child: Container(
-                      margin: EdgeInsets.only(top: 24.h),
-                      child: Row(
-                        children: [
-                          // CircleAvatar(
-                          //   radius: 25,
-                          //   backgroundImage:
-                          //       AssetImage(conversations[index].avatar!),
-                          // ),
-                          SizedBox(width: 20.w),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'conversations[index].sender.name',
-                                style: MyFontStyles.blackColorH1,
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                'conversations[index].text',
-                                style: MyFontStyles.normalGreyText
-                                    .copyWith(fontSize: 14.sp),
-                              ),
-                            ],
-                          ),
-                          const Spacer(),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                'recentChats[index].day!',
-                                style: MyFontStyles.normalGreyText
-                                    .copyWith(fontSize: 14.sp),
-                              ),
-                              SizedBox(height: 6.h),
-                              Text(
-                                'recentChats[index].time',
-                                style: MyFontStyles.normalGreyText
-                                    .copyWith(fontSize: 14.sp),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
                   );
-                },
-              );
                 }
                 return Container();
               }),
-              // child: 
+              // child:
             ),
           ),
         );

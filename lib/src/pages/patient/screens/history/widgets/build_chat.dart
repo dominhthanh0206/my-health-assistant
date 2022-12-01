@@ -145,6 +145,7 @@ class BuildChat extends StatelessWidget {
                     log('ls: $ls');
                     // Message message = Message(content: messageController.text, dateTime: DateTime.now().toString(), senderId: auth.currentUser?.uid);
                     ls.add(currentMessage);
+                    ls.reversed;
                     log('id: ${auth.currentUser!.uid}$doctorId');
                     log('conversationID 1: ${auth.currentUser!.uid}bj9yHvKmShbtdNJoBrlYBJPllq82');
                     log('conversationID 2: ${auth.currentUser!.uid}$doctorId');

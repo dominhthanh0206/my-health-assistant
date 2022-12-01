@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_health_assistant/src/models/chat_model/chat.dart';
@@ -9,25 +11,25 @@ import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 
 class Conversation extends StatelessWidget {
-  const Conversation({
-    Key? key,
-    required this.existedConversation
-  }) : super(key: key);
+  const Conversation({Key? key, required this.existedConversation})
+      : super(key: key);
 
   final ConversationModel? existedConversation;
 
   @override
   Widget build(BuildContext context) {
     // TODO: Read message from firebase
+    List<Message> messages = existedConversation!.messages!;
+    log('$messages');
     return ScreenUtilInit(
       designSize: const Size(428, 882),
       builder: (context, child) {
         return ListView.builder(
-            reverse: true,
-            itemCount: existedConversation?.messages?.length,
+            reverse: false,
+            itemCount: messages.length,
             itemBuilder: (context, int index) {
-              final message = existedConversation?.messages?[index];
-              bool isMe = message?.senderId == auth.currentUser?.uid;
+              final message = messages[index];
+              bool isMe = message.senderId == auth.currentUser?.uid;
               return Container(
                 margin: const EdgeInsets.only(top: 10).r,
                 child: Column(
@@ -56,7 +58,8 @@ class Conversation extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                existedConversation?.messages?[index].content ?? '',
+                                existedConversation?.messages?[index].content ??
+                                    '',
                                 style: MyFontStyles.blackColorH3.copyWith(
                                     color:
                                         isMe ? Colors.white : Colors.grey[800]),
@@ -75,7 +78,9 @@ class Conversation extends StatelessWidget {
                                       width: 8.w,
                                     ),
                                     Text(
-                                      existedConversation?.messages?[index].dateTime ?? '',
+                                      existedConversation
+                                              ?.messages?[index].dateTime ??
+                                          '',
                                       style: isMe
                                           ? MyFontStyles.normalWhiteText
                                           : MyFontStyles.normalGreyText,

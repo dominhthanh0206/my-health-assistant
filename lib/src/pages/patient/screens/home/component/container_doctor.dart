@@ -102,16 +102,15 @@ class ContainerDoctor extends StatelessWidget {
                                                 conversations = snapshot.data!;
                                             return GestureDetector(
                                               onTap: () async {
-                                                ConversationModel
+                                                ConversationModel?
                                                     conversationModel =
                                                     ChatFunctions
                                                         .getConversationByCon(
                                                             conversations,
                                                             doctorsInDepartment[
                                                                     index]
-                                                                .id)!;
-                                                if (!conversationModel
-                                                    .isActive!) {
+                                                                .id);
+                                                if (conversationModel == null) {
                                                   String key =
                                                       '${auth.currentUser?.uid}${doctorsInDepartment[index].id}';
                                                   ConversationModel chat =
@@ -134,7 +133,8 @@ class ContainerDoctor extends StatelessWidget {
                                                         builder: (_) => ChatRoom(
                                                             doctorId:
                                                                 doctorsInDepartment[
-                                                                    index].id)));
+                                                                    index].id, doctorName: doctorsInDepartment[
+                                                                    index].fullName,)));
                                               },
                                               child: SvgPicture.asset(
                                                 'assets/images/home_page/heart.svg',

@@ -10,11 +10,13 @@ import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart
 import 'build_chat.dart';
 
 class ChatRoom extends StatefulWidget {
-  const ChatRoom({Key? key, required this.doctorId}): super(key: key);
+  const ChatRoom({Key? key, required this.doctorId, required this.doctorName})
+      : super(key: key);
 
   @override
   State<ChatRoom> createState() => _ChatRoomState();
   final String doctorId;
+  final String doctorName;
   // final Doctor doctor;
 }
 
@@ -23,7 +25,7 @@ class _ChatRoomState extends State<ChatRoom> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'widget.doctor.fullName',
+        title: widget.doctorName,
         actions: const [
           'assets/images/schedule_page/search.svg',
           'assets/images/schedule_page/more.svg',
@@ -34,8 +36,7 @@ class _ChatRoomState extends State<ChatRoom> {
         onTap: () {
           FocusScope.of(context).unfocus();
         },
-        child: 
-        StreamBuilder<List<ConversationModel>>(
+        child: StreamBuilder<List<ConversationModel>>(
           stream: ChatFunctions.getAllConversation(),
           builder: ((context, snapshot) {
             if (snapshot.hasError) {
@@ -48,8 +49,7 @@ class _ChatRoomState extends State<ChatRoom> {
             }
             if (snapshot.hasData) {
               List<ConversationModel> conversations = snapshot.data!;
-              return 
-              Column(
+              return Column(
                 children: [
                   Expanded(
                     child: Container(
@@ -58,11 +58,18 @@ class _ChatRoomState extends State<ChatRoom> {
                         color: Colors.white,
                       ),
                       child: ClipRRect(
-                        child: Conversation(existedConversation: ChatFunctions.getConversationByCon(conversations, widget.doctorId)),
+                        child: Conversation(
+                            existedConversation:
+                                ChatFunctions.getConversationByCon(
+                                    conversations, widget.doctorId)),
                       ),
                     ),
                   ),
-                  BuildChat(existedConversation: ChatFunctions.getConversationByCon(conversations, widget.doctorId), doctorId: widget.doctorId,),
+                  BuildChat(
+                    existedConversation: ChatFunctions.getConversationByCon(
+                        conversations, widget.doctorId),
+                    doctorId: widget.doctorId,
+                  ),
                 ],
               );
             }
@@ -73,4 +80,3 @@ class _ChatRoomState extends State<ChatRoom> {
     );
   }
 }
-
