@@ -11,11 +11,9 @@ import 'package:my_health_assistant/src/styles/font_styles.dart';
 class Conversation extends StatelessWidget {
   const Conversation({
     Key? key,
-    required this.doctor,
     required this.existedConversation
   }) : super(key: key);
 
-  final Doctor doctor;
   final ConversationModel? existedConversation;
 
   @override

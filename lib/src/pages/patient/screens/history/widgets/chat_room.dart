@@ -10,11 +10,12 @@ import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart
 import 'build_chat.dart';
 
 class ChatRoom extends StatefulWidget {
-  const ChatRoom({Key? key, required this.doctor}) : super(key: key);
+  const ChatRoom({Key? key, required this.doctorId}): super(key: key);
 
   @override
   State<ChatRoom> createState() => _ChatRoomState();
-  final Doctor doctor;
+  final String doctorId;
+  // final Doctor doctor;
 }
 
 class _ChatRoomState extends State<ChatRoom> {
@@ -22,7 +23,7 @@ class _ChatRoomState extends State<ChatRoom> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: widget.doctor.fullName,
+        title: 'widget.doctor.fullName',
         actions: const [
           'assets/images/schedule_page/search.svg',
           'assets/images/schedule_page/more.svg',
@@ -57,11 +58,11 @@ class _ChatRoomState extends State<ChatRoom> {
                         color: Colors.white,
                       ),
                       child: ClipRRect(
-                        child: Conversation(doctor: widget.doctor, existedConversation: ChatFunctions.getConversationByCon(conversations, widget.doctor.id)),
+                        child: Conversation(existedConversation: ChatFunctions.getConversationByCon(conversations, widget.doctorId)),
                       ),
                     ),
                   ),
-                  BuildChat(existedConversation: ChatFunctions.getConversationByCon(conversations, widget.doctor.id), doctorId: widget.doctor.id,),
+                  BuildChat(existedConversation: ChatFunctions.getConversationByCon(conversations, widget.doctorId), doctorId: widget.doctorId,),
                 ],
               );
             }

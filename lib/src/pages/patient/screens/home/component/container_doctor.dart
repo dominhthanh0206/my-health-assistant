@@ -132,9 +132,9 @@ class ContainerDoctor extends StatelessWidget {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (_) => ChatRoom(
-                                                            doctor:
+                                                            doctorId:
                                                                 doctorsInDepartment[
-                                                                    index])));
+                                                                    index].id)));
                                               },
                                               child: SvgPicture.asset(
                                                 'assets/images/home_page/heart.svg',

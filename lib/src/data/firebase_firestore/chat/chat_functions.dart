@@ -29,4 +29,14 @@ class ChatFunctions {
     }
     return null;
   }
+
+  static List<ConversationModel> getActiveConversation(List<ConversationModel> allAppointment){
+    List<ConversationModel> appointmentList = [];
+    for (var element in allAppointment) {
+      if (element.isActive == true) {
+        appointmentList.add(element);
+      }
+    }
+    return appointmentList;
+  }
 }
