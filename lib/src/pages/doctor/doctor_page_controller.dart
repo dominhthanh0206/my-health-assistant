@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_health_assistant/src/pages/doctor/appointment/appointment_screen.dart';
 import 'package:my_health_assistant/src/pages/doctor/article/article_screen.dart';
+import 'package:my_health_assistant/src/pages/doctor/chat/chat_doctor_screen.dart';
 import 'package:my_health_assistant/src/pages/doctor/notification/notification_screen.dart';
 import 'package:my_health_assistant/src/pages/doctor/profile/profile_screen.dart';
-import 'package:my_health_assistant/src/pages/patient/screens/history/history_page.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 
 class DoctorPageController extends StatefulWidget {
@@ -28,7 +28,7 @@ class _DoctorPageControllerState extends State<DoctorPageController> {
     AppointmentScreen(),
     NotificationScreen(),
     ArticleScreen(),
-    HistoryPage(),
+    ChatDoctorScreen(),
     ProfileDoctor()
   ];
 
