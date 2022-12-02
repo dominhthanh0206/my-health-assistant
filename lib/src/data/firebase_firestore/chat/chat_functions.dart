@@ -55,7 +55,7 @@ class ChatFunctions {
   static List<ConversationModel> getDoctorConversation(List<ConversationModel> getAllConversation){
     List<ConversationModel> conversationList = [];
     for (var element in getAllConversation) {
-      if (element.doctorId == auth.currentUser?.uid) {
+      if (element.doctorId == auth.currentUser?.uid && element.lastMessage != null) {
         Logger().i('auth uid doctor: ${auth.currentUser?.uid}');
         conversationList.add(element);
       }
@@ -64,7 +64,6 @@ class ChatFunctions {
   }
 
   static ConversationModel? getConversationById(List<ConversationModel> getAllConversation, String conversationId){
-    List<ConversationModel> conversationList = [];
     for (var element in getAllConversation) {
       if (element.conversationId == conversationId) {
         Logger().i('auth uid doctor: ${auth.currentUser?.uid}');
