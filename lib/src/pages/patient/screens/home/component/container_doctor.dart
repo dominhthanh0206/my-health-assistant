@@ -123,6 +123,7 @@ class ContainerDoctor extends StatelessWidget {
                                                           isActive: false,
                                                           patientId: auth
                                                               .currentUser?.uid,
+                                                          lastTime: DateTime.now().toString(),
                                                           messages: []);
                                                   ChatFunctions.addMessage(
                                                       chat.toJson(), key);
