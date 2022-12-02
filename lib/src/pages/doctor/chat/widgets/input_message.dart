@@ -152,7 +152,7 @@ class InputMessage extends StatelessWidget {
                     log('$ls');
                     collection
                         .doc(conversationModel?.conversationId)
-                        .update({'messages': ls});
+                        .update({'messages': ls, 'lastMessage': messageController.text, 'lastTime': DateTime.now().toString()});
                     messageController.text = '';
                     },
                     icon: const Icon(

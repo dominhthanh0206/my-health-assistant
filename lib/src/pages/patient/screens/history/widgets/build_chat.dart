@@ -154,7 +154,7 @@ class BuildChat extends StatelessWidget {
                     collection
                         .doc(
                             '${auth.currentUser!.uid}$doctorId')
-                        .update({'messages': ls, 'isActive': true});
+                        .update({'messages': ls, 'isActive': true, 'lastMessage': messageController.text, 'lastTime': DateTime.now().toString()});
                     messageController.text = '';
                   },
                   icon: const Icon(

@@ -9,6 +9,7 @@ import 'package:my_health_assistant/src/pages/global_var.dart';
 import 'package:my_health_assistant/src/pages/patient/screens/history/widgets/chat_room.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({Key? key}) : super(key: key);
@@ -55,7 +56,7 @@ class HistoryPage extends StatelessWidget {
                   );
                 }
                 if (snapshot.hasData) {
-                  List<ConversationModel> conversations = snapshot.data ?? [];
+                  List<ConversationModel> conversations = ChatFunctions.getPatientConversation(snapshot.data ?? []);
                   return ListView.builder(
                     itemCount: conversations.length,
                     itemBuilder: (context, index) {
@@ -129,7 +130,7 @@ class HistoryPage extends StatelessWidget {
                                   // ),
                                   const SizedBox(height: 8),
                                   Text(
-                                    'conversations[index].text',
+                                    conversations[index].lastMessage ?? '',
                                     style: MyFontStyles.normalGreyText
                                         .copyWith(fontSize: 14.sp),
                                   ),
@@ -139,14 +140,15 @@ class HistoryPage extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  Text(
-                                    'recentChats[index].day!',
-                                    style: MyFontStyles.normalGreyText
-                                        .copyWith(fontSize: 14.sp),
-                                  ),
+                                  // Text(
+                                  //   'recentChats[index].day!',
+                                  //   style: MyFontStyles.normalGreyText
+                                  //       .copyWith(fontSize: 14.sp),
+                                  // ),
                                   SizedBox(height: 6.h),
                                   Text(
-                                    'recentChats[index].time',
+                                    timeago.format(DateTime.parse(
+                                        conversations[index].lastTime ?? '')),
                                     style: MyFontStyles.normalGreyText
                                         .copyWith(fontSize: 14.sp),
                                   ),

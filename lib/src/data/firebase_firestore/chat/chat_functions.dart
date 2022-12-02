@@ -39,6 +39,17 @@ class ChatFunctions {
     return conversationList;
   }
 
+  static List<ConversationModel> getPatientConversation(List<ConversationModel> getAllConversation){
+    List<ConversationModel> conversationList = [];
+    for (var element in getAllConversation) {
+      if (element.patientId == auth.currentUser?.uid) {
+        Logger().i('auth uid patient: ${auth.currentUser?.uid}');
+        conversationList.add(element);
+      }
+    }
+    return conversationList;
+  }
+
 
   // for doctor
   static List<ConversationModel> getDoctorConversation(List<ConversationModel> getAllConversation){

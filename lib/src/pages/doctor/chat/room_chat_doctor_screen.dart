@@ -9,6 +9,7 @@ import 'package:my_health_assistant/src/pages/global_var.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class RoomChatDoctorScreen extends StatefulWidget {
   const RoomChatDoctorScreen(
@@ -54,7 +55,9 @@ class _RoomChatDoctorScreenState extends State<RoomChatDoctorScreen> {
                   );
                 }
                 if (snapshot.hasData) {
-                  ConversationModel? conversationModel = ChatFunctions.getConversationById(snapshot.data ?? [], widget.conversationModel.conversationId ?? '');
+                  ConversationModel? conversationModel =
+                      ChatFunctions.getConversationById(snapshot.data ?? [],
+                          widget.conversationModel.conversationId ?? '');
                   return Column(
                     children: [
                       Expanded(
@@ -64,114 +67,110 @@ class _RoomChatDoctorScreenState extends State<RoomChatDoctorScreen> {
                             color: Colors.white,
                           ),
                           child: ClipRRect(
-                            child: ListView.builder(
-                                      itemCount: conversationModel?.messages?.length,
-                                      itemBuilder: (context, int index) {
-                                        // final message = message[index];
-                                        bool isMe = conversationModel?.messages?[index].senderId ==
-                                            auth.currentUser?.uid;
-                                        return Container(
-                                          margin:
-                                              const EdgeInsets.only(top: 10).r,
-                                          child: Column(
+                              child: ListView.builder(
+                                  itemCount:
+                                      conversationModel?.messages?.length,
+                                  itemBuilder: (context, int index) {
+                                    // final message = message[index];
+                                    bool isMe = conversationModel
+                                            ?.messages?[index].senderId ==
+                                        auth.currentUser?.uid;
+                                    return Container(
+                                      margin: const EdgeInsets.only(top: 10).r,
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: isMe
+                                                ? MainAxisAlignment.end
+                                                : MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
                                             children: [
-                                              Row(
-                                                mainAxisAlignment: isMe
-                                                    ? MainAxisAlignment.end
-                                                    : MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.end,
-                                                children: [
-                                                  Container(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            10),
-                                                    constraints: BoxConstraints(
-                                                        maxWidth: MediaQuery.of(
-                                                                    context)
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                constraints: BoxConstraints(
+                                                    maxWidth:
+                                                        MediaQuery.of(context)
                                                                 .size
                                                                 .width *
                                                             0.6),
-                                                    decoration: BoxDecoration(
-                                                        color: isMe
-                                                            ? Colors.blue
-                                                            : Colors.grey[200],
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  isMe
-                                                                      ? 16
-                                                                      : 3),
-                                                          topRight: const Radius
-                                                              .circular(16),
-                                                          bottomLeft:
-                                                              const Radius
-                                                                  .circular(12),
-                                                          bottomRight:
-                                                              Radius.circular(
-                                                                  isMe
-                                                                      ? 3
-                                                                      : 12),
-                                                        )),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .end,
-                                                      children: [
-                                                        Text(
-                                                          conversationModel?.messages?[index]
-                                                                  .content ??
-                                                              '',
-                                                          style: MyFontStyles
-                                                              .blackColorH3
-                                                              .copyWith(
-                                                                  color: isMe
-                                                                      ? Colors
-                                                                          .white
-                                                                      : Colors.grey[
-                                                                          800]),
-                                                        ),
-                                                        SizedBox(
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .end,
-                                                            children: [
-                                                              if (isMe)
-                                                                Icon(
-                                                                  Icons
-                                                                      .done_all,
-                                                                  size: 16.sp,
-                                                                  color: MyColors
-                                                                      .whiteText,
-                                                                ),
-                                                              SizedBox(
-                                                                width: 8.w,
-                                                              ),
-                                                              Text(
-                                                                conversationModel?.messages?[index]
-                                                                        .dateTime ??
-                                                                    '',
-                                                                style: isMe
-                                                                    ? MyFontStyles
-                                                                        .normalWhiteText
-                                                                    : MyFontStyles
-                                                                        .normalGreyText,
-                                                              )
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
+                                                decoration: BoxDecoration(
+                                                    color: isMe
+                                                        ? Colors.blue
+                                                        : Colors.grey[200],
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                      topLeft: Radius.circular(
+                                                          isMe ? 16 : 3),
+                                                      topRight:
+                                                          const Radius.circular(
+                                                              16),
+                                                      bottomLeft:
+                                                          const Radius.circular(
+                                                              12),
+                                                      bottomRight:
+                                                          Radius.circular(
+                                                              isMe ? 3 : 12),
+                                                    )),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  children: [
+                                                    Text(
+                                                      conversationModel
+                                                              ?.messages?[index]
+                                                              .content ??
+                                                          '',
+                                                      style: MyFontStyles
+                                                          .blackColorH3
+                                                          .copyWith(
+                                                              color: isMe
+                                                                  ? Colors.white
+                                                                  : Colors.grey[
+                                                                      800]),
                                                     ),
-                                                  ),
-                                                ],
+                                                    SizedBox(
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          if (isMe)
+                                                            Icon(
+                                                              Icons.done_all,
+                                                              size: 16.sp,
+                                                              color: MyColors
+                                                                  .whiteText,
+                                                            ),
+                                                          SizedBox(
+                                                            width: 8.w,
+                                                          ),
+                                                          Text(
+                                                            timeago.format(DateTime.parse(
+                                                                conversationModel
+                                                                        ?.messages?[
+                                                                            index]
+                                                                        .dateTime ??
+                                                                    '')),
+                                                            style: isMe
+                                                                ? MyFontStyles
+                                                                    .normalWhiteText
+                                                                : MyFontStyles
+                                                                    .normalGreyText,
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ],
                                           ),
-                                        );
-                                      })
-                          ),
+                                        ],
+                                      ),
+                                    );
+                                  })),
                         ),
                       ),
                       InputMessage(
@@ -182,7 +181,6 @@ class _RoomChatDoctorScreenState extends State<RoomChatDoctorScreen> {
                 }
                 return Container();
               }),
-              // child:
             ),
           ),
         );
