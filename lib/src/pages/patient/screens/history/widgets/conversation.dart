@@ -9,6 +9,7 @@ import 'package:my_health_assistant/src/models/users/doctor.dart';
 import 'package:my_health_assistant/src/pages/global_var.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class Conversation extends StatelessWidget {
   const Conversation({Key? key, required this.existedConversation})
@@ -78,9 +79,10 @@ class Conversation extends StatelessWidget {
                                       width: 8.w,
                                     ),
                                     Text(
-                                      existedConversation
-                                              ?.messages?[index].dateTime ??
-                                          '',
+                                      timeago.format(DateTime.parse(
+                                          existedConversation
+                                                  ?.messages?[index].dateTime ??
+                                              '')),
                                       style: isMe
                                           ? MyFontStyles.normalWhiteText
                                           : MyFontStyles.normalGreyText,
