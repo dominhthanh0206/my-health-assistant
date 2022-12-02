@@ -20,9 +20,8 @@ class ChatFunctions {
   }
 
   static ConversationModel? getConversationByCon(
-      List<ConversationModel> appointments, String condition) {
-    List<ConversationModel> appointmentList = [];
-    for (var element in appointments) {
+      List<ConversationModel> allConversation, String condition) {
+    for (var element in allConversation) {
       if (element.conversationId == '${auth.currentUser?.uid}$condition') {
         return element;
       }
@@ -30,13 +29,37 @@ class ChatFunctions {
     return null;
   }
 
-  static List<ConversationModel> getActiveConversation(List<ConversationModel> allAppointment){
-    List<ConversationModel> appointmentList = [];
-    for (var element in allAppointment) {
+  static List<ConversationModel> getActiveConversation(List<ConversationModel> allConversation){
+    List<ConversationModel> conversationList = [];
+    for (var element in allConversation) {
       if (element.isActive == true) {
-        appointmentList.add(element);
+        conversationList.add(element);
       }
     }
-    return appointmentList;
+    return conversationList;
+  }
+
+
+  // for doctor
+  static List<ConversationModel> getDoctorConversation(List<ConversationModel> getAllConversation){
+    List<ConversationModel> conversationList = [];
+    for (var element in getAllConversation) {
+      if (element.doctorId == auth.currentUser?.uid) {
+        Logger().i('auth uid doctor: ${auth.currentUser?.uid}');
+        conversationList.add(element);
+      }
+    }
+    return conversationList;
+  }
+
+  static ConversationModel? getConversationById(List<ConversationModel> getAllConversation, String conversationId){
+    List<ConversationModel> conversationList = [];
+    for (var element in getAllConversation) {
+      if (element.conversationId == conversationId) {
+        Logger().i('auth uid doctor: ${auth.currentUser?.uid}');
+        return element;
+      }
+    }
+    return null;
   }
 }

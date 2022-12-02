@@ -1,14 +1,20 @@
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_health_assistant/src/models/chat_model/chat.dart';
 import 'package:my_health_assistant/src/pages/doctor/chat/widgets/show_attach.dart';
+import 'package:my_health_assistant/src/pages/global_var.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 
 class InputMessage extends StatelessWidget {
   const InputMessage({
     Key? key,
+    required this.conversationModel
   }) : super(key: key);
+
+  final ConversationModel conversationModel;
 
   @override
   Widget build(BuildContext context) {
@@ -125,8 +131,27 @@ class InputMessage extends StatelessWidget {
                   backgroundColor: MyColors.mainColor,
                   child: IconButton(
                     onPressed: () {
-                      log('send');
-                      log(_messageController.text);
+                      // log('send');
+                      // log(_messageController.text);
+                      Map<String, dynamic> currentMessage = Message(
+                              content: _messageController.text,
+                              dateTime: DateTime.now().toString(),
+                              senderId: auth.currentUser?.uid)
+                          .toJson();
+                    // ];
+                    List<Map<String, dynamic>> ls = conversationModel
+                        .messages!
+                        .map((e) => e.toJson())
+                        .toList();
+                    log('ls: $ls');
+                    ls.add(currentMessage);
+                    ls.reversed;
+                    var collection =
+                        FirebaseFirestore.instance.collection('conversations');
+                    collection
+                        .doc(conversationModel.conversationId)
+                        .update({'messages': ls});
+                    _messageController.text = '';
                     },
                     icon: const Icon(
                       Icons.send,
