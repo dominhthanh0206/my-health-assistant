@@ -12,10 +12,7 @@ import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart
 
 class RoomChatDoctorScreen extends StatefulWidget {
   const RoomChatDoctorScreen(
-      {Key? key, 
-      required this.conversationModel,
-      required this.patientName
-      })
+      {Key? key, required this.conversationModel, required this.patientName})
       : super(key: key);
 
   @override
@@ -45,122 +42,147 @@ class _RoomChatDoctorScreenState extends State<RoomChatDoctorScreen> {
             onTap: () {
               FocusScope.of(context).unfocus();
             },
-            child: Column(
-              children: [
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: ClipRRect(
-                      child: StreamBuilder<List<ConversationModel>>(
-                        stream: ChatFunctions.getAllConversation(),
-                        builder: ((context, snapshot) {
-                          if(snapshot.hasError){
-                            return const Text('Something went wrong');
-                          }
-                          if(snapshot.connectionState == ConnectionState.waiting){
-                            return const Center(child: CircularProgressIndicator(),);
-                          }
-                          if(snapshot.hasData){
-                            List<Message> message = ChatFunctions.getConversationById(snapshot.data!, widget.conversationModel.conversationId ?? '')?.messages ?? [];
-                            return ListView.builder(
-                            itemCount: message.length,
-                            itemBuilder: (context, int index) {
-                              // final message = message[index];
-                              bool isMe = message[index].senderId ==
-                                  auth.currentUser?.uid;
-                              return Container(
-                                margin: const EdgeInsets.only(top: 10).r,
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: isMe
-                                          ? MainAxisAlignment.end
-                                          : MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.all(10),
-                                          constraints: BoxConstraints(
-                                              maxWidth: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.6),
-                                          decoration: BoxDecoration(
-                                              color: isMe
-                                                  ? Colors.blue
-                                                  : Colors.grey[200],
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(
-                                                    isMe ? 16 : 3),
-                                                topRight:
-                                                    const Radius.circular(16),
-                                                bottomLeft:
-                                                    const Radius.circular(12),
-                                                bottomRight: Radius.circular(
-                                                    isMe ? 3 : 12),
-                                              )),
+            child: StreamBuilder<List<ConversationModel>>(
+              stream: ChatFunctions.getAllConversation(),
+              builder: ((context, snapshot) {
+                if (snapshot.hasError) {
+                  return Text('Something went wrong ${snapshot.error}');
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (snapshot.hasData) {
+                  ConversationModel? conversationModel = ChatFunctions.getConversationById(snapshot.data ?? [], widget.conversationModel.conversationId ?? '');
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                          ),
+                          child: ClipRRect(
+                            child: ListView.builder(
+                                      itemCount: conversationModel?.messages?.length,
+                                      itemBuilder: (context, int index) {
+                                        // final message = message[index];
+                                        bool isMe = conversationModel?.messages?[index].senderId ==
+                                            auth.currentUser?.uid;
+                                        return Container(
+                                          margin:
+                                              const EdgeInsets.only(top: 10).r,
                                           child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
                                             children: [
-                                              Text(
-                                                message[index].content ?? '',
-                                                style: MyFontStyles.blackColorH3
-                                                    .copyWith(
+                                              Row(
+                                                mainAxisAlignment: isMe
+                                                    ? MainAxisAlignment.end
+                                                    : MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                children: [
+                                                  Container(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10),
+                                                    constraints: BoxConstraints(
+                                                        maxWidth: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.6),
+                                                    decoration: BoxDecoration(
                                                         color: isMe
-                                                            ? Colors.white
-                                                            : Colors.grey[800]),
-                                              ),
-                                              SizedBox(
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: [
-                                                    if (isMe)
-                                                      Icon(
-                                                        Icons.done_all,
-                                                        size: 16.sp,
-                                                        color: MyColors.whiteText,
-                                                      ),
-                                                    SizedBox(
-                                                      width: 8.w,
+                                                            ? Colors.blue
+                                                            : Colors.grey[200],
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  isMe
+                                                                      ? 16
+                                                                      : 3),
+                                                          topRight: const Radius
+                                                              .circular(16),
+                                                          bottomLeft:
+                                                              const Radius
+                                                                  .circular(12),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  isMe
+                                                                      ? 3
+                                                                      : 12),
+                                                        )),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .end,
+                                                      children: [
+                                                        Text(
+                                                          conversationModel?.messages?[index]
+                                                                  .content ??
+                                                              '',
+                                                          style: MyFontStyles
+                                                              .blackColorH3
+                                                              .copyWith(
+                                                                  color: isMe
+                                                                      ? Colors
+                                                                          .white
+                                                                      : Colors.grey[
+                                                                          800]),
+                                                        ),
+                                                        SizedBox(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .end,
+                                                            children: [
+                                                              if (isMe)
+                                                                Icon(
+                                                                  Icons
+                                                                      .done_all,
+                                                                  size: 16.sp,
+                                                                  color: MyColors
+                                                                      .whiteText,
+                                                                ),
+                                                              SizedBox(
+                                                                width: 8.w,
+                                                              ),
+                                                              Text(
+                                                                conversationModel?.messages?[index]
+                                                                        .dateTime ??
+                                                                    '',
+                                                                style: isMe
+                                                                    ? MyFontStyles
+                                                                        .normalWhiteText
+                                                                    : MyFontStyles
+                                                                        .normalGreyText,
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                    Text(
-                                                      message[index].dateTime ??
-                                                          '',
-                                                      style: isMe
-                                                          ? MyFontStyles
-                                                              .normalWhiteText
-                                                          : MyFontStyles
-                                                              .normalGreyText,
-                                                    )
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            });
-                          }
-                          return Container();
-                        }),
-                        // child: 
+                                        );
+                                      })
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                InputMessage(
-                  conversationModel: widget.conversationModel,
-                )
-              ],
+                      InputMessage(
+                        conversationModel: conversationModel,
+                      )
+                    ],
+                  );
+                }
+                return Container();
+              }),
+              // child:
             ),
           ),
         );

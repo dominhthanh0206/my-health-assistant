@@ -14,11 +14,11 @@ class InputMessage extends StatelessWidget {
     required this.conversationModel
   }) : super(key: key);
 
-  final ConversationModel conversationModel;
+  final ConversationModel? conversationModel;
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _messageController = TextEditingController();
+    TextEditingController messageController = TextEditingController();
     return ScreenUtilInit(
       designSize: const Size(428, 882),
       builder: (context, child) {
@@ -47,7 +47,7 @@ class InputMessage extends StatelessWidget {
                       ),
                       Expanded(
                         child: TextFormField(
-                          controller: _messageController,
+                          controller: messageController,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: 'Type a message ...',
@@ -134,24 +134,26 @@ class InputMessage extends StatelessWidget {
                       // log('send');
                       // log(_messageController.text);
                       Map<String, dynamic> currentMessage = Message(
-                              content: _messageController.text,
+                              content: messageController.text,
                               dateTime: DateTime.now().toString(),
                               senderId: auth.currentUser?.uid)
                           .toJson();
                     // ];
                     List<Map<String, dynamic>> ls = conversationModel
-                        .messages!
+                        !.messages!
                         .map((e) => e.toJson())
                         .toList();
                     log('ls: $ls');
                     ls.add(currentMessage);
                     ls.reversed;
+                    log('id: ${conversationModel?.conversationId}');
                     var collection =
                         FirebaseFirestore.instance.collection('conversations');
+                    log('$ls');
                     collection
-                        .doc(conversationModel.conversationId)
+                        .doc(conversationModel?.conversationId)
                         .update({'messages': ls});
-                    _messageController.text = '';
+                    messageController.text = '';
                     },
                     icon: const Icon(
                       Icons.send,
