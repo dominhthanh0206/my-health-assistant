@@ -83,7 +83,7 @@ class CompletedPage extends StatelessWidget {
                           buttonColor: MyColors.mainColor,
                           customFunction: (() => log('message')),
                           fontSize: 13,
-                          text: 'Leave a reivew',
+                          text: 'Leave a review',
                           textColor: MyColors.whiteText,
                         )
                       )

@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:my_health_assistant/src/data/firebase_firestore/patient/appointment/appointment_functions.dart';
 import 'package:my_health_assistant/src/models/appointment/appointment.dart';
@@ -15,6 +18,14 @@ class MyListStatus extends StatelessWidget {
   final Color color;
   @override
   Widget build(BuildContext context) {
+      status.sort((a, b) {
+      DateTime aDate =
+          DateFormat('dd-MM-yyyy HH:mm').parse('${a.date} ${a.time}');
+      log(aDate.toString());
+      DateTime bDate =
+          DateFormat('dd-MM-yyyy HH:mm').parse('${b.date} ${b.time}');
+      return aDate.compareTo(bDate);
+    });
     Logger().i('appointment of doctor $status');
     return status.isNotEmpty
         ? ScreenUtilInit(

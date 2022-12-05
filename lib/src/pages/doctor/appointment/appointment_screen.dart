@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_health_assistant/src/data/firebase_firestore/patient/appointment/appointment_functions.dart';
 import 'package:my_health_assistant/src/models/appointment/appointment.dart';
-import 'package:my_health_assistant/src/pages/doctor/appointment/component/appointment_object.dart';
 import 'package:my_health_assistant/src/pages/doctor/appointment/component/status_page.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 
@@ -32,12 +31,6 @@ class _AppointmentScreenState extends State<AppointmentScreen>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    List<AppointmentObject> upcoming =
-        listAppointment.where((element) => element.type == 1).toList();
-    List<AppointmentObject> completed =
-        listAppointment.where((element) => element.type == 2).toList();
-    List<AppointmentObject> cancelled =
-        listAppointment.where((element) => element.type == 3).toList();
     return Scaffold(
         appBar: AppBar(
           backgroundColor: MyColors.whiteText,

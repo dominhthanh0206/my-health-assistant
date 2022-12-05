@@ -1,18 +1,22 @@
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_health_assistant/src/models/chat_model/chat.dart';
 import 'package:my_health_assistant/src/pages/doctor/chat/widgets/show_attach.dart';
+import 'package:my_health_assistant/src/pages/global_var.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 
 class InputMessage extends StatelessWidget {
-  const InputMessage({
-    Key? key,
-  }) : super(key: key);
+  const InputMessage({Key? key, required this.conversationModel})
+      : super(key: key);
+
+  final ConversationModel? conversationModel;
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _messageController = TextEditingController();
+    TextEditingController messageController = TextEditingController();
     return ScreenUtilInit(
       designSize: const Size(428, 882),
       builder: (context, child) {
@@ -41,7 +45,7 @@ class InputMessage extends StatelessWidget {
                       ),
                       Expanded(
                         child: TextFormField(
-                          controller: _messageController,
+                          controller: messageController,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: 'Type a message ...',
@@ -121,12 +125,36 @@ class InputMessage extends StatelessWidget {
                 width: 8,
               ),
               CircleAvatar(
-                radius: 20,
+                  radius: 20,
                   backgroundColor: MyColors.mainColor,
                   child: IconButton(
                     onPressed: () {
-                      log('send');
-                      log(_messageController.text);
+                      // log('send');
+                      // log(_messageController.text);
+                      Map<String, dynamic> currentMessage = Message(
+                              content: messageController.text,
+                              dateTime: DateTime.now().toString(),
+                              senderId: auth.currentUser?.uid)
+                          .toJson();
+                      // ];
+                      List<Map<String, dynamic>> ls = conversationModel!
+                          .messages!
+                          .map((e) => e.toJson())
+                          .toList();
+                      log('ls: $ls');
+                      ls.add(currentMessage);
+                      ls.reversed;
+                      log('id: ${conversationModel?.conversationId}');
+                      var collection = FirebaseFirestore.instance
+                          .collection('conversations');
+                      log('$ls');
+                      collection.doc(conversationModel?.conversationId).update({
+                        'messages': ls,
+                        'lastMessage': messageController.text,
+                        'lastTime': DateTime.now().toString(),
+                        'lastSender': auth.currentUser?.uid
+                      });
+                      messageController.text = '';
                     },
                     icon: const Icon(
                       Icons.send,

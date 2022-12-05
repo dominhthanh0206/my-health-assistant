@@ -1,29 +1,36 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_health_assistant/src/models/chat_model/chat.dart';
 import 'package:my_health_assistant/src/models/chat_model/message_model.dart';
 import 'package:my_health_assistant/src/models/chat_model/user_model.dart';
+import 'package:my_health_assistant/src/models/users/doctor.dart';
+import 'package:my_health_assistant/src/pages/global_var.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class Conversation extends StatelessWidget {
-  const Conversation({
-    Key? key,
-    required this.user,
-  }) : super(key: key);
+  const Conversation({Key? key, required this.existedConversation})
+      : super(key: key);
 
-  final User user;
+  final ConversationModel? existedConversation;
 
   @override
   Widget build(BuildContext context) {
+    // TODO: Read message from firebase
+    List<Message> messages = existedConversation!.messages!;
+    log('$messages');
     return ScreenUtilInit(
       designSize: const Size(428, 882),
       builder: (context, child) {
         return ListView.builder(
-            reverse: true,
+            reverse: false,
             itemCount: messages.length,
             itemBuilder: (context, int index) {
               final message = messages[index];
-              bool isMe = message.sender.id == currentUser.id;
+              bool isMe = message.senderId == auth.currentUser?.uid;
               return Container(
                 margin: const EdgeInsets.only(top: 10).r,
                 child: Column(
@@ -40,18 +47,20 @@ class Conversation extends StatelessWidget {
                               maxWidth:
                                   MediaQuery.of(context).size.width * 0.6),
                           decoration: BoxDecoration(
-                              color: isMe ? Colors.blue : Colors.grey[200],
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(isMe ? 16 : 3),
-                                topRight: const Radius.circular(16),
-                                bottomLeft: const Radius.circular(12),
-                                bottomRight: Radius.circular(isMe ? 3 : 12),
-                              )),
+                            color: isMe ? Colors.blue : Colors.grey[200],
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(isMe ? 16 : 3),
+                              topRight: const Radius.circular(16),
+                              bottomLeft: const Radius.circular(12),
+                              bottomRight: Radius.circular(isMe ? 3 : 12),
+                            ),
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                messages[index].text,
+                                existedConversation?.messages?[index].content ??
+                                    '',
                                 style: MyFontStyles.blackColorH3.copyWith(
                                     color:
                                         isMe ? Colors.white : Colors.grey[800]),
@@ -70,7 +79,10 @@ class Conversation extends StatelessWidget {
                                       width: 8.w,
                                     ),
                                     Text(
-                                      message.time,
+                                      timeago.format(DateTime.parse(
+                                          existedConversation
+                                                  ?.messages?[index].dateTime ??
+                                              '')),
                                       style: isMe
                                           ? MyFontStyles.normalWhiteText
                                           : MyFontStyles.normalGreyText,
@@ -83,10 +95,6 @@ class Conversation extends StatelessWidget {
                         ),
                       ],
                     ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(top: 5),
-                    //   child:
-                    // )
                   ],
                 ),
               );
