@@ -10,7 +10,8 @@ import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 
 class BuildChat extends StatelessWidget {
-  const BuildChat({Key? key, required this.existedConversation, required this.doctorId})
+  const BuildChat(
+      {Key? key, required this.existedConversation, required this.doctorId})
       : super(key: key);
   final ConversationModel? existedConversation;
   final String doctorId;
@@ -132,11 +133,11 @@ class BuildChat extends StatelessWidget {
                     log('send');
                     log(messageController.text);
                     // List<Map<String, dynamic>> messages = [
-                     Map<String, dynamic> currentMessage = Message(
-                              content: messageController.text,
-                              dateTime: DateTime.now().toString(),
-                              senderId: auth.currentUser?.uid)
-                          .toJson();
+                    Map<String, dynamic> currentMessage = Message(
+                            content: messageController.text,
+                            dateTime: DateTime.now().toString(),
+                            senderId: auth.currentUser?.uid)
+                        .toJson();
                     // ];
                     List<Map<String, dynamic>> ls = existedConversation!
                         .messages!
@@ -151,10 +152,13 @@ class BuildChat extends StatelessWidget {
                     log('conversationID 2: ${auth.currentUser!.uid}$doctorId');
                     var collection =
                         FirebaseFirestore.instance.collection('conversations');
-                    collection
-                        .doc(
-                            '${auth.currentUser!.uid}$doctorId')
-                        .update({'messages': ls, 'isActive': true, 'lastMessage': messageController.text, 'lastTime': DateTime.now().toString()});
+                    collection.doc('${auth.currentUser!.uid}$doctorId').update({
+                      'messages': ls,
+                      'isActive': true,
+                      'lastMessage': messageController.text,
+                      'lastTime': DateTime.now().toString(),
+                      'lastSender': auth.currentUser?.uid
+                    });
                     messageController.text = '';
                   },
                   icon: const Icon(

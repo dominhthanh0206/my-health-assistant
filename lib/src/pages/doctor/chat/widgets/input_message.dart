@@ -9,10 +9,8 @@ import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 
 class InputMessage extends StatelessWidget {
-  const InputMessage({
-    Key? key,
-    required this.conversationModel
-  }) : super(key: key);
+  const InputMessage({Key? key, required this.conversationModel})
+      : super(key: key);
 
   final ConversationModel? conversationModel;
 
@@ -127,7 +125,7 @@ class InputMessage extends StatelessWidget {
                 width: 8,
               ),
               CircleAvatar(
-                radius: 20,
+                  radius: 20,
                   backgroundColor: MyColors.mainColor,
                   child: IconButton(
                     onPressed: () {
@@ -138,22 +136,25 @@ class InputMessage extends StatelessWidget {
                               dateTime: DateTime.now().toString(),
                               senderId: auth.currentUser?.uid)
                           .toJson();
-                    // ];
-                    List<Map<String, dynamic>> ls = conversationModel
-                        !.messages!
-                        .map((e) => e.toJson())
-                        .toList();
-                    log('ls: $ls');
-                    ls.add(currentMessage);
-                    ls.reversed;
-                    log('id: ${conversationModel?.conversationId}');
-                    var collection =
-                        FirebaseFirestore.instance.collection('conversations');
-                    log('$ls');
-                    collection
-                        .doc(conversationModel?.conversationId)
-                        .update({'messages': ls, 'lastMessage': messageController.text, 'lastTime': DateTime.now().toString()});
-                    messageController.text = '';
+                      // ];
+                      List<Map<String, dynamic>> ls = conversationModel!
+                          .messages!
+                          .map((e) => e.toJson())
+                          .toList();
+                      log('ls: $ls');
+                      ls.add(currentMessage);
+                      ls.reversed;
+                      log('id: ${conversationModel?.conversationId}');
+                      var collection = FirebaseFirestore.instance
+                          .collection('conversations');
+                      log('$ls');
+                      collection.doc(conversationModel?.conversationId).update({
+                        'messages': ls,
+                        'lastMessage': messageController.text,
+                        'lastTime': DateTime.now().toString(),
+                        'lastSender': auth.currentUser?.uid
+                      });
+                      messageController.text = '';
                     },
                     icon: const Icon(
                       Icons.send,

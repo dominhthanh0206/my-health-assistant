@@ -12,6 +12,7 @@ class ConversationModel with _$ConversationModel {
     List<Message>? messages,
     String? lastMessage,
     String? lastTime,
+    String? lastSender,
     bool? isActive,
   }) = _ConversationModel;
 

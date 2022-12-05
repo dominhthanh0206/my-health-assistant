@@ -26,6 +26,7 @@ mixin _$ConversationModel {
   List<Message>? get messages => throw _privateConstructorUsedError;
   String? get lastMessage => throw _privateConstructorUsedError;
   String? get lastTime => throw _privateConstructorUsedError;
+  String? get lastSender => throw _privateConstructorUsedError;
   bool? get isActive => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,6 +48,7 @@ abstract class $ConversationModelCopyWith<$Res> {
       List<Message>? messages,
       String? lastMessage,
       String? lastTime,
+      String? lastSender,
       bool? isActive});
 }
 
@@ -69,6 +71,7 @@ class _$ConversationModelCopyWithImpl<$Res, $Val extends ConversationModel>
     Object? messages = freezed,
     Object? lastMessage = freezed,
     Object? lastTime = freezed,
+    Object? lastSender = freezed,
     Object? isActive = freezed,
   }) {
     return _then(_value.copyWith(
@@ -96,6 +99,10 @@ class _$ConversationModelCopyWithImpl<$Res, $Val extends ConversationModel>
           ? _value.lastTime
           : lastTime // ignore: cast_nullable_to_non_nullable
               as String?,
+      lastSender: freezed == lastSender
+          ? _value.lastSender
+          : lastSender // ignore: cast_nullable_to_non_nullable
+              as String?,
       isActive: freezed == isActive
           ? _value.isActive
           : isActive // ignore: cast_nullable_to_non_nullable
@@ -119,6 +126,7 @@ abstract class _$$_ConversationModelCopyWith<$Res>
       List<Message>? messages,
       String? lastMessage,
       String? lastTime,
+      String? lastSender,
       bool? isActive});
 }
 
@@ -139,6 +147,7 @@ class __$$_ConversationModelCopyWithImpl<$Res>
     Object? messages = freezed,
     Object? lastMessage = freezed,
     Object? lastTime = freezed,
+    Object? lastSender = freezed,
     Object? isActive = freezed,
   }) {
     return _then(_$_ConversationModel(
@@ -166,6 +175,10 @@ class __$$_ConversationModelCopyWithImpl<$Res>
           ? _value.lastTime
           : lastTime // ignore: cast_nullable_to_non_nullable
               as String?,
+      lastSender: freezed == lastSender
+          ? _value.lastSender
+          : lastSender // ignore: cast_nullable_to_non_nullable
+              as String?,
       isActive: freezed == isActive
           ? _value.isActive
           : isActive // ignore: cast_nullable_to_non_nullable
@@ -184,6 +197,7 @@ class _$_ConversationModel implements _ConversationModel {
       final List<Message>? messages,
       this.lastMessage,
       this.lastTime,
+      this.lastSender,
       this.isActive})
       : _messages = messages;
 
@@ -210,11 +224,13 @@ class _$_ConversationModel implements _ConversationModel {
   @override
   final String? lastTime;
   @override
+  final String? lastSender;
+  @override
   final bool? isActive;
 
   @override
   String toString() {
-    return 'ConversationModel(conversationId: $conversationId, doctorId: $doctorId, patientId: $patientId, messages: $messages, lastMessage: $lastMessage, lastTime: $lastTime, isActive: $isActive)';
+    return 'ConversationModel(conversationId: $conversationId, doctorId: $doctorId, patientId: $patientId, messages: $messages, lastMessage: $lastMessage, lastTime: $lastTime, lastSender: $lastSender, isActive: $isActive)';
   }
 
   @override
@@ -233,6 +249,8 @@ class _$_ConversationModel implements _ConversationModel {
                 other.lastMessage == lastMessage) &&
             (identical(other.lastTime, lastTime) ||
                 other.lastTime == lastTime) &&
+            (identical(other.lastSender, lastSender) ||
+                other.lastSender == lastSender) &&
             (identical(other.isActive, isActive) ||
                 other.isActive == isActive));
   }
@@ -247,6 +265,7 @@ class _$_ConversationModel implements _ConversationModel {
       const DeepCollectionEquality().hash(_messages),
       lastMessage,
       lastTime,
+      lastSender,
       isActive);
 
   @JsonKey(ignore: true)
@@ -272,6 +291,7 @@ abstract class _ConversationModel implements ConversationModel {
       final List<Message>? messages,
       final String? lastMessage,
       final String? lastTime,
+      final String? lastSender,
       final bool? isActive}) = _$_ConversationModel;
 
   factory _ConversationModel.fromJson(Map<String, dynamic> json) =
@@ -289,6 +309,8 @@ abstract class _ConversationModel implements ConversationModel {
   String? get lastMessage;
   @override
   String? get lastTime;
+  @override
+  String? get lastSender;
   @override
   bool? get isActive;
   @override

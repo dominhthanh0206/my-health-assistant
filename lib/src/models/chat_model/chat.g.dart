@@ -16,6 +16,7 @@ _$_ConversationModel _$$_ConversationModelFromJson(Map<String, dynamic> json) =>
           .toList(),
       lastMessage: json['lastMessage'] as String?,
       lastTime: json['lastTime'] as String?,
+      lastSender: json['lastSender'] as String?,
       isActive: json['isActive'] as bool?,
     );
 
@@ -28,6 +29,7 @@ Map<String, dynamic> _$$_ConversationModelToJson(
       'messages': instance.messages,
       'lastMessage': instance.lastMessage,
       'lastTime': instance.lastTime,
+      'lastSender': instance.lastSender,
       'isActive': instance.isActive,
     };
 

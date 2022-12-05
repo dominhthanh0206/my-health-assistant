@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:my_health_assistant/src/data/firebase_firestore/chat/chat_functions.dart';
 import 'package:my_health_assistant/src/models/chat_model/chat.dart';
 import 'package:my_health_assistant/src/models/chat_model/message_model.dart';
 import 'package:my_health_assistant/src/pages/doctor/chat/room_chat_doctor_screen.dart';
+import 'package:my_health_assistant/src/pages/global_var.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -57,6 +59,15 @@ class ChatDoctorScreen extends StatelessWidget {
                     List<ConversationModel> doctorsChat =
                         ChatFunctions.getDoctorConversation(
                             snapshot.data ?? []);
+
+                    doctorsChat.sort((a, b) {
+                      DateTime aDate = DateFormat('yyyy-MM-dd HH:mm:ss')
+                          .parse('${a.lastTime}');
+                      DateTime bDate = DateFormat('yyyy-MM-dd HH:mm:ss')
+                          .parse('${b.lastTime}');
+                      return bDate.compareTo(aDate);
+                    });
+
                     return ListView.builder(
                       itemCount: doctorsChat.length,
                       itemBuilder: (context, index) {
@@ -105,7 +116,15 @@ class ChatDoctorScreen extends StatelessWidget {
                                             Text(
                                               // doctorsChat[index].sender.name,
                                               snapshot.data!.get('fullName'),
-                                              style: MyFontStyles.blackColorH1,
+                                              style: MyFontStyles.blackColorH1
+                                                  .copyWith(
+                                                      fontWeight: doctorsChat[
+                                                                      index]
+                                                                  .lastSender !=
+                                                              auth.currentUser
+                                                                  ?.uid
+                                                          ? FontWeight.bold
+                                                          : FontWeight.normal),
                                             ),
                                             const SizedBox(height: 8),
                                             Text(
@@ -113,7 +132,15 @@ class ChatDoctorScreen extends StatelessWidget {
                                               doctorsChat[index].lastMessage ??
                                                   '',
                                               style: MyFontStyles.normalGreyText
-                                                  .copyWith(fontSize: 14.sp),
+                                                  .copyWith(
+                                                      fontSize: 14.sp,
+                                                      fontWeight: doctorsChat[
+                                                                      index]
+                                                                  .lastSender !=
+                                                              auth.currentUser
+                                                                  ?.uid
+                                                          ? FontWeight.bold
+                                                          : FontWeight.normal),
                                             ),
                                           ],
                                         ),
@@ -138,7 +165,15 @@ class ChatDoctorScreen extends StatelessWidget {
                                               ),
                                               // doctorsChat[index].lastTime ?? '',
                                               style: MyFontStyles.normalGreyText
-                                                  .copyWith(fontSize: 14.sp),
+                                                  .copyWith(
+                                                      fontSize: 14.sp,
+                                                      fontWeight: doctorsChat[
+                                                                      index]
+                                                                  .lastSender !=
+                                                              auth.currentUser
+                                                                  ?.uid
+                                                          ? FontWeight.bold
+                                                          : FontWeight.normal),
                                             ),
                                           ],
                                         ),

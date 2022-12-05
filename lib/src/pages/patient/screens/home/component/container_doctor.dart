@@ -146,32 +146,6 @@ class ContainerDoctor extends StatelessWidget {
                                           return Container();
                                         }),
                                       ),
-                                      // GestureDetector(
-                                      //   onTap: () async {
-                                      //     // String key =
-                                      //     //     '${auth.currentUser?.uid}${doctorsInDepartment[index].id}';
-                                      //     // ConversationModel chat = ConversationModel(
-                                      //     //     conversationId: key,
-                                      //     //     doctorId:
-                                      //     //         doctorsInDepartment[index].id,
-                                      //     //     isActive: false,
-                                      //     //     patientId: auth.currentUser?.uid,
-                                      //     //     messages: []);
-                                      //     // ChatFunctions.addMessage(
-                                      //     //     chat.toJson(), key);
-                                      //     Navigator.push(
-                                      //         context,
-                                      //         MaterialPageRoute(
-                                      //             builder: (_) => ChatRoom(
-                                      //                 doctor:
-                                      //                     doctorsInDepartment[
-                                      //                         index])));
-                                      //   },
-                                      //   child: SvgPicture.asset(
-                                      //     'assets/images/home_page/heart.svg',
-                                      //     color: Colors.blue,
-                                      //   ),
-                                      // )
                                     ],
                                   ),
                                 ),

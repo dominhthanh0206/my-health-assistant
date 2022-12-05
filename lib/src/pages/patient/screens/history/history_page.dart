@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:my_health_assistant/src/data/firebase_firestore/chat/chat_functions.dart';
 import 'package:my_health_assistant/src/models/chat_model/chat.dart';
 import 'package:my_health_assistant/src/models/chat_model/message_model.dart';
@@ -56,7 +57,15 @@ class HistoryPage extends StatelessWidget {
                   );
                 }
                 if (snapshot.hasData) {
-                  List<ConversationModel> conversations = ChatFunctions.getPatientConversation(snapshot.data ?? []);
+                  List<ConversationModel> conversations =
+                      ChatFunctions.getPatientConversation(snapshot.data ?? []);
+                  conversations.sort((a, b) {
+                    DateTime aDate = DateFormat('yyyy-MM-dd HH:mm:ss')
+                        .parse('${a.lastTime}');
+                    DateTime bDate = DateFormat('yyyy-MM-dd HH:mm:ss')
+                        .parse('${b.lastTime}');
+                    return bDate.compareTo(aDate);
+                  });
                   return ListView.builder(
                     itemCount: conversations.length,
                     itemBuilder: (context, index) {
@@ -120,7 +129,13 @@ class HistoryPage extends StatelessWidget {
                                       }
                                       return Text(
                                         snapshot.data!.get('fullName'),
-                                        style: MyFontStyles.blackColorH1,
+                                        style: MyFontStyles.blackColorH1
+                                            .copyWith(
+                                                fontWeight: conversations[index]
+                                                            .lastSender !=
+                                                        auth.currentUser?.uid
+                                                    ? FontWeight.bold
+                                                    : FontWeight.normal),
                                       );
                                     }),
                                   ),
@@ -131,8 +146,13 @@ class HistoryPage extends StatelessWidget {
                                   const SizedBox(height: 8),
                                   Text(
                                     conversations[index].lastMessage ?? '',
-                                    style: MyFontStyles.normalGreyText
-                                        .copyWith(fontSize: 14.sp),
+                                    style: MyFontStyles.normalGreyText.copyWith(
+                                        fontSize: 14.sp,
+                                        fontWeight:
+                                            conversations[index].lastSender !=
+                                                    auth.currentUser?.uid
+                                                ? FontWeight.bold
+                                                : FontWeight.normal),
                                   ),
                                 ],
                               ),
@@ -149,8 +169,14 @@ class HistoryPage extends StatelessWidget {
                                   Text(
                                     timeago.format(DateTime.parse(
                                         conversations[index].lastTime ?? '')),
-                                    style: MyFontStyles.normalGreyText
-                                        .copyWith(fontSize: 14.sp),
+                                    style: MyFontStyles.normalGreyText.copyWith(
+                                      fontSize: 14.sp,
+                                      fontWeight:
+                                          conversations[index].lastSender !=
+                                                  auth.currentUser?.uid
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -163,7 +189,6 @@ class HistoryPage extends StatelessWidget {
                 }
                 return Container();
               }),
-              // child:
             ),
           ),
         );
