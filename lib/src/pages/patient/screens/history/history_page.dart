@@ -101,60 +101,67 @@ class HistoryPage extends StatelessWidget {
                           margin: EdgeInsets.only(top: 24.h),
                           child: Row(
                             children: [
-                              // CircleAvatar(
-                              //   radius: 25,
-                              //   backgroundImage:
-                              //       AssetImage(conversations[index].avatar!),
-                              // ),
+                              const CircleAvatar(
+                                radius: 25,
+                                backgroundImage: AssetImage(
+                                    'assets/images/message_screen/Angel.jpg'),
+                              ),
                               SizedBox(width: 20.w),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  StreamBuilder<DocumentSnapshot>(
-                                    stream: FirebaseFirestore.instance
-                                        .collection("doctors")
-                                        .doc(conversations[index].doctorId)
-                                        .snapshots(),
-                                    builder: ((context, snapshot) {
-                                      if (snapshot.hasError) {
-                                        return const Text(
-                                            'Something went wrong');
-                                      }
-                                      if (snapshot.connectionState ==
-                                          ConnectionState.waiting) {
-                                        return const Text("Loading...",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20));
-                                      }
-                                      return Text(
-                                        snapshot.data!.get('fullName'),
-                                        style: MyFontStyles.blackColorH1
-                                            .copyWith(
-                                                fontWeight: conversations[index]
-                                                            .lastSender !=
-                                                        auth.currentUser?.uid
-                                                    ? FontWeight.bold
-                                                    : FontWeight.normal),
-                                      );
-                                    }),
-                                  ),
-                                  // Text(
-                                  //   'conversations[index].sender.name',
+                              Expanded(
+                                flex: 6,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    StreamBuilder<DocumentSnapshot>(
+                                      stream: FirebaseFirestore.instance
+                                          .collection("doctors")
+                                          .doc(conversations[index].doctorId)
+                                          .snapshots(),
+                                      builder: ((context, snapshot) {
+                                        if (snapshot.hasError) {
+                                          return const Text(
+                                              'Something went wrong');
+                                        }
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return const Text("Loading...",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20));
+                                        }
+                                        return Text(
+                                          snapshot.data!.get('fullName'),
+                                          style: MyFontStyles.blackColorH1
+                                              .copyWith(
+                                                  fontWeight:
+                                                      conversations[index]
+                                                                  .lastSender !=
+                                                              auth.currentUser
+                                                                  ?.uid
+                                                          ? FontWeight.bold
+                                                          : FontWeight.normal),
+                                        );
+                                      }),
+                                    ),
+                                    // Text(
+                                    //   'conversations[index].sender.name',
 
-                                  // ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    conversations[index].lastMessage ?? '',
-                                    style: MyFontStyles.normalGreyText.copyWith(
-                                        fontSize: 14.sp,
-                                        fontWeight:
-                                            conversations[index].lastSender !=
-                                                    auth.currentUser?.uid
-                                                ? FontWeight.bold
-                                                : FontWeight.normal),
-                                  ),
-                                ],
+                                    // ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      conversations[index].lastMessage ?? '',
+                                      style: MyFontStyles.normalGreyText
+                                          .copyWith(
+                                              fontSize: 14.sp,
+                                              fontWeight: conversations[index]
+                                                          .lastSender !=
+                                                      auth.currentUser?.uid
+                                                  ? FontWeight.bold
+                                                  : FontWeight.normal),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ),
                               ),
                               const Spacer(),
                               Column(
