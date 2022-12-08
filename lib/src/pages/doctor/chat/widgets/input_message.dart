@@ -9,11 +9,11 @@ import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 
 class InputMessage extends StatelessWidget {
-  const InputMessage({Key? key, required this.conversationModel})
+  const InputMessage({Key? key, required this.conversationModel, required this.scrollController})
       : super(key: key);
 
   final ConversationModel? conversationModel;
-
+  final ScrollController scrollController;
   @override
   Widget build(BuildContext context) {
     TextEditingController messageController = TextEditingController();
@@ -23,7 +23,7 @@ class InputMessage extends StatelessWidget {
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           color: Colors.white,
-          height: 100,
+          height: 70,
           child: Row(
             children: [
               Expanded(
@@ -45,6 +45,7 @@ class InputMessage extends StatelessWidget {
                       ),
                       Expanded(
                         child: TextFormField(
+                          maxLines: null,
                           controller: messageController,
                           decoration: InputDecoration(
                             border: InputBorder.none,
@@ -129,6 +130,10 @@ class InputMessage extends StatelessWidget {
                   backgroundColor: MyColors.mainColor,
                   child: IconButton(
                     onPressed: () {
+                      scrollController.animateTo(
+                          scrollController.position.maxScrollExtent,
+                          duration: const Duration(milliseconds: 1),
+                          curve: Curves.fastOutSlowIn);
                       // log('send');
                       // log(_messageController.text);
                       Map<String, dynamic> currentMessage = Message(
@@ -151,8 +156,7 @@ class InputMessage extends StatelessWidget {
                       collection.doc(conversationModel?.conversationId).update({
                         'messages': ls,
                         'lastMessage': messageController.text,
-                        'lastTime': DateTime.now().toString(),
-                        'lastSender': auth.currentUser?.uid
+                        'lastTime': DateTime.now().toString()
                       });
                       messageController.text = '';
                     },

@@ -12,11 +12,11 @@ import 'package:my_health_assistant/src/styles/font_styles.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class Conversation extends StatelessWidget {
-  const Conversation({Key? key, required this.existedConversation})
+  const Conversation({Key? key, required this.existedConversation, required this.scrollController})
       : super(key: key);
 
   final ConversationModel? existedConversation;
-
+  final ScrollController scrollController;
   @override
   Widget build(BuildContext context) {
     // TODO: Read message from firebase
@@ -26,6 +26,8 @@ class Conversation extends StatelessWidget {
       designSize: const Size(428, 882),
       builder: (context, child) {
         return ListView.builder(
+            padding: const EdgeInsets.only(bottom: 70),
+            controller: scrollController,
             reverse: false,
             itemCount: messages.length,
             itemBuilder: (context, int index) {
@@ -66,6 +68,9 @@ class Conversation extends StatelessWidget {
                                         isMe ? Colors.white : Colors.grey[800]),
                               ),
                               SizedBox(
+                                width: MediaQuery.of(context).size.width *
+                                    0.6 /
+                                    2,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [

@@ -103,46 +103,54 @@ class ChatDoctorScreen extends StatelessWidget {
                                     margin: EdgeInsets.only(top: 24.h),
                                     child: Row(
                                       children: [
-                                        // CircleAvatar(
-                                        //   radius: 25,
-                                        //   backgroundImage:
-                                        //       AssetImage(doctorsChat[index].avatar!),
-                                        // ),
+                                        const CircleAvatar(
+                                          radius: 25,
+                                          backgroundImage: AssetImage(
+                                              'assets/images/message_screen/Angel.jpg'),
+                                        ),
                                         SizedBox(width: 20.w),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              // doctorsChat[index].sender.name,
-                                              snapshot.data!.get('fullName'),
-                                              style: MyFontStyles.blackColorH1
-                                                  .copyWith(
-                                                      fontWeight: doctorsChat[
-                                                                      index]
-                                                                  .lastSender !=
-                                                              auth.currentUser
-                                                                  ?.uid
-                                                          ? FontWeight.bold
-                                                          : FontWeight.normal),
-                                            ),
-                                            const SizedBox(height: 8),
-                                            Text(
-                                              // doctorsChat[index].text,
-                                              doctorsChat[index].lastMessage ??
-                                                  '',
-                                              style: MyFontStyles.normalGreyText
-                                                  .copyWith(
-                                                      fontSize: 14.sp,
-                                                      fontWeight: doctorsChat[
-                                                                      index]
-                                                                  .lastSender !=
-                                                              auth.currentUser
-                                                                  ?.uid
-                                                          ? FontWeight.bold
-                                                          : FontWeight.normal),
-                                            ),
-                                          ],
+                                        Expanded(
+                                          flex: 6,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                // doctorsChat[index].sender.name,
+                                                snapshot.data!.get('fullName'),
+                                                style: MyFontStyles.blackColorH1
+                                                    .copyWith(
+                                                        fontWeight: doctorsChat[
+                                                                        index]
+                                                                    .lastSender !=
+                                                                auth.currentUser
+                                                                    ?.uid
+                                                            ? FontWeight.bold
+                                                            : FontWeight
+                                                                .normal),
+                                              ),
+                                              const SizedBox(height: 8),
+                                              Text(
+                                                // doctorsChat[index].text,
+                                                doctorsChat[index]
+                                                        .lastMessage ??
+                                                    '',
+                                                style: MyFontStyles
+                                                    .normalGreyText
+                                                    .copyWith(
+                                                        fontSize: 14.sp,
+                                                        fontWeight: doctorsChat[
+                                                                        index]
+                                                                    .lastSender !=
+                                                                auth.currentUser
+                                                                    ?.uid
+                                                            ? FontWeight.bold
+                                                            : FontWeight
+                                                                .normal),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                         const Spacer(),
                                         Column(

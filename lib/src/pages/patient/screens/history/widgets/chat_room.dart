@@ -21,6 +21,7 @@ class ChatRoom extends StatefulWidget {
 }
 
 class _ChatRoomState extends State<ChatRoom> {
+  final ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,50 +33,47 @@ class _ChatRoomState extends State<ChatRoom> {
         ],
       ),
       backgroundColor: MyColors.mainColor,
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
-        child: StreamBuilder<List<ConversationModel>>(
-          stream: ChatFunctions.getAllConversation(),
-          builder: ((context, snapshot) {
-            if (snapshot.hasError) {
-              return Text('Something went wrong ${snapshot.error}');
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            if (snapshot.hasData) {
-              List<ConversationModel> conversations = snapshot.data!;
-              return Column(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                      ),
-                      child: ClipRRect(
-                        child: Conversation(
-                            existedConversation:
-                                ChatFunctions.getConversationByCon(
-                                    conversations, widget.doctorId)),
+      body: StreamBuilder<List<ConversationModel>>(
+        stream: ChatFunctions.getAllConversation(),
+        builder: ((context, snapshot) {
+          if (snapshot.hasError) {
+            return Text('Something went wrong ${snapshot.error}');
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (snapshot.hasData) {
+            List<ConversationModel> conversations = snapshot.data!;
+            return Column(
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: ClipRRect(
+                      child: Conversation(
+                        existedConversation: ChatFunctions.getConversationByCon(
+                            conversations, widget.doctorId),
+                        scrollController: scrollController,
                       ),
                     ),
                   ),
-                  BuildChat(
-                    existedConversation: ChatFunctions.getConversationByCon(
-                        conversations, widget.doctorId),
-                    doctorId: widget.doctorId,
-                  ),
-                ],
-              );
-            }
-            return Container();
-          }),
-        ),
+                ),
+                BuildChat(
+                  existedConversation: ChatFunctions.getConversationByCon(
+                      conversations, widget.doctorId),
+                  doctorId: widget.doctorId,
+                  scrollController: scrollController,
+                ),
+              ],
+            );
+          }
+          return Container();
+        }),
       ),
     );
   }

@@ -11,11 +11,14 @@ import 'package:my_health_assistant/src/styles/font_styles.dart';
 
 class BuildChat extends StatelessWidget {
   const BuildChat(
-      {Key? key, required this.existedConversation, required this.doctorId})
+      {Key? key,
+      required this.existedConversation,
+      required this.doctorId,
+      required this.scrollController})
       : super(key: key);
   final ConversationModel? existedConversation;
   final String doctorId;
-
+  final ScrollController scrollController;
   @override
   Widget build(BuildContext context) {
     TextEditingController messageController = TextEditingController();
@@ -25,7 +28,7 @@ class BuildChat extends StatelessWidget {
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           color: Colors.white,
-          height: 100,
+          height: 70,
           child: Row(
             children: [
               Expanded(
@@ -47,6 +50,7 @@ class BuildChat extends StatelessWidget {
                       ),
                       Expanded(
                         child: TextFormField(
+                          maxLines: null,
                           controller: messageController,
                           decoration: InputDecoration(
                             border: InputBorder.none,
@@ -130,6 +134,10 @@ class BuildChat extends StatelessWidget {
                 backgroundColor: MyColors.mainColor,
                 child: IconButton(
                   onPressed: () {
+                    scrollController.animateTo(
+                        scrollController.position.maxScrollExtent,
+                        duration: const Duration(milliseconds: 1),
+                        curve: Curves.fastOutSlowIn);
                     log('send');
                     log(messageController.text);
                     // List<Map<String, dynamic>> messages = [
