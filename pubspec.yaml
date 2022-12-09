@@ -46,15 +46,15 @@ dependencies:
   image_picker: ^0.8.6
   fluttertoast: ^8.1.1
   flutter_screenutil: ^5.6.0
-
   # firebase services
   firebase_auth: ^4.1.4
   firebase_core: ^2.3.0
   cloud_firestore: ^4.1.0
   firebase_core_platform_interface: 4.5.2
   firebase_storage: ^11.0.6
-
+  
   timeago: ^3.3.0
+  charts_flutter: ^0.12.0
 
 dev_dependencies:
   flutter_test:
@@ -92,6 +92,7 @@ flutter:
     - assets/images/message_screen/
     - assets/images/doctor_screen/
     - assets/images/sign_in/
+    - assets/images/admin/
     - assets/fonts/
     - assets/data/
 
