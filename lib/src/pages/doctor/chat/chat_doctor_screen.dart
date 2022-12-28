@@ -88,6 +88,9 @@ class ChatDoctorScreen extends StatelessWidget {
                               );
                             }
                             if (snapshot.hasData) {
+                              if(snapshot.data?.exists == false){
+                                return const Text('There are no chats here');
+                              }
                               return InkWell(
                                 onTap: () {
                                   Navigator.push(context,
