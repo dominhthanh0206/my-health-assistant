@@ -55,7 +55,8 @@ class _InputDateState extends State<InputDate> {
               firstDate: DateTime(1950),
               lastDate: DateTime(2100));
           if (pickedDate != null) {
-            // String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);
+            // remove this line
+            // String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate); 
             setState(() {
               widget.dateInput.text = pickedDate.toString();
             });
