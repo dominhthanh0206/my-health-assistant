@@ -98,7 +98,7 @@ class ChatDoctorScreen extends StatelessWidget {
                                     return RoomChatDoctorScreen(
                                       conversationModel: doctorsChat[index],
                                       patientName:
-                                          snapshot.data!.get('fullName'),
+                                          snapshot.data?.get('fullName'),
                                     );
                                   }));
                                 },
@@ -134,7 +134,6 @@ class ChatDoctorScreen extends StatelessWidget {
                                               ),
                                               const SizedBox(height: 8),
                                               Text(
-                                                // doctorsChat[index].text,
                                                 doctorsChat[index]
                                                         .lastMessage ??
                                                     '',
@@ -160,21 +159,14 @@ class ChatDoctorScreen extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.end,
                                           children: [
-                                            // Text(
-                                            //   recentChats[index].day!,
-                                            //   style: MyFontStyles.normalGreyText
-                                            //       .copyWith(fontSize: 14.sp),
-                                            // ),
                                             SizedBox(height: 6.h),
                                             Text(
-                                              // recentChats[index].time,
                                               timeago.format(
                                                 DateTime.parse(
                                                     doctorsChat[index]
                                                             .lastTime ??
                                                         ''),
                                               ),
-                                              // doctorsChat[index].lastTime ?? '',
                                               style: MyFontStyles.normalGreyText
                                                   .copyWith(
                                                       fontSize: 14.sp,

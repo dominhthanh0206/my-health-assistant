@@ -44,7 +44,8 @@ class ChatController {
       List<ConversationModel> getAllConversation) {
     List<ConversationModel> conversationList = [];
     for (var element in getAllConversation) {
-      if (element.patientId == auth.currentUser?.uid) {
+      if (element.patientId == auth.currentUser?.uid &&
+          element.lastMessage != null) {
         Logger().i('auth uid patient: ${auth.currentUser?.uid}');
         conversationList.add(element);
       }

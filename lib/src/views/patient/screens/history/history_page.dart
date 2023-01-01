@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:my_health_assistant/src/controllers/chat_controller/chat_controller.dart';
 import 'package:my_health_assistant/src/models/chat_model/chat.dart';
-import 'package:my_health_assistant/src/models/chat_model/message_model.dart';
 import 'package:my_health_assistant/src/views/global_var.dart';
 import 'package:my_health_assistant/src/views/patient/screens/history/widgets/chat_room.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
@@ -131,7 +130,7 @@ class HistoryPage extends StatelessWidget {
                                                   fontSize: 20));
                                         }
                                         return Text(
-                                          snapshot.data!.get('fullName'),
+                                          snapshot.data?.get('fullName'),
                                           style: MyFontStyles.blackColorH1
                                               .copyWith(
                                                   fontWeight:
@@ -168,11 +167,6 @@ class HistoryPage extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  // Text(
-                                  //   'recentChats[index].day!',
-                                  //   style: MyFontStyles.normalGreyText
-                                  //       .copyWith(fontSize: 14.sp),
-                                  // ),
                                   SizedBox(height: 6.h),
                                   Text(
                                     timeago.format(DateTime.parse(
