@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -138,56 +139,80 @@ class _PostTopicScreenState extends State<PostTopicScreen> {
                   },
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height / 22),
-                SizedBox(
-                    width: double.infinity,
-                    child: RawMaterialButton(
-                      elevation: 0.0,
-                      padding: const EdgeInsets.symmetric(vertical: 20.0),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100.0)),
-                      fillColor: const Color(0XFF0069FE),
-                      onPressed: () async {
-                        bool checkValidImg = false;
-                        final key = UniqueKey().toString();
-                        log(image.toString());
-                        log(type);
-                        log(_titleTopic.text);
-                        log(_content.text);
-                        log(_imageUrl.text);
-                        String timeF =
-                            DateFormat('dd-MM-yyyy').format(DateTime.now());
-                        Article article = Article(
-                            key: key,
-                            title: _titleTopic.text,
-                            content: _content.text,
-                            category: type,
-                            imageUrl: _imageUrl.text.isEmpty
-                                ? 'https://meadowbrookhealth.com/wp-content/uploads/2016/01/blank-photo.png'
-                                : _imageUrl.text,
-                            time: timeF,
-                            doctorID: auth.currentUser?.uid);
+                StreamBuilder<DocumentSnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection("doctors")
+                      .doc(auth.currentUser?.uid)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Something went wrong ${snapshot.error}');
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (snapshot.hasData) {
+                      return SizedBox(
+                          width: double.infinity,
+                          child: RawMaterialButton(
+                            elevation: 0.0,
+                            padding: const EdgeInsets.symmetric(vertical: 20.0),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(100.0)),
+                            fillColor: const Color(0XFF0069FE),
+                            onPressed: () async {
+                              bool checkValidImg = false;
+                              final key = UniqueKey().toString();
+                              log(image.toString());
+                              log(type);
+                              log(_titleTopic.text);
+                              log(_content.text);
+                              log(_imageUrl.text);
+                              String timeF = DateFormat('dd-MM-yyyy')
+                                  .format(DateTime.now());
+                              Article article = Article(
+                                  key: key,
+                                  title: _titleTopic.text,
+                                  content: _content.text,
+                                  category: type,
+                                  doctorName: snapshot.data?.get('fullName') ?? '',
+                                  imageUrl: _imageUrl.text.isEmpty
+                                      ? 'https://meadowbrookhealth.com/wp-content/uploads/2016/01/blank-photo.png'
+                                      : _imageUrl.text,
+                                  time: timeF,
+                                  doctorID: auth.currentUser?.uid);
 
-                        try {
-                          final response =
-                              await http.head(Uri.parse(_imageUrl.text));
-                          if (response.statusCode == 200) {
-                            checkValidImg = true;
-                            ArticleController.addArticle(article.toJson(), key);
-                            Navigator.pop(context);
-                            AppToasts.showToast(
-                                context: context,
-                                title: 'Post Article Success');
-                          }
-                        } catch (e) {
-                          AppToasts.showErrorToast(
-                              title: 'Invalid image url', context: context);
-                        }
-                      },
-                      child: Text(
-                        "Post",
-                        style: MyFontStyles.whiteColorH1.copyWith(fontSize: 20),
-                      ),
-                    )),
+                              try {
+                                final response =
+                                    await http.head(Uri.parse(_imageUrl.text));
+                                if (response.statusCode == 200) {
+                                  checkValidImg = true;
+                                  ArticleController.addArticle(
+                                      article.toJson(), key);
+                                  Navigator.pop(context);
+                                  AppToasts.showToast(
+                                      context: context,
+                                      title: 'Post Article Success');
+                                }
+                              } catch (e) {
+                                AppToasts.showErrorToast(
+                                    title: 'Invalid image url',
+                                    context: context);
+                              }
+                            },
+                            child: Text(
+                              "Post",
+                              style: MyFontStyles.whiteColorH1
+                                  .copyWith(fontSize: 20),
+                            ),
+                          ));
+                    }
+                    return Container();
+                  },
+                  // child:
+                ),
               ],
             ),
           ),
