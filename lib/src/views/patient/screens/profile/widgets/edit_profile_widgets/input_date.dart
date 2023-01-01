@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class InputDate extends StatefulWidget {
-  const InputDate({
-    Key? key,
-    required this.dateInput,
-    required this.date
-  }) : super(key: key);
+  const InputDate({Key? key, required this.dateInput, required this.date})
+      : super(key: key);
 
   final TextEditingController dateInput;
   final String date;
@@ -16,7 +13,6 @@ class InputDate extends StatefulWidget {
 }
 
 class _InputDateState extends State<InputDate> {
-  
   @override
   void initState() {
     super.initState();
@@ -53,10 +49,10 @@ class _InputDateState extends State<InputDate> {
               context: context,
               initialDate: DateTime.now(),
               firstDate: DateTime(1950),
-              lastDate: DateTime(2100));
+              lastDate: DateTime.now());
           if (pickedDate != null) {
             // remove this line
-            // String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate); 
+            // String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);
             setState(() {
               widget.dateInput.text = pickedDate.toString();
             });

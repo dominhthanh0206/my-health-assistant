@@ -30,7 +30,12 @@ class _ReschedulePageState extends State<ReschedulePage> {
     ];
 
     return Scaffold(
-      appBar: CustomAppBar(title: 'Reschedule Appointment'),
+      appBar: CustomAppBar(
+        title: 'Reschedule Appointment',
+        leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back)),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(

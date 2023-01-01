@@ -66,7 +66,12 @@ class _RescheduleSelectDateTimeState extends State<RescheduleSelectDateTime> {
     //     <String, dynamic>{}) as Map;
     Color mainColor = const Color.fromARGB(255, 0, 106, 192);
     return Scaffold(
-        appBar: CustomAppBar(title: 'Reschedule Appointment'),
+        appBar: CustomAppBar(
+          title: 'Reschedule Appointment',
+          leading: IconButton(
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(Icons.arrow_back)),
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),

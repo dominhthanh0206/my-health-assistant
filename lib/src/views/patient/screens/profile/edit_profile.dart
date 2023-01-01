@@ -39,6 +39,9 @@ class _EditProfileState extends State<EditProfile> {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Edit Profile',
+        leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back)),
       ),
       body: SingleChildScrollView(
           child: StreamBuilder<DocumentSnapshot>(
@@ -78,6 +81,19 @@ class _EditProfileState extends State<EditProfile> {
                     keyboardType: TextInputType.number,
                     controller: _phoneNumberController
                       ..text = snapshot.data!.get('phoneNumber'),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Please enter your phone number";
+                      } else if (value.length > 10 ||
+                          value[0] != '0' ||
+                          value.length < 10) {
+                        return "Please enter valid phone number";
+                      } else if (value[0] == '0' && value[1] == '0') {
+                        return "Please enter valid phone number";
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
                   TextFieldCustom(
                     hint: 'Address',

@@ -109,7 +109,11 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                       validator: (value) {
                         if (value!.isEmpty) {
                           return "Please enter your phone number";
-                        } else if (value.length > 11 || value[0] != '0') {
+                        } else if (value.length > 10 ||
+                            value[0] != '0' ||
+                            value.length < 10) {
+                          return "Please enter valid phone number";
+                        } else if (value[0] == '0' && value[1] == '0') {
                           return "Please enter valid phone number";
                         } else {
                           return null;

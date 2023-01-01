@@ -9,6 +9,8 @@ import 'package:my_health_assistant/src/views/doctor/profile/edit_profile_doctor
 import 'package:my_health_assistant/src/views/global_var.dart';
 import 'package:my_health_assistant/src/routes.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
+import 'package:my_health_assistant/src/views/patient/screens/sign_in/sign_in_screen.dart';
+import 'package:my_health_assistant/src/views/patient/screens/sign_in/sign_up_screen.dart';
 import 'package:my_health_assistant/src/widgets/bottom_sheet/bottom_sheet_logout.dart';
 
 final Map<String, dynamic> profileScreenData = {
@@ -143,10 +145,15 @@ class ProfileDoctor extends StatelessWidget {
                                       AuthenticationController.signOut();
                                       SharedPrefs.isLoggedOut();
                                       SharedPrefs.removeUid();
-                                      Navigator.popUntil(
-                                          context,
-                                          ModalRoute.withName(
-                                              CommonRoutes.startApp));
+                                      // Navigator.popUntil(
+                                      //     context,
+                                      //     ModalRoute.withName(
+                                      //         CommonRoutes.startApp));
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const SignUpScreen()),
+                                          (Route<dynamic> route) => false);
                                     }),
                                   );
                                 },

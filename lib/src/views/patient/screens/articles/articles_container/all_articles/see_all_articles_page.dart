@@ -6,7 +6,13 @@ import 'package:my_health_assistant/src/styles/colors.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
 class SeeAllArticlesPage extends StatefulWidget {
-  const SeeAllArticlesPage({Key? key, required this.covid19Category, required this.healthCategory, required this.lifestyleCategory, required this.medicalCategory}) : super(key: key);
+  const SeeAllArticlesPage(
+      {Key? key,
+      required this.covid19Category,
+      required this.healthCategory,
+      required this.lifestyleCategory,
+      required this.medicalCategory})
+      : super(key: key);
   final List<Article> medicalCategory;
   final List<Article> healthCategory;
   final List<Article> covid19Category;
@@ -16,7 +22,8 @@ class SeeAllArticlesPage extends StatefulWidget {
   State<SeeAllArticlesPage> createState() => _SeeAllArticlesPageState();
 }
 
-class _SeeAllArticlesPageState extends State<SeeAllArticlesPage> with TickerProviderStateMixin {
+class _SeeAllArticlesPageState extends State<SeeAllArticlesPage>
+    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     TabController tabController = TabController(length: 4, vsync: this);
@@ -28,6 +35,9 @@ class _SeeAllArticlesPageState extends State<SeeAllArticlesPage> with TickerProv
             'assets/images/schedule_page/search.svg',
             'assets/images/schedule_page/more.svg',
           ],
+          leading: IconButton(
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(Icons.arrow_back)),
         ),
         body: Container(
           margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -62,10 +72,18 @@ class _SeeAllArticlesPageState extends State<SeeAllArticlesPage> with TickerProv
                 child: TabBarView(
                   controller: tabController,
                   children: [
-                    MyListArticles(articles: widget.medicalCategory,),
-                    MyListArticles(articles: widget.healthCategory,),
-                    MyListArticles(articles: widget.covid19Category,),
-                    MyListArticles(articles: widget.lifestyleCategory,),
+                    MyListArticles(
+                      articles: widget.medicalCategory,
+                    ),
+                    MyListArticles(
+                      articles: widget.healthCategory,
+                    ),
+                    MyListArticles(
+                      articles: widget.covid19Category,
+                    ),
+                    MyListArticles(
+                      articles: widget.lifestyleCategory,
+                    ),
                   ],
                 ),
               ),
