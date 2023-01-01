@@ -14,6 +14,9 @@ class ArticleDetail extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title: '',
+        leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back)),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -25,7 +28,8 @@ class ArticleDetail extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
                 child: SizedBox(
                   child: Image.network(
-                    article.imageUrl ?? 'https://res.edu.vn/wp-content/uploads/2021/12/unit-10-health-res-english.jpg',
+                    article.imageUrl ??
+                        'https://res.edu.vn/wp-content/uploads/2021/12/unit-10-health-res-english.jpg',
                     fit: BoxFit.cover,
                   ),
                 ),

@@ -37,7 +37,12 @@ class _CancelPageState extends State<CancelPage> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: CustomAppBar(title: 'Cancel Appointment'),
+      appBar: CustomAppBar(
+        title: 'Cancel Appointment',
+        leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back)),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),

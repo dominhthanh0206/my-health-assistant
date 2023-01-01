@@ -33,6 +33,9 @@ class _RoomChatDoctorScreenState extends State<RoomChatDoctorScreen> {
           'assets/images/schedule_page/search.svg',
           'assets/images/schedule_page/more.svg',
         ],
+        leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back)),
       ),
       backgroundColor: MyColors.mainColor,
       body: StreamBuilder<List<ConversationModel>>(

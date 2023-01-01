@@ -7,19 +7,20 @@ import 'package:my_health_assistant/src/views/patient/screens/schedule/reschedul
 import 'package:my_health_assistant/src/views/patient/screens/sign_in/sign_in_screen.dart';
 import 'package:my_health_assistant/src/views/patient/screens/sign_in/sign_up_screen.dart';
 import 'package:my_health_assistant/src/views/patient/screens/sign_in/waiting_verify_email.dart';
+import 'package:my_health_assistant/src/widgets/splash/widget/onboarding.dart';
 
 import 'views/patient/screens/articles/articles_page.dart';
-import 'views/patient/screens/get_started/get_started.dart';
 import 'views/patient/screens/history/history_page.dart';
 import 'views/patient/screens/profile/profile_page.dart';
 import 'widgets/page_controller.dart';
-
+import 'widgets/splash/splash_screen.dart';
 
 class CommonRoutes {
   static const startApp = '/';
   // static const home = '/home';
   static const signIn = '/sign_in';
   static const signUp = '/sign_up';
+  static const logout = '/logout';
 }
 
 class PatientRoutes {
@@ -36,7 +37,7 @@ class PatientRoutes {
   static const rescheduleSelectDateTime = '/reschedule_select_date_time';
 }
 
-var customRoutes = <String, WidgetBuilder> {
+var customRoutes = <String, WidgetBuilder>{
   PatientRoutes.pageController: (context) => const MyPageController(),
   PatientRoutes.history: (context) => const HistoryPage(),
   PatientRoutes.article: (context) => const ArticlePage(),
@@ -50,12 +51,10 @@ var customRoutes = <String, WidgetBuilder> {
   PatientRoutes.fillProfile: (context) => const FillProfileScreen(),
   PatientRoutes.waitScreen: (context) => const WaitingVerifyScreen(),
 
-
-  CommonRoutes.startApp: (context) => const GetStarted(),
+  CommonRoutes.startApp: (context) => const SplashScreen(),
   CommonRoutes.signIn: (context) => const SignInScreen(),
   CommonRoutes.signUp: (context) => const SignUpScreen(),
-
-
+  CommonRoutes.logout: (context) => const OnBoardingPage(),
   DoctorRoutes.fillDoctorProfile: (context) => const FillProfileDoctor(),
   DoctorRoutes.doctorPageController: (context) => const ProfileDoctor(),
 };

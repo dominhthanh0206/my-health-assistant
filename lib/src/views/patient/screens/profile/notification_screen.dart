@@ -16,7 +16,12 @@ class _NotificationInProfileState extends State<NotificationInProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Notification'),
+      appBar: CustomAppBar(
+        title: 'Notification',
+        leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back)),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView.separated(

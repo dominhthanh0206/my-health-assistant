@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,6 +13,7 @@ import 'package:my_health_assistant/src/controllers/patient_controller/fill_pati
 import 'package:my_health_assistant/src/routes.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 import 'package:my_health_assistant/src/views/doctor/doctor_page_controller.dart';
+import 'package:my_health_assistant/src/views/patient/screens/sign_in/waiting_sign_in.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
 import '../../../../data/shared_preferences.dart';
@@ -45,7 +48,12 @@ class _SignInScreenState extends State<SignInScreen> {
       printer: PrettyPrinter(),
     );
     return Scaffold(
-      appBar: CustomAppBar(title: ''),
+      appBar: CustomAppBar(
+        title: '',
+        leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back)),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -141,12 +149,16 @@ class _SignInScreenState extends State<SignInScreen> {
                     fillColor: const Color(0XFF0069FE),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        User? user =
-                            await AuthenticationController.loginUsingEmailPassword(
+                        User? user = await AuthenticationController
+                            .loginUsingEmailPassword(
                                 email: _emailController.text,
                                 password: _passwordController.text,
                                 context: context);
                         if (user != null) {
+                          showDialog(
+                            context: context,
+                            builder: (context) => const DialogWaitingBuilder(),
+                          );
                           final String uid =
                               FirebaseAuth.instance.currentUser!.uid;
                           final snapShot = await FirebaseFirestore.instance
@@ -172,12 +184,14 @@ class _SignInScreenState extends State<SignInScreen> {
                                     user.uid);
 
                             if (filled) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const DoctorPageController(),
-                                  ));
+                              Timer(const Duration(seconds: 2), () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const DoctorPageController(),
+                                    ));
+                              });
                             } else {
                               Navigator.pushNamed(
                                   context, DoctorRoutes.fillDoctorProfile);
@@ -194,11 +208,15 @@ class _SignInScreenState extends State<SignInScreen> {
                                 await FillPatientInfoController.checkExist(
                                     user.uid);
                             if (filled) {
-                              Navigator.pushNamed(
-                                  context, PatientRoutes.pageController);
+                              Timer(const Duration(seconds: 2), () {
+                                Navigator.pushNamed(
+                                    context, PatientRoutes.pageController);
+                              });
                             } else {
-                              Navigator.pushNamed(
-                                  context, PatientRoutes.fillProfile);
+                              Timer(const Duration(seconds: 2), () {
+                                Navigator.pushNamed(
+                                    context, PatientRoutes.fillProfile);
+                              });
                             }
                           }
                         } else {

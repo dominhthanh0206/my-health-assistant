@@ -19,6 +19,9 @@ class ArticleDetailPage extends StatelessWidget {
           'assets/images/schedule_page/search.svg',
           'assets/images/schedule_page/more.svg',
         ],
+        leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back)),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -30,34 +33,49 @@ class ArticleDetailPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
                 child: SizedBox(
                   child: Image.network(
-                    article.imageUrl ?? 'https://cdn.thuvienphapluat.vn/uploads/tintuc/2022/01/30/cap-nhat-huong-dan-dieu-tri-covid.jpg',
+                    article.imageUrl ??
+                        'https://cdn.thuvienphapluat.vn/uploads/tintuc/2022/01/30/cap-nhat-huong-dan-dieu-tri-covid.jpg',
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               Text(
                 article.title ?? '',
                 style: MyFontStyles.articleTitle,
                 textAlign: TextAlign.start,
-                maxLines: 2 ,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               Row(
                 children: [
                   Text(article.time ?? ''),
-                  const SizedBox(width: 10,),
+                  const SizedBox(
+                    width: 10,
+                  ),
                   MyCustomCategory(category: article.category ?? '')
                 ],
               ),
-              const SizedBox(height: 10,),
-              const Divider(color: MyColors.blackText, thickness: 0.5,),
-              Text(article.content ?? '', style: MyFontStyles.normalBlackText,)
+              const SizedBox(
+                height: 10,
+              ),
+              const Divider(
+                color: MyColors.blackText,
+                thickness: 0.5,
+              ),
+              Text(
+                article.content ?? '',
+                style: MyFontStyles.normalBlackText,
+              )
             ],
           ),
         ),
-      ),  
+      ),
     );
   }
 }

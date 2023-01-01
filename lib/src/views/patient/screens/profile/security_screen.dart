@@ -18,7 +18,12 @@ class _SecurityScreenState extends State<SecurityScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Security'),
+      appBar: CustomAppBar(
+        title: 'Security',
+        leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back)),
+      ),
       body: Column(children: [
         SizedBox(
           height: 150,
@@ -73,33 +78,31 @@ class _SecurityScreenState extends State<SecurityScreen> {
         ),
         const SizedBox(height: 15),
         Container(
-          margin: const EdgeInsets.all(10),
-          height: 50,
-          width: MediaQuery.of(context).size.width,
-          child: MyElevatedButton(
-            text: 'Change Pin',
-            buttonColor: MyColors.lightBlue,
-            fontSize: 16,
-            textColor: MyColors.mainColor,
-            customFunction: (() {
-              log('Change pin');
-            }),
-          )
-        ),
+            margin: const EdgeInsets.all(10),
+            height: 50,
+            width: MediaQuery.of(context).size.width,
+            child: MyElevatedButton(
+              text: 'Change Pin',
+              buttonColor: MyColors.lightBlue,
+              fontSize: 16,
+              textColor: MyColors.mainColor,
+              customFunction: (() {
+                log('Change pin');
+              }),
+            )),
         Container(
-          margin: const EdgeInsets.all(10),
-          height: 50,
-          width: MediaQuery.of(context).size.width,
-          child: MyElevatedButton(
-            text: 'Change password',
-            buttonColor: MyColors.lightBlue,
-            fontSize: 16,
-            textColor: MyColors.mainColor,
-            customFunction: (() {
-              log('Change password');
-            }),
-          )
-        ),
+            margin: const EdgeInsets.all(10),
+            height: 50,
+            width: MediaQuery.of(context).size.width,
+            child: MyElevatedButton(
+              text: 'Change password',
+              buttonColor: MyColors.lightBlue,
+              fontSize: 16,
+              textColor: MyColors.mainColor,
+              customFunction: (() {
+                log('Change password');
+              }),
+            )),
       ]),
     );
   }

@@ -38,7 +38,12 @@ class _PostTopicScreenState extends State<PostTopicScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar(title: 'Create New Topic'),
+        appBar: CustomAppBar(
+          title: 'Create New Topic',
+          leading: IconButton(
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(Icons.arrow_back)),
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),

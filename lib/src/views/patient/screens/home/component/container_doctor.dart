@@ -101,54 +101,58 @@ class ContainerDoctor extends StatelessWidget {
                                             List<ConversationModel>
                                                 conversations = snapshot.data!;
                                             return GestureDetector(
-                                              onTap: () async {
-                                                ConversationModel?
-                                                    conversationModel =
-                                                    ChatController
-                                                        .getConversationByCon(
-                                                            conversations,
-                                                            doctorsInDepartment[
-                                                                    index]
-                                                                .id);
-                                                if (conversationModel == null) {
-                                                  String key =
-                                                      '${auth.currentUser?.uid}${doctorsInDepartment[index].id}';
-                                                  ConversationModel chat =
-                                                      ConversationModel(
-                                                          conversationId: key,
-                                                          doctorId:
+                                                onTap: () async {
+                                                  ConversationModel?
+                                                      conversationModel =
+                                                      ChatController
+                                                          .getConversationByCon(
+                                                              conversations,
                                                               doctorsInDepartment[
                                                                       index]
-                                                                  .id,
-                                                          isActive: false,
-                                                          patientId: auth
-                                                              .currentUser?.uid,
-                                                          lastTime:
-                                                              DateTime.now()
-                                                                  .toString(),
-                                                          messages: []);
-                                                  ChatController.addMessage(
-                                                      chat.toJson(), key);
-                                                }
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder:
-                                                            (_) => ChatRoom(
-                                                                  doctorId:
-                                                                      doctorsInDepartment[
-                                                                              index]
-                                                                          .id,
-                                                                  doctorName: doctorsInDepartment[
-                                                                          index]
-                                                                      .fullName,
-                                                                )));
-                                              },
-                                              child: SvgPicture.asset(
-                                                'assets/images/home_page/heart.svg',
-                                                color: Colors.blue,
-                                              ),
-                                            );
+                                                                  .id);
+                                                  if (conversationModel ==
+                                                      null) {
+                                                    String key =
+                                                        '${auth.currentUser?.uid}${doctorsInDepartment[index].id}';
+                                                    ConversationModel chat =
+                                                        ConversationModel(
+                                                            conversationId: key,
+                                                            doctorId:
+                                                                doctorsInDepartment[
+                                                                        index]
+                                                                    .id,
+                                                            isActive: false,
+                                                            patientId: auth
+                                                                .currentUser
+                                                                ?.uid,
+                                                            lastTime:
+                                                                DateTime.now()
+                                                                    .toString(),
+                                                            messages: []);
+                                                    ChatController.addMessage(
+                                                        chat.toJson(), key);
+                                                  }
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder:
+                                                              (_) => ChatRoom(
+                                                                    doctorId:
+                                                                        doctorsInDepartment[index]
+                                                                            .id,
+                                                                    doctorName:
+                                                                        doctorsInDepartment[index]
+                                                                            .fullName,
+                                                                  )));
+                                                },
+                                                child: CircleAvatar(
+                                                  backgroundColor: Color.fromARGB(255, 191, 223, 249),
+                                                  radius: 20,
+                                                  child: SvgPicture.asset(
+                                                    'assets/images/bottom_navigation_bar/history.svg',
+                                                    color: Colors.blue[700],
+                                                  ),
+                                                ));
                                           }
                                           return Container();
                                         }),

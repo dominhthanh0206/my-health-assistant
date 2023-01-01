@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_health_assistant/src/controllers/authentication_controller/authentication_controller.dart';
 import 'package:my_health_assistant/src/views/global_var.dart';
 import 'package:my_health_assistant/src/styles/colors.dart';
+import 'package:my_health_assistant/src/views/patient/screens/sign_in/sign_up_screen.dart';
 import '../../../../data/shared_preferences.dart';
 import '../../../../routes.dart';
 import 'edit_profile.dart';
@@ -151,10 +152,15 @@ class ProfilePage extends StatelessWidget {
                                       SharedPrefs.isLoggedOut();
                                       SharedPrefs.removeRole();
                                       SharedPrefs.removeUid();
-                                      Navigator.popUntil(
-                                          context,
-                                          ModalRoute.withName(
-                                              CommonRoutes.startApp));
+                                      // Navigator.popUntil(
+                                      //     context,
+                                      //     ModalRoute.withName(
+                                      //         CommonRoutes.logout));
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const SignUpScreen()),
+                                          (Route<dynamic> route) => false);
                                     }),
                                   );
                                 },
