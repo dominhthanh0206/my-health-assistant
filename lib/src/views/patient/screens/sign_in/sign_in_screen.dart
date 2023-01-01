@@ -5,6 +5,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:my_health_assistant/src/controllers/authentication_controller/authentication_controller.dart';
 import 'package:my_health_assistant/src/controllers/doctor_controller/doctor_controller.dart';
 import 'package:my_health_assistant/src/controllers/patient_controller/fill_patient_info_controller.dart';
 import 'package:my_health_assistant/src/routes.dart';
@@ -12,8 +13,6 @@ import 'package:my_health_assistant/src/styles/font_styles.dart';
 import 'package:my_health_assistant/src/views/doctor/doctor_page_controller.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
-import '../../../../controllers/authentication_controller/reset_password.dart';
-import '../../../../controllers/authentication_controller/sign_in.dart';
 import '../../../../data/shared_preferences.dart';
 import '../../../../widgets/snack_bar.dart';
 
@@ -143,7 +142,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         User? user =
-                            await SignInController.loginUsingEmailPassword(
+                            await AuthenticationController.loginUsingEmailPassword(
                                 email: _emailController.text,
                                 password: _passwordController.text,
                                 context: context);
@@ -230,7 +229,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           showSnackBar('Email and Password must be filled');
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     } else {
-                      ResetPasswordController.resetPassword(
+                      AuthenticationController.resetPassword(
                           email: _emailController.text);
                       final snackBar = showSnackBar('Please check your email');
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);

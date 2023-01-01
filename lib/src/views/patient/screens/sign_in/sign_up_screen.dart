@@ -2,12 +2,12 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_health_assistant/src/controllers/authentication_controller/authentication_controller.dart';
 import 'package:my_health_assistant/src/routes.dart';
 import 'package:my_health_assistant/src/styles/font_styles.dart';
 import 'package:my_health_assistant/src/widgets/app_toast/app_toast.dart';
 import 'package:my_health_assistant/src/widgets/custom_appbar/custom_appbar.dart';
 
-import '../../../../controllers/authentication_controller/sign_up.dart';
 import '../../../../widgets/snack_bar.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -171,7 +171,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       if (_formKey.currentState!.validate()) {
                         bool isOk = false;
                         try {
-                          await SignUpController.createNewAccount(
+                          await AuthenticationController.createNewAccount(
                               email: _emailController.text,
                               password: _passwordController.text,
                               context: context);
