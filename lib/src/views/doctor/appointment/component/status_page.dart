@@ -52,9 +52,9 @@ class MyListStatus extends StatelessWidget {
                             children: [
                               ClipRRect(
                                 borderRadius:
-                                    const BorderRadius.all(Radius.circular(20)),
+                                    const BorderRadius.all(Radius.circular(18)),
                                 child: Image.asset(
-                                  'assets/images/schedule_page/doctor.png',
+                                  'assets/images/message_screen/Nathan.jpg',
                                   height: 100,
                                   width: 100,
                                 ),

@@ -22,36 +22,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     printer: PrettyPrinter(),
   );
   Future<void> _onIntroEnd(context) async {
-    final bool? status = await SharedPrefs.getStatus();
-    // final bool? filled = await SharedPrefs.getFilled();
-    logger.i(status.toString());
-    if (status == null) {
-      Navigator.pushNamed(context, CommonRoutes.signUp);
-    } else {
-      final String uid = await SharedPrefs.getUid() ?? '';
-
-      final bool role = await SharedPrefs.getRole() ?? false;
-
-      if (role) {
-        final bool filled = await FillPatientInfoController.checkExist(uid);
-        if (filled) {
-          Navigator.pushNamed(context, PatientRoutes.pageController);
-        } else {
-          Navigator.pushNamed(context, PatientRoutes.fillProfile);
-        }
-      } else {
-        final bool filled = await DoctorController.checkDoctorExist(uid);
-        if (filled) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const DoctorPageController(),
-              ));
-        } else {
-          Navigator.pushNamed(context, DoctorRoutes.fillDoctorProfile);
-        }
-      }
-    }
+    Navigator.pushNamed(context, CommonRoutes.signUp);
   }
 
   @override
