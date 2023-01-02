@@ -160,13 +160,6 @@ class MyListStatus extends StatelessWidget {
                                             return Container();
                                           },
                                         ),
-                                        // const Text(
-                                        //   '',
-                                        //   style: TextStyle(
-                                        //       color: Colors.black54,
-                                        //       fontWeight: FontWeight.w700,
-                                        //       fontSize: 12),
-                                        // ),
                                       ],
                                     ),
                                     const SizedBox(height: 6),

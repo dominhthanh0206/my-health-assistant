@@ -43,7 +43,7 @@ class AppointmentController {
       List<Appointment> allAppointments, String doctorId) {
     List<Appointment> result = [];
     for (var element in allAppointments) {
-      if (element.status == 'Upcoming' && element.doctorId == doctorId) {
+      if (element.status == 'Upcoming' && (element.doctorId == doctorId || auth.currentUser?.uid == element.patientId)) {
         result.add(element);
       }
     }
