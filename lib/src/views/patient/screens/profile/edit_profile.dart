@@ -29,7 +29,7 @@ class _EditProfileState extends State<EditProfile> {
 
   final TextEditingController _addressController = TextEditingController();
   String textGender = 'Male';
-
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final patient = FirebaseFirestore.instance
@@ -55,60 +55,70 @@ class _EditProfileState extends State<EditProfile> {
           }
           if (snapshot.hasData) {
             return Column(children: [
-              Column(
-                children: [
-                  TextFieldCustom(
-                    controller: _nameController
-                      ..text = snapshot.data!.get('fullName'),
-                    hint: 'Full name',
-                  ),
-                  TextFieldCustom(
-                    controller: _nicknameController
-                      ..text = snapshot.data!.get('nickname'),
-                    hint: 'Nick name',
-                  ),
-                  InputDate(
-                    dateInput: _dateInput,
-                    date: snapshot.data!.get('dateOfBirth'),
-                  ),
-                  GenderEditProfile(
-                    gender: snapshot.data!.get('gender'),
-                    getText: (value) => _getTextGender(value),
-                  ),
-                  TextFieldCustom(
-                    surfixIcon: const Icon(Icons.phone_android),
-                    hint: 'Phone number',
-                    keyboardType: TextInputType.number,
-                    controller: _phoneNumberController
-                      ..text = snapshot.data!.get('phoneNumber'),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Please enter your phone number";
-                      } else if (value.length > 10 ||
-                          value[0] != '0' ||
-                          value.length < 10) {
-                        return "Please enter valid phone number";
-                      } else if (value[0] == '0' && value[1] == '0') {
-                        return "Please enter valid phone number";
-                      } else {
-                        return null;
-                      }
-                    },
-                  ),
-                  TextFieldCustom(
-                    hint: 'Address',
-                    controller: _addressController
-                      ..text = snapshot.data!.get('address'),
-                    surfixIcon: const Icon(Icons.location_on_sharp),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Can not be empty';
-                      } else {
-                        return null;
-                      }
-                    },
-                  )
-                ],
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFieldCustom(
+                      controller: _nameController
+                        ..text = snapshot.data!.get('fullName'),
+                      hint: 'Full name',
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Can not be empty';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    TextFieldCustom(
+                      controller: _nicknameController
+                        ..text = snapshot.data!.get('nickname'),
+                      hint: 'Nick name',
+                    ),
+                    InputDate(
+                      dateInput: _dateInput,
+                      date: snapshot.data!.get('dateOfBirth'),
+                    ),
+                    GenderEditProfile(
+                      gender: snapshot.data!.get('gender'),
+                      getText: (value) => _getTextGender(value),
+                    ),
+                    TextFieldCustom(
+                      surfixIcon: const Icon(Icons.phone_android),
+                      hint: 'Phone number',
+                      keyboardType: TextInputType.number,
+                      controller: _phoneNumberController
+                        ..text = snapshot.data!.get('phoneNumber'),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Please enter your phone number";
+                        } else if (value.length > 10 ||
+                            value[0] != '0' ||
+                            value.length < 10) {
+                          return "Please enter valid phone number";
+                        } else if (value[0] == '0' && value[1] == '0') {
+                          return "Please enter valid phone number";
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    TextFieldCustom(
+                      hint: 'Address',
+                      controller: _addressController
+                        ..text = snapshot.data!.get('address'),
+                      surfixIcon: const Icon(Icons.location_on_sharp),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Can not be empty';
+                        } else {
+                          return null;
+                        }
+                      },
+                    )
+                  ],
+                ),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height / 4.5,
@@ -120,26 +130,31 @@ class _EditProfileState extends State<EditProfile> {
                   width: MediaQuery.of(context).size.width,
                   child: MyElevatedButton(
                     customFunction: () {
-                      log(textGender);
-                      log('Updated');
-                      Map<String, dynamic> data = {
-                        'fullName': _nameController.text,
-                        'nickname': _nicknameController.text,
-                        'address': _addressController.text,
-                        'gender': textGender,
-                        'phoneNumber': _phoneNumberController.text,
-                        'dateOfBirth': _dateInput.text
-                      };
-                      var collection =
-                          FirebaseFirestore.instance.collection('patients');
-                      // var collectionAppointment =
-                      // FirebaseFirestore.instance.collection('appointments');
-                      // collectionAppointment.
-                      // final key = UniqueKey().toString();
-                      collection.doc(auth.currentUser!.uid).update(data);
-                      // showMyDialog(context, MyColors.mainColor, MediaQuery.of(context).size, 'Success', 'You account has been saved.');
-                      AppToasts.showToast(
-                          context: context, title: 'Update successfully');
+                      if (_formKey.currentState!.validate()) {
+                        log(textGender);
+                        log('Updated');
+                        Map<String, dynamic> data = {
+                          'fullName': _nameController.text,
+                          'nickname': _nicknameController.text,
+                          'address': _addressController.text,
+                          'gender': textGender,
+                          'phoneNumber': _phoneNumberController.text,
+                          'dateOfBirth': _dateInput.text
+                        };
+                        var collection =
+                            FirebaseFirestore.instance.collection('patients');
+                        // var collectionAppointment =
+                        // FirebaseFirestore.instance.collection('appointments');
+                        // collectionAppointment.
+                        // final key = UniqueKey().toString();
+                        collection.doc(auth.currentUser!.uid).update(data);
+                        // showMyDialog(context, MyColors.mainColor, MediaQuery.of(context).size, 'Success', 'You account has been saved.');
+                        AppToasts.showToast(
+                            context: context, title: 'Update successfully');
+                      } else {
+                        AppToasts.showErrorToast(
+                            context: context, title: 'Update failed');
+                      }
                     },
                     text: 'Update',
                     buttonColor: MyColors.mainColor,
