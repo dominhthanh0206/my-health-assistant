@@ -129,13 +129,44 @@ class MyListStatus extends StatelessWidget {
                                           color: Colors.black54,
                                         ),
                                         SizedBox(width: 4.w),
-                                        const Text(
-                                          '0905221133',
-                                          style: TextStyle(
-                                              color: Colors.black54,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 12),
+                                        StreamBuilder<DocumentSnapshot>(
+                                          stream: FirebaseFirestore.instance
+                                              .collection("patients")
+                                              .doc(status[index].patientId)
+                                              .snapshots(),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.hasError) {
+                                              return Text(
+                                                  'Something went wrong ${snapshot.error}');
+                                            }
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return const Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              );
+                                            }
+                                            if (snapshot.hasData) {
+                                              return Text(
+                                                snapshot.data
+                                                        ?.get('phoneNumber') ??
+                                                    '',
+                                                style: const TextStyle(
+                                                    color: Colors.black54,
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 12),
+                                              );
+                                            }
+                                            return Container();
+                                          },
                                         ),
+                                        // const Text(
+                                        //   '',
+                                        //   style: TextStyle(
+                                        //       color: Colors.black54,
+                                        //       fontWeight: FontWeight.w700,
+                                        //       fontSize: 12),
+                                        // ),
                                       ],
                                     ),
                                     const SizedBox(height: 6),
