@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:my_health_assistant/src/models/appointment/appointment.dart';
 import 'package:my_health_assistant/src/views/patient/screens/schedule/tab_bar/status_container.dart';
@@ -24,9 +25,29 @@ class AppointmentContainer extends StatelessWidget {
           width: 10,
         ),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(
-            appointment.doctorName ?? '',
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 19),
+          StreamBuilder<DocumentSnapshot>(
+            stream: FirebaseFirestore.instance
+                .collection("doctors")
+                .doc(appointment.doctorId)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Text('Something went wrong ${snapshot.error}');
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (snapshot.hasData) {
+                return Text(
+                  snapshot.data?.get('fullName') ?? '',
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 19),
+                );
+              }
+              return Container();
+            },
           ),
           StatusContainer(status: appointment.status ?? '', color: color),
           const SizedBox(height: 4),
@@ -47,19 +68,38 @@ class AppointmentContainer extends StatelessWidget {
           ),
           const SizedBox(height: 6),
           Row(
-            children: const [
-              Icon(
+            children: [
+              const Icon(
                 Icons.phone,
                 size: 15,
                 color: Colors.black54,
               ),
-              SizedBox(width: 4),
-              Text(
-                '0905221133',
-                style: TextStyle(
-                    color: Colors.black54,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 12),
+              const SizedBox(width: 4),
+              StreamBuilder<DocumentSnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection("doctors")
+                    .doc(appointment.doctorId)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Something went wrong ${snapshot.error}');
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    return Text(
+                      snapshot.data?.get('phoneNumber') ?? '',
+                      style: const TextStyle(
+                          color: Colors.black54,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12),
+                    );
+                  }
+                  return Container();
+                },
               ),
             ],
           ),
