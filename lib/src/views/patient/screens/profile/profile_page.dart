@@ -66,7 +66,7 @@ class ProfilePage extends StatelessWidget {
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               const CircleAvatar(
                 radius: 60,
-                backgroundImage: AssetImage("assets/images/profile/avatar.jpg"),
+                backgroundImage: AssetImage("assets/images/message_screen/Nathan.jpg"),
               ),
               StreamBuilder<DocumentSnapshot>(
                 stream: patient,

@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     const CircleAvatar(
                       radius: 25,
                       backgroundImage:
-                          AssetImage("assets/images/schedule_page/doctor.png"),
+                          AssetImage("assets/images/message_screen/Nathan.jpg"),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),

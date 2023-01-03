@@ -20,7 +20,7 @@ class CommonRoutes {
   // static const home = '/home';
   static const signIn = '/sign_in';
   static const signUp = '/sign_up';
-  static const logout = '/logout';
+  static const oboarding = '/oboarding';
 }
 
 class PatientRoutes {
@@ -54,7 +54,7 @@ var customRoutes = <String, WidgetBuilder>{
   CommonRoutes.startApp: (context) => const SplashScreen(),
   CommonRoutes.signIn: (context) => const SignInScreen(),
   CommonRoutes.signUp: (context) => const SignUpScreen(),
-  CommonRoutes.logout: (context) => const OnBoardingPage(),
+  CommonRoutes.oboarding: (context) => const OnBoardingPage(),
   DoctorRoutes.fillDoctorProfile: (context) => const FillProfileDoctor(),
   DoctorRoutes.doctorPageController: (context) => const ProfileDoctor(),
 };
