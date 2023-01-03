@@ -34,11 +34,6 @@ class _RescheduleSelectDateTimeState extends State<RescheduleSelectDateTime> {
   String status = 'Upcoming';
 
   List<String> times = [
-    '01:00',
-    '01:30',
-    '04:00',
-    '05:00',
-    '06:00',
     '09:00',
     '09:30',
     '10:00',
