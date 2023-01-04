@@ -39,13 +39,13 @@ class MyListStatus extends StatelessWidget {
                       .doc(status[index].patientId)
                       .snapshots();
                   return Container(
-                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    margin: const EdgeInsets.only(bottom: 10),
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(10.0).r,
+                      padding: const EdgeInsets.symmetric(horizontal:10.0).r,
                       child: Column(
                         children: [
                           Row(
