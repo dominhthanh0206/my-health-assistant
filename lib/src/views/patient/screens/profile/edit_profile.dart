@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:my_health_assistant/src/views/global_var.dart';
 
 import 'package:my_health_assistant/src/views/patient/screens/profile/widgets/edit_profile_widgets/gender.dart';
@@ -78,7 +79,7 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                     InputDate(
                       dateInput: _dateInput,
-                      date: snapshot.data!.get('dateOfBirth'),
+                      date: DateFormat('dd-MM-yyyy').format(DateTime.parse(snapshot.data?.get('dateOfBirth'))),
                     ),
                     GenderEditProfile(
                       gender: snapshot.data!.get('gender'),
