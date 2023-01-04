@@ -30,6 +30,7 @@ class _EditProfileState extends State<EditProfile> {
 
   final TextEditingController _addressController = TextEditingController();
   String textGender = 'Male';
+  bool isDateChange = false;
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -78,6 +79,8 @@ class _EditProfileState extends State<EditProfile> {
                       hint: 'Nick name',
                     ),
                     InputDate(
+                      isDateChange: isDateChange,
+                      getDateChange: (value) => _checkDateChange(value),
                       dateInput: _dateInput,
                       date: DateFormat('dd-MM-yyyy').format(DateTime.parse(snapshot.data?.get('dateOfBirth'))),
                     ),
@@ -140,7 +143,7 @@ class _EditProfileState extends State<EditProfile> {
                           'address': _addressController.text,
                           'gender': textGender,
                           'phoneNumber': _phoneNumberController.text,
-                          'dateOfBirth': _dateInput.text
+                          'dateOfBirth': isDateChange ? _dateInput.text : snapshot.data!.get('dateOfBirth')
                         };
                         var collection =
                             FirebaseFirestore.instance.collection('patients');
@@ -175,6 +178,12 @@ class _EditProfileState extends State<EditProfile> {
   _getTextGender(value) {
     if (value != null) {
       textGender = value;
+    }
+  }
+
+  _checkDateChange(value){
+    if(value != null){
+      isDateChange = value;
     }
   }
 }
