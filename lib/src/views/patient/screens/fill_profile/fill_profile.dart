@@ -154,7 +154,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                             fullName: _nameController.text,
                             nickname: _nicknameController.text,
                             dateOfBirth:
-                                DateFormat('dd-MM-yyyy').parse(_dateInput.text),
+                                DateTime.parse(_dateInput.text),
                             gender: textGender ?? '',
                             phoneNumber: _phoneNumberController.text,
                             address: _addressController.text);
